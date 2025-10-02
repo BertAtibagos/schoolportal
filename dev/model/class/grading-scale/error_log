@@ -1,0 +1,7 @@
+[27-Aug-2023 07:52:24 UTC] PHP Warning:  Undefined array key 1 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/class/grading-scale/gradingscale-create-controller.php on line 133
+[27-Aug-2023 07:52:24 UTC] PHP Warning:  Undefined array key 2 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/class/grading-scale/gradingscale-create-controller.php on line 135
+[27-Aug-2023 07:52:24 UTC] PHP Warning:  Undefined array key 3 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/class/grading-scale/gradingscale-create-controller.php on line 136
+[01-Feb-2024 03:45:25 UTC] PHP Warning:  Undefined array key "SYSUSERSMSID" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/class/grading-scale/gradingscale-create-controller.php on line 29
+[02-Feb-2024 05:53:11 UTC] PHP Warning:  Undefined array key "deptid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/class/grading-scale/gradingscale-create-controller.php on line 31
+[02-Feb-2024 05:54:09 UTC] PHP Warning:  Undefined array key "deptid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/class/grading-scale/gradingscale-create-controller.php on line 31
+[05-Feb-2024 00:27:49 UTC] PHP Warning:  Undefined array key "deptid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/class/grading-scale/gradingscale-create-controller.php on line 31

@@ -1,0 +1,15 @@
+{
+  "name": "TestMessages",
+  "version": "0.1.0",
+  "manifest_version": 2,
+  "browser_action": {
+    "default_popup": "src/popup.html"
+  },
+  "background": {
+    "scripts": ["src/background.js"],
+    "persistent": false
+  },
+  "permissions": [
+    "alarms"
+  ]
+}

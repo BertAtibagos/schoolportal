@@ -1,0 +1,623 @@
+[29-May-2023 00:42:59 UTC] PHP Warning:  Undefined array key "yearid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 55
+[29-May-2023 00:42:59 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ORDER BY `prd`.`SchlAcadPrdSms_ID` ASC' at line 16 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:57
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(57): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 57
+[29-May-2023 01:08:14 UTC] PHP Warning:  Undefined array key "yearid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 55
+[29-May-2023 01:08:14 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ORDER BY `prd`.`SchlAcadPrdSms_ID` ASC' at line 16 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:57
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(57): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 57
+[29-May-2023 03:19:44 UTC] PHP Warning:  Undefined array key "courseid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 168
+[29-May-2023 03:19:44 UTC] PHP Warning:  Undefined array key "levelid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 169
+[29-May-2023 03:19:44 UTC] PHP Warning:  Undefined array key "yearid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 170
+[29-May-2023 03:19:44 UTC] PHP Warning:  Undefined array key "periodid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 171
+[29-May-2023 03:19:44 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AND `gscale`.`SchlAcadLvl_ID` =  
+				AND `gscale`.`SchlAcadYr_ID` = 
+				AND `g' at line 26 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:175
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(175): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 175
+[29-May-2023 05:38:48 UTC] PHP Warning:  Undefined array key "courseid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 168
+[29-May-2023 05:38:48 UTC] PHP Warning:  Undefined array key "levelid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 169
+[29-May-2023 05:38:48 UTC] PHP Warning:  Undefined array key "yearid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 170
+[29-May-2023 05:38:48 UTC] PHP Warning:  Undefined array key "periodid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 171
+[29-May-2023 05:38:48 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AND `gscale`.`SchlAcadLvl_ID` =  
+				AND `gscale`.`SchlAcadYr_ID` = 
+				AND `g' at line 26 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:175
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(175): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 175
+[03-Jun-2023 01:38:58 UTC] PHP Warning:  Undefined array key "periodid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 96
+[03-Jun-2023 01:38:58 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ORDER BY `crse`.`SchlAcadCrses_NAME`' at line 19 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:99
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(99): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 99
+[07-Jun-2023 02:03:31 UTC] PHP Warning:  Undefined array key "levelid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 35
+[07-Jun-2023 02:03:31 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ORDER BY `year`.`SchlAcadYr_RANKNO` DESC' at line 15 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:37
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(37): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 37
+[07-Jun-2023 02:36:13 UTC] PHP Warning:  Undefined array key "yearid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 55
+[07-Jun-2023 02:36:13 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ORDER BY `prd`.`SchlAcadPrdSms_ID` ASC' at line 16 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:57
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(57): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 57
+[12-Jun-2023 13:45:11 UTC] PHP Warning:  Undefined array key "levelid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 35
+[12-Jun-2023 13:45:11 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ORDER BY `year`.`SchlAcadYr_RANKNO` DESC' at line 15 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:37
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(37): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 37
+[15-Jun-2023 00:34:28 UTC] PHP Warning:  Undefined array key "periodid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 96
+[15-Jun-2023 00:34:28 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ORDER BY `crse`.`SchlAcadCrses_NAME`' at line 19 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:99
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(99): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 99
+[17-Jun-2023 02:50:28 UTC] PHP Warning:  Undefined array key "levelid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 35
+[17-Jun-2023 02:50:28 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ORDER BY `year`.`SchlAcadYr_RANKNO` DESC' at line 15 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:37
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(37): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 37
+[19-Jun-2023 03:06:47 UTC] PHP Warning:  Undefined array key "levelid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 35
+[19-Jun-2023 03:06:47 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ORDER BY `year`.`SchlAcadYr_RANKNO` DESC' at line 15 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:37
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(37): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 37
+[29-Jun-2023 01:20:02 UTC] PHP Warning:  Undefined array key "courseid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 168
+[29-Jun-2023 01:20:02 UTC] PHP Warning:  Undefined array key "levelid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 169
+[29-Jun-2023 01:20:02 UTC] PHP Warning:  Undefined array key "yearid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 170
+[29-Jun-2023 01:20:02 UTC] PHP Warning:  Undefined array key "periodid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 171
+[29-Jun-2023 01:20:02 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AND `gscale`.`SchlAcadLvl_ID` =  
+				AND `gscale`.`SchlAcadYr_ID` = 
+				AND `g' at line 26 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:175
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(175): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 175
+[29-Jun-2023 09:12:18 UTC] PHP Warning:  Undefined array key "USERID" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 17
+[29-Jun-2023 09:12:18 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 11 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:18
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(18): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 18
+[29-Jun-2023 09:12:46 UTC] PHP Warning:  Undefined array key "USERID" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 17
+[29-Jun-2023 09:12:46 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 11 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:18
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(18): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 18
+[30-Jun-2023 01:14:55 UTC] PHP Warning:  Undefined array key "levelid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 35
+[30-Jun-2023 01:14:55 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ORDER BY `year`.`SchlAcadYr_RANKNO` DESC' at line 15 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:37
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(37): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 37
+[02-Jul-2023 13:03:08 UTC] PHP Warning:  Undefined array key "USERID" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 17
+[02-Jul-2023 13:03:08 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 11 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:18
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(18): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 18
+[03-Jul-2023 06:31:05 UTC] PHP Warning:  Undefined array key "USERID" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 17
+[03-Jul-2023 06:31:05 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 11 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:18
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(18): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 18
+[04-Jul-2023 06:00:14 UTC] PHP Warning:  Undefined array key "periodid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 96
+[04-Jul-2023 06:00:14 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ORDER BY `crse`.`SchlAcadCrses_NAME`' at line 19 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:99
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(99): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 99
+[10-Jul-2023 05:33:40 UTC] PHP Warning:  Undefined array key "periodid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 96
+[10-Jul-2023 05:33:40 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ORDER BY `crse`.`SchlAcadCrses_NAME`' at line 19 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:99
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(99): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 99
+[10-Jul-2023 05:50:57 UTC] PHP Warning:  Undefined array key "levelid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 35
+[10-Jul-2023 05:50:57 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ORDER BY `year`.`SchlAcadYr_RANKNO` DESC' at line 15 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:37
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(37): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 37
+[10-Jul-2023 06:07:30 UTC] PHP Warning:  Undefined array key "levelid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 35
+[10-Jul-2023 06:07:30 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ORDER BY `year`.`SchlAcadYr_RANKNO` DESC' at line 15 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:37
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(37): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 37
+[11-Jul-2023 06:15:45 UTC] PHP Warning:  Undefined array key "levelid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 35
+[11-Jul-2023 06:15:45 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ORDER BY `year`.`SchlAcadYr_RANKNO` DESC' at line 15 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:37
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(37): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 37
+[18-Jul-2023 06:48:28 UTC] PHP Warning:  Undefined array key "courseid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 168
+[18-Jul-2023 06:48:28 UTC] PHP Warning:  Undefined array key "levelid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 169
+[18-Jul-2023 06:48:28 UTC] PHP Warning:  Undefined array key "yearid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 170
+[18-Jul-2023 06:48:28 UTC] PHP Warning:  Undefined array key "periodid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 171
+[18-Jul-2023 06:48:28 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AND `gscale`.`SchlAcadLvl_ID` =  
+				AND `gscale`.`SchlAcadYr_ID` = 
+				AND `g' at line 26 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:175
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(175): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 175
+[19-Jul-2023 02:27:51 UTC] PHP Warning:  Undefined array key "courseid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 168
+[19-Jul-2023 02:27:51 UTC] PHP Warning:  Undefined array key "levelid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 169
+[19-Jul-2023 02:27:51 UTC] PHP Warning:  Undefined array key "yearid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 170
+[19-Jul-2023 02:27:51 UTC] PHP Warning:  Undefined array key "periodid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 171
+[19-Jul-2023 02:27:51 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AND `gscale`.`SchlAcadLvl_ID` =  
+				AND `gscale`.`SchlAcadYr_ID` = 
+				AND `g' at line 26 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:175
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(175): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 175
+[19-Jul-2023 09:29:12 UTC] PHP Warning:  Undefined array key "USERID" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 17
+[19-Jul-2023 09:29:12 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 11 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:18
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(18): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 18
+[26-Jul-2023 08:30:01 UTC] PHP Warning:  Undefined array key "levelid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 35
+[26-Jul-2023 08:30:01 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ORDER BY `year`.`SchlAcadYr_RANKNO` DESC' at line 15 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:37
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(37): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 37
+[03-Aug-2023 07:54:39 UTC] PHP Warning:  Undefined array key "levelid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 35
+[03-Aug-2023 07:54:40 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ORDER BY `year`.`SchlAcadYr_RANKNO` DESC' at line 15 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:37
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(37): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 37
+[04-Aug-2023 07:28:18 UTC] PHP Warning:  Undefined array key "USERID" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 17
+[04-Aug-2023 07:28:18 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 11 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:18
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(18): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 18
+[09-Aug-2023 03:25:09 UTC] PHP Warning:  Undefined array key "periodid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 96
+[09-Aug-2023 03:25:09 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ORDER BY `crse`.`SchlAcadCrses_NAME`' at line 19 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:99
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(99): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 99
+[25-Aug-2023 06:30:31 UTC] PHP Warning:  Undefined array key "USERID" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 17
+[25-Aug-2023 06:30:31 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 11 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:18
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(18): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 18
+[12-Sep-2023 08:00:17 UTC] PHP Warning:  Undefined array key "periodid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 96
+[12-Sep-2023 08:00:17 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ORDER BY `crse`.`SchlAcadCrses_NAME`' at line 19 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:99
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(99): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 99
+[19-Sep-2023 06:21:52 UTC] PHP Warning:  Undefined array key "periodid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 96
+[19-Sep-2023 06:21:52 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ORDER BY `crse`.`SchlAcadCrses_NAME`' at line 19 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:99
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(99): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 99
+[17-Oct-2023 05:44:42 UTC] PHP Warning:  Undefined array key "courseid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 168
+[17-Oct-2023 05:44:42 UTC] PHP Warning:  Undefined array key "levelid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 169
+[17-Oct-2023 05:44:42 UTC] PHP Warning:  Undefined array key "yearid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 170
+[17-Oct-2023 05:44:42 UTC] PHP Warning:  Undefined array key "periodid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 171
+[17-Oct-2023 05:44:42 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AND `gscale`.`SchlAcadLvl_ID` =  
+				AND `gscale`.`SchlAcadYr_ID` = 
+				AND `g' at line 26 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:175
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(175): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 175
+[10-Jan-2024 06:38:13 UTC] PHP Warning:  Undefined array key "levelid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 35
+[10-Jan-2024 06:38:13 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ORDER BY `year`.`SchlAcadYr_RANKNO` DESC' at line 15 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:37
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(37): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 37
+[15-Jan-2024 01:52:20 UTC] PHP Warning:  Undefined array key "yearid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 55
+[15-Jan-2024 01:52:20 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ORDER BY `prd`.`SchlAcadPrdSms_ID` ASC' at line 16 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:57
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(57): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 57
+[15-Jan-2024 02:37:23 UTC] PHP Warning:  Undefined array key "yearid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 55
+[15-Jan-2024 02:37:23 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ORDER BY `prd`.`SchlAcadPrdSms_ID` ASC' at line 16 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:57
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(57): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 57
+[20-Jan-2024 03:21:57 UTC] PHP Warning:  Undefined array key "yearid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 55
+[20-Jan-2024 03:21:57 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ORDER BY `prd`.`SchlAcadPrdSms_ID` ASC' at line 16 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:57
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(57): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 57
+[25-Jan-2024 08:37:49 UTC] PHP Warning:  Undefined array key "periodid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 96
+[25-Jan-2024 08:37:49 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ORDER BY `crse`.`SchlAcadCrses_NAME`' at line 19 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:99
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(99): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 99
+[25-Jan-2024 08:41:16 UTC] PHP Warning:  Undefined array key "courseid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 168
+[25-Jan-2024 08:41:16 UTC] PHP Warning:  Undefined array key "levelid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 169
+[25-Jan-2024 08:41:16 UTC] PHP Warning:  Undefined array key "yearid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 170
+[25-Jan-2024 08:41:16 UTC] PHP Warning:  Undefined array key "periodid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 171
+[25-Jan-2024 08:41:16 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AND `gscale`.`SchlAcadLvl_ID` =  
+				AND `gscale`.`SchlAcadYr_ID` = 
+				AND `g' at line 26 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:175
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(175): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 175
+[27-Jan-2024 04:25:50 UTC] PHP Warning:  Undefined array key "periodid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 96
+[27-Jan-2024 04:25:50 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ORDER BY `crse`.`SchlAcadCrses_NAME`' at line 19 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:99
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(99): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 99
+[01-Feb-2024 03:41:48 UTC] PHP Warning:  Undefined array key "USERID" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 17
+[01-Feb-2024 03:41:48 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 11 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:18
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(18): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 18
+[01-Feb-2024 08:43:46 UTC] PHP Warning:  Undefined array key "USERID" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 17
+[01-Feb-2024 08:43:46 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 11 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:18
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(18): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 18
+[03-Feb-2024 03:23:13 UTC] PHP Warning:  Undefined array key "courseid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 168
+[03-Feb-2024 03:23:13 UTC] PHP Warning:  Undefined array key "levelid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 169
+[03-Feb-2024 03:23:13 UTC] PHP Warning:  Undefined array key "yearid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 170
+[03-Feb-2024 03:23:13 UTC] PHP Warning:  Undefined array key "periodid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 171
+[03-Feb-2024 03:23:13 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'AND `gscale`.`SchlAcadLvl_ID` =  
+				AND `gscale`.`SchlAcadYr_ID` = 
+				AND...' at line 26 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:175
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(175): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 175
+[05-Feb-2024 07:57:00 UTC] PHP Warning:  Undefined array key "levelid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 35
+[05-Feb-2024 07:57:00 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'ORDER BY `year`.`SchlAcadYr_RANKNO` DESC' at line 15 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:37
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(37): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 37
+[12-Feb-2024 02:05:56 UTC] PHP Warning:  Undefined array key "levelid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 35
+[12-Feb-2024 02:05:56 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'ORDER BY `year`.`SchlAcadYr_RANKNO` DESC' at line 15 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:37
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(37): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 37
+[12-Feb-2024 05:54:39 UTC] PHP Warning:  Undefined array key "USERID" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 17
+[12-Feb-2024 05:54:39 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 11 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:18
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(18): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 18
+[13-Feb-2024 12:45:55 UTC] PHP Warning:  Undefined array key "yearid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 55
+[13-Feb-2024 12:45:55 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'ORDER BY `prd`.`SchlAcadPrdSms_ID` ASC' at line 16 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:57
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(57): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 57
+[14-Feb-2024 07:11:35 UTC] PHP Warning:  Undefined array key "courseid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 168
+[14-Feb-2024 07:11:35 UTC] PHP Warning:  Undefined array key "levelid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 169
+[14-Feb-2024 07:11:35 UTC] PHP Warning:  Undefined array key "yearid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 170
+[14-Feb-2024 07:11:35 UTC] PHP Warning:  Undefined array key "periodid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 171
+[14-Feb-2024 07:11:35 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'AND `gscale`.`SchlAcadLvl_ID` =  
+				AND `gscale`.`SchlAcadYr_ID` = 
+				AND...' at line 26 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:175
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(175): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 175
+[15-Feb-2024 00:41:28 UTC] PHP Warning:  Undefined array key "courseid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 168
+[15-Feb-2024 00:41:28 UTC] PHP Warning:  Undefined array key "levelid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 169
+[15-Feb-2024 00:41:28 UTC] PHP Warning:  Undefined array key "yearid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 170
+[15-Feb-2024 00:41:28 UTC] PHP Warning:  Undefined array key "periodid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 171
+[15-Feb-2024 00:41:28 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'AND `gscale`.`SchlAcadLvl_ID` =  
+				AND `gscale`.`SchlAcadYr_ID` = 
+				AND...' at line 26 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:175
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(175): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 175
+[15-Feb-2024 00:42:44 UTC] PHP Warning:  Undefined array key "yearid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 55
+[15-Feb-2024 00:42:44 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'ORDER BY `prd`.`SchlAcadPrdSms_ID` ASC' at line 16 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:57
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(57): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 57
+[15-Feb-2024 10:54:47 UTC] PHP Warning:  Undefined array key "levelid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 35
+[15-Feb-2024 10:54:47 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'ORDER BY `year`.`SchlAcadYr_RANKNO` DESC' at line 15 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:37
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(37): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 37
+[16-Feb-2024 02:38:21 UTC] PHP Warning:  Undefined array key "levelid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 35
+[16-Feb-2024 02:38:21 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'ORDER BY `year`.`SchlAcadYr_RANKNO` DESC' at line 15 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:37
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(37): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 37
+[19-Feb-2024 05:45:34 UTC] PHP Warning:  Undefined array key "levelid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 35
+[19-Feb-2024 05:45:34 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'ORDER BY `year`.`SchlAcadYr_RANKNO` DESC' at line 15 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:37
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(37): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 37
+[20-Feb-2024 01:24:01 UTC] PHP Warning:  Undefined array key "yearid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 55
+[20-Feb-2024 01:24:01 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'ORDER BY `prd`.`SchlAcadPrdSms_ID` ASC' at line 16 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:57
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(57): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 57
+[20-Feb-2024 09:40:42 UTC] PHP Warning:  Undefined array key "levelid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 35
+[20-Feb-2024 09:40:42 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'ORDER BY `year`.`SchlAcadYr_RANKNO` DESC' at line 15 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:37
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(37): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 37
+[21-Feb-2024 02:54:10 UTC] PHP Warning:  Undefined array key "courseid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 168
+[21-Feb-2024 02:54:10 UTC] PHP Warning:  Undefined array key "levelid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 169
+[21-Feb-2024 02:54:10 UTC] PHP Warning:  Undefined array key "yearid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 170
+[21-Feb-2024 02:54:10 UTC] PHP Warning:  Undefined array key "periodid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 171
+[21-Feb-2024 02:54:10 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'AND `gscale`.`SchlAcadLvl_ID` =  
+				AND `gscale`.`SchlAcadYr_ID` = 
+				AND...' at line 26 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:175
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(175): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 175
+[22-Feb-2024 03:16:21 UTC] PHP Warning:  Undefined array key "levelid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 35
+[22-Feb-2024 03:16:21 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'ORDER BY `year`.`SchlAcadYr_RANKNO` DESC' at line 15 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:37
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(37): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 37
+[22-Feb-2024 03:25:40 UTC] PHP Warning:  Undefined array key "levelid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 35
+[22-Feb-2024 03:25:40 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'ORDER BY `year`.`SchlAcadYr_RANKNO` DESC' at line 15 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:37
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(37): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 37
+[22-Feb-2024 08:18:56 UTC] PHP Warning:  Undefined array key "levelid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 35
+[22-Feb-2024 08:18:56 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'ORDER BY `year`.`SchlAcadYr_RANKNO` DESC' at line 15 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:37
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(37): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 37
+[23-Feb-2024 00:36:03 UTC] PHP Warning:  Undefined array key "USERID" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 17
+[23-Feb-2024 00:36:03 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 11 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:18
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(18): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 18
+[23-Feb-2024 00:36:33 UTC] PHP Warning:  Undefined array key "USERID" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 17
+[23-Feb-2024 00:36:33 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 11 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:18
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(18): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 18
+[26-Feb-2024 02:46:07 UTC] PHP Warning:  Undefined array key "periodid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 96
+[26-Feb-2024 02:46:07 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'ORDER BY `crse`.`SchlAcadCrses_NAME`' at line 19 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:99
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(99): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 99
+[26-Feb-2024 10:30:14 UTC] PHP Warning:  Undefined array key "courseid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 168
+[26-Feb-2024 10:30:14 UTC] PHP Warning:  Undefined array key "levelid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 169
+[26-Feb-2024 10:30:14 UTC] PHP Warning:  Undefined array key "yearid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 170
+[26-Feb-2024 10:30:14 UTC] PHP Warning:  Undefined array key "periodid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 171
+[26-Feb-2024 10:30:14 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'AND `gscale`.`SchlAcadLvl_ID` =  
+				AND `gscale`.`SchlAcadYr_ID` = 
+				AND...' at line 26 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:175
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(175): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 175
+[26-Feb-2024 10:35:37 UTC] PHP Warning:  Undefined array key "courseid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 168
+[26-Feb-2024 10:35:37 UTC] PHP Warning:  Undefined array key "levelid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 169
+[26-Feb-2024 10:35:37 UTC] PHP Warning:  Undefined array key "yearid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 170
+[26-Feb-2024 10:35:37 UTC] PHP Warning:  Undefined array key "periodid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 171
+[26-Feb-2024 10:35:37 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'AND `gscale`.`SchlAcadLvl_ID` =  
+				AND `gscale`.`SchlAcadYr_ID` = 
+				AND...' at line 26 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:175
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(175): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 175
+[27-Feb-2024 00:08:53 UTC] PHP Warning:  Undefined array key "levelid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 35
+[27-Feb-2024 00:08:53 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'ORDER BY `year`.`SchlAcadYr_RANKNO` DESC' at line 15 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:37
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(37): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 37
+[27-Feb-2024 00:09:36 UTC] PHP Warning:  Undefined array key "levelid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 35
+[27-Feb-2024 00:09:36 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'ORDER BY `year`.`SchlAcadYr_RANKNO` DESC' at line 15 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:37
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(37): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 37
+[28-Feb-2024 13:34:44 UTC] PHP Warning:  Undefined array key "USERID" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 17
+[28-Feb-2024 13:34:44 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 11 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:18
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(18): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 18
+[28-Feb-2024 13:34:52 UTC] PHP Warning:  Undefined array key "USERID" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 17
+[28-Feb-2024 13:34:52 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 11 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:18
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(18): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 18
+[02-Mar-2024 12:25:54 UTC] PHP Warning:  Undefined array key "levelid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 35
+[02-Mar-2024 12:25:54 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'ORDER BY `year`.`SchlAcadYr_RANKNO` DESC' at line 15 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:37
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(37): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 37
+[02-Mar-2024 12:49:18 UTC] PHP Warning:  Undefined array key "levelid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 35
+[02-Mar-2024 12:49:18 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'ORDER BY `year`.`SchlAcadYr_RANKNO` DESC' at line 15 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:37
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(37): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 37
+[06-Mar-2024 13:43:12 UTC] PHP Warning:  Undefined array key "USERID" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 17
+[06-Mar-2024 13:43:12 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 11 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:18
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(18): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 18
+[11-Mar-2024 00:25:24 UTC] PHP Warning:  Undefined array key "periodid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 96
+[11-Mar-2024 00:25:24 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'ORDER BY `crse`.`SchlAcadCrses_NAME`' at line 19 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:99
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(99): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 99
+[20-Mar-2024 07:13:13 UTC] PHP Warning:  Undefined array key "levelid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 35
+[20-Mar-2024 07:13:13 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'ORDER BY `year`.`SchlAcadYr_RANKNO` DESC' at line 15 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:37
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(37): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 37
+[02-Apr-2024 03:37:00 UTC] PHP Warning:  Undefined array key "levelid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 35
+[02-Apr-2024 03:37:00 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'ORDER BY `year`.`SchlAcadYr_RANKNO` DESC' at line 15 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:37
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(37): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 37
+[03-Apr-2024 07:26:03 UTC] PHP Warning:  Undefined array key "levelid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 35
+[03-Apr-2024 07:26:03 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'ORDER BY `year`.`SchlAcadYr_RANKNO` DESC' at line 15 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:37
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(37): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 37
+[05-Apr-2024 03:53:46 UTC] PHP Warning:  Undefined array key "levelid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 35
+[05-Apr-2024 03:53:46 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'ORDER BY `year`.`SchlAcadYr_RANKNO` DESC' at line 15 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:37
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(37): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 37
+[12-Apr-2024 03:14:35 UTC] PHP Warning:  Undefined array key "levelid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 35
+[12-Apr-2024 03:14:35 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'ORDER BY `year`.`SchlAcadYr_RANKNO` DESC' at line 15 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:37
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(37): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 37
+[06-Jun-2024 02:10:51 UTC] PHP Warning:  Undefined array key "USERID" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 17
+[06-Jun-2024 02:10:51 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 11 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:18
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(18): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 18
+[06-Jun-2024 04:54:36 UTC] PHP Warning:  Undefined array key "USERID" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 17
+[06-Jun-2024 04:54:36 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 11 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:18
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(18): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 18
+[08-Jun-2024 09:42:57 UTC] PHP Warning:  Undefined array key "levelid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 35
+[08-Jun-2024 09:42:57 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'ORDER BY `year`.`SchlAcadYr_RANKNO` DESC' at line 15 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:37
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(37): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 37
+[11-Jun-2024 04:06:45 UTC] PHP Warning:  Undefined array key "USERID" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 17
+[11-Jun-2024 04:06:45 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 11 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:18
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(18): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 18
+[28-Jun-2024 06:15:26 UTC] PHP Warning:  Undefined array key "levelid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 35
+[28-Jun-2024 06:15:26 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'ORDER BY `year`.`SchlAcadYr_RANKNO` DESC' at line 15 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:37
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(37): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 37
+[03-Jul-2024 08:23:39 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Host 'sg2plzcpnl473868.prod.sin2.secureserver.net' is not allowed to connect to this MariaDB server in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/configuration/connection-config.php:14
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/configuration/connection-config.php(14): mysqli->__construct()
+#1 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(3): include_once('/home/zstvqx3gf...')
+#2 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/configuration/connection-config.php on line 14
+[16-Jul-2024 04:56:06 UTC] PHP Warning:  Undefined array key "levelid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 35
+[16-Jul-2024 04:56:06 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'ORDER BY `year`.`SchlAcadYr_RANKNO` DESC' at line 15 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:37
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(37): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 37
+[17-Jul-2024 02:52:43 UTC] PHP Warning:  Undefined array key "levelid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 35
+[17-Jul-2024 02:52:43 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'ORDER BY `year`.`SchlAcadYr_RANKNO` DESC' at line 15 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:37
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(37): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 37
+[17-Jul-2024 13:13:31 UTC] PHP Warning:  Undefined array key "levelid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 35
+[17-Jul-2024 13:13:31 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'ORDER BY `year`.`SchlAcadYr_RANKNO` DESC' at line 15 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:37
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(37): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 37
+[18-Jul-2024 04:40:27 UTC] PHP Warning:  Undefined array key "levelid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 35
+[18-Jul-2024 04:40:27 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'ORDER BY `year`.`SchlAcadYr_RANKNO` DESC' at line 15 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:37
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(37): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 37
+[18-Jul-2024 07:44:09 UTC] PHP Warning:  Undefined array key "levelid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 35
+[18-Jul-2024 07:44:09 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'ORDER BY `year`.`SchlAcadYr_RANKNO` DESC' at line 15 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:37
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(37): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 37
+[19-Jul-2024 03:59:06 UTC] PHP Warning:  Undefined array key "USERID" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 17
+[19-Jul-2024 03:59:06 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 11 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:18
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(18): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 18
+[29-Jul-2024 14:14:34 UTC] PHP Warning:  Undefined array key "USERID" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 17
+[29-Jul-2024 14:14:34 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 11 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:18
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(18): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 18
+[30-Jul-2024 03:09:35 UTC] PHP Warning:  Undefined array key "USERID" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 17
+[30-Jul-2024 03:09:35 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 11 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:18
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(18): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 18
+[30-Jul-2024 03:11:13 UTC] PHP Warning:  Undefined array key "USERID" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 17
+[30-Jul-2024 03:11:13 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 11 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:18
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(18): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 18
+[01-Aug-2024 05:30:26 UTC] PHP Warning:  Undefined array key "levelid" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 35
+[01-Aug-2024 05:30:26 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'ORDER BY `year`.`SchlAcadYr_RANKNO` DESC' at line 15 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php:37
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php(37): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/manage/gradingscale/gradingscale-controller.php on line 37

@@ -1,0 +1,39 @@
+[22-Apr-2024 03:19:48 UTC] PHP Warning:  Undefined array key "USERID" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/careersurvey/survey-controller_old.php on line 177
+[22-Apr-2024 03:19:48 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'ORDER BY `LVLID`,`YRID`,`PRDID`  DESC
+              LIMIT 1' at line 14 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/careersurvey/survey-controller_old.php:182
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/careersurvey/survey-controller_old.php(182): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/careersurvey/survey-controller_old.php on line 182
+[22-Apr-2024 03:19:48 UTC] PHP Warning:  Undefined array key "USERID" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/careersurvey/survey-controller_old.php on line 157
+[22-Apr-2024 03:19:48 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'AND `survey`.`SchlSurvey_IsActive` = 1' at line 14 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/careersurvey/survey-controller_old.php:160
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/careersurvey/survey-controller_old.php(160): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/careersurvey/survey-controller_old.php on line 160
+[05-Jun-2024 23:00:50 UTC] PHP Warning:  Undefined array key "USERID" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/careersurvey/survey-controller_old.php on line 157
+[05-Jun-2024 23:00:50 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'AND `survey`.`SchlSurvey_IsActive` = 1' at line 14 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/careersurvey/survey-controller_old.php:160
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/careersurvey/survey-controller_old.php(160): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/careersurvey/survey-controller_old.php on line 160
+[05-Jun-2024 23:00:50 UTC] PHP Warning:  Undefined array key "USERID" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/careersurvey/survey-controller_old.php on line 177
+[05-Jun-2024 23:00:50 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'ORDER BY `LVLID`,`YRID`,`PRDID`  DESC
+              LIMIT 1' at line 14 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/careersurvey/survey-controller_old.php:182
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/careersurvey/survey-controller_old.php(182): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/careersurvey/survey-controller_old.php on line 182
+[05-Jun-2024 23:01:09 UTC] PHP Warning:  Undefined array key "USERID" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/careersurvey/survey-controller_old.php on line 177
+[05-Jun-2024 23:01:09 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'ORDER BY `LVLID`,`YRID`,`PRDID`  DESC
+              LIMIT 1' at line 14 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/careersurvey/survey-controller_old.php:182
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/careersurvey/survey-controller_old.php(182): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/careersurvey/survey-controller_old.php on line 182
+[05-Jun-2024 23:01:09 UTC] PHP Warning:  Undefined array key "USERID" in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/careersurvey/survey-controller_old.php on line 157
+[05-Jun-2024 23:01:09 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'AND `survey`.`SchlSurvey_IsActive` = 1' at line 14 in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/careersurvey/survey-controller_old.php:160
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/careersurvey/survey-controller_old.php(160): mysqli->query()
+#1 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/model/forms/careersurvey/survey-controller_old.php on line 160

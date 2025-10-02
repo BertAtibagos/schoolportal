@@ -1,0 +1,30 @@
+[08-Sep-2023 02:58:28 UTC] PHP Fatal error:  Uncaught PHPMailer\PHPMailer\Exception: Invalid address:  (From): Email From in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/email/vendor/phpmailer/phpmailer/src/PHPMailer.php:1589
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/email/vendor/phpmailer/phpmailer/src/PHPMailer.php(1512): PHPMailer\PHPMailer\PHPMailer->preSend()
+#1 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/email/send.php(38): PHPMailer\PHPMailer\PHPMailer->send()
+#2 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/email/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1589
+[08-Sep-2023 02:59:03 UTC] PHP Fatal error:  Uncaught PHPMailer\PHPMailer\Exception: Invalid address:  (From): Email From in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/email/vendor/phpmailer/phpmailer/src/PHPMailer.php:1589
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/email/vendor/phpmailer/phpmailer/src/PHPMailer.php(1512): PHPMailer\PHPMailer\PHPMailer->preSend()
+#1 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/email/send.php(38): PHPMailer\PHPMailer\PHPMailer->send()
+#2 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/email/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1589
+[08-Sep-2023 03:00:25 UTC] PHP Fatal error:  Uncaught PHPMailer\PHPMailer\Exception: Invalid address:  (From): Email From in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/email/vendor/phpmailer/phpmailer/src/PHPMailer.php:1589
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/email/vendor/phpmailer/phpmailer/src/PHPMailer.php(1512): PHPMailer\PHPMailer\PHPMailer->preSend()
+#1 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/email/send.php(39): PHPMailer\PHPMailer\PHPMailer->send()
+#2 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/email/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1589
+[08-Sep-2023 03:02:33 UTC] PHP Fatal error:  Uncaught PHPMailer\PHPMailer\Exception: Invalid address:  (From): Email From in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/email/vendor/phpmailer/phpmailer/src/PHPMailer.php:1589
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/email/vendor/phpmailer/phpmailer/src/PHPMailer.php(1512): PHPMailer\PHPMailer\PHPMailer->preSend()
+#1 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/email/send.php(40): PHPMailer\PHPMailer\PHPMailer->send()
+#2 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/email/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1589
+[08-Sep-2023 03:02:38 UTC] PHP Fatal error:  Uncaught PHPMailer\PHPMailer\Exception: Invalid address:  (From): Email From in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/email/vendor/phpmailer/phpmailer/src/PHPMailer.php:1589
+Stack trace:
+#0 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/email/vendor/phpmailer/phpmailer/src/PHPMailer.php(1512): PHPMailer\PHPMailer\PHPMailer->preSend()
+#1 /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/email/send.php(40): PHPMailer\PHPMailer\PHPMailer->send()
+#2 {main}
+  thrown in /home/zstvqx3gf3b4/public_html/schoolportal.fcpc-inc.com/dev/email/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1589
