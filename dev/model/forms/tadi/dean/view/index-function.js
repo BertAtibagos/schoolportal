@@ -218,6 +218,7 @@ function GETALL_TADI_RECORDS(prof_id, subj_id) {
       return;
     }
     const rows = data.map(record => {
+      let activity = record.tadi_act.replace(/\\r\\n/g, "<br>");
       const viewUploadCell = record.tadi_filepath
         ? `<button class="btn btn-sm w-70 viewAttch" style="background-color: #2980B9; color: white" id="viewAttch${record.schltadi_ID}" value="${record.schltadi_ID}">VIEW</button>`
         : `<span class="btn btn-sm w-70" style="background-color: #95A5A6; color: white; pointer-events: none;">No Attachment</span>`;
@@ -239,7 +240,7 @@ function GETALL_TADI_RECORDS(prof_id, subj_id) {
         <td class="text-center">${record.tadi_date} ${formatTimeToAmPm(record.tadi_timeIn)} - ${formatTimeToAmPm(record.tadi_timeOut)}</td>
         <td class="text-center">${modeTypeMap[record.tadi_modeType] || record.tadi_modeType}</td>
         <td class="text-center">
-          <span class="activity-text" style="cursor: pointer;">${record.tadi_act}</span>
+          <span class="activity-text" style="cursor: pointer;">${activity}</span>
         </td>
         <td class="text-center">
           ${viewUploadCell}
@@ -424,6 +425,7 @@ document.getElementById("deanDate_srch").addEventListener("click", function () {
     tbody.innerHTML = '';
     
     const rows = data.map(record => {
+      let activity = record.tadi_act.replace(/\\r\\n/g, "<br>");
       const viewUploadCell = record.tadi_filepath
         ? `<button class="btn btn-sm w-70 viewAttch" style="background-color: #2980B9; color: white" id="viewAttch${record.schltadi_ID}" value="${record.schltadi_ID}">VIEW</button>`
         : `<span class="btn btn-sm w-70" style="background-color: #95A5A6; color: white; pointer-events: none;">No Attachment</span>`;
@@ -441,7 +443,7 @@ document.getElementById("deanDate_srch").addEventListener("click", function () {
         <td class="text-center">${record.tadi_date} ${formatTimeToAmPm(record.tadi_timeIn)} - ${formatTimeToAmPm(record.tadi_timeOut)}</td>
         <td class="text-center">${modeTypeMap[record.tadi_modeType] || record.tadi_modeType}</td>
         <td class="text-center">
-          <span class="activity-text" style="cursor: pointer;">${record.tadi_act}</span>
+          <span class="activity-text" style="cursor: pointer;">${activity}</span>
         </td>
         <td class="text-center">
           ${viewUploadCell}
