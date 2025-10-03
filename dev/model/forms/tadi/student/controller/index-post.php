@@ -19,6 +19,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['type']) && $_POST['ty
     $YRID = $_SESSION['YRID'] ?? 0;
     $PRDID = $_SESSION['PRDID'] ?? 0;
 
+    if (!$STUDID || !$LVLID || !$YRID || !$PRDID) {
+        $fetch['message'] = "Invalid session. Please log in again.";
+        echo json_encode($fetch);
+        exit;
+    }
+
     try {
         $prof_id = $dbConn->real_escape_string($_POST['instructor']);
         $schltadi_mode = $dbConn->real_escape_string($_POST['learning_delivery_modalities']);
