@@ -131,6 +131,15 @@
                                 </tr>
                             </thead>
                             <tbody class="prof_dashboard_table">
+                                <tr>
+                                    <td colspan="4">
+                                        <div class="text-center">
+                                            <div class="spinner-border " role="status">
+                                                <span class="sr-only">Loading...</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
