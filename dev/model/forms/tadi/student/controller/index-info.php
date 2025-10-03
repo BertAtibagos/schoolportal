@@ -108,11 +108,16 @@ if ($type === 'GET_SUBJECT_LIST') {
                        SELECT REPLACE(GROUP_CONCAT(`schl_emp`.`SchlEmp_FNAME`, ' ', `schl_emp`.`SchlEmp_LNAME`), ',', ' / ')
                        FROM `schoolemployee` `schl_emp`
                        WHERE FIND_IN_SET(`schl_emp`.`SchlEmpSms_ID`, `schl_enr_subj_off`.`SchlProf_ID`)
-                   ) AS `prof_name`
-            FROM `schoolenrollmentsubjectoffered` `schl_enr_subj_off`
-            LEFT JOIN `schoolacademicsubject` `schl_acad_subj`
-                ON `schl_enr_subj_off`.`SchlAcadSubj_ID` = `schl_acad_subj`.`SchlAcadSubjSms_ID`
-            WHERE `SchlEnrollSubjOffSms_ID` IN ($subj_list)";
+                   ) AS `prof_name`,
+            COUNT(studrec.schltadi_id) AS record_count_today
+            FROM schoolenrollmentsubjectoffered schl_enr_subj_off
+            LEFT JOIN schoolacademicsubject schl_acad_subj
+                ON schl_enr_subj_off.SchlAcadSubj_ID = schl_acad_subj.SchlAcadSubjSms_ID
+            LEFT JOIN schooltadi studrec
+                ON schl_enr_subj_off.SchlEnrollSubjOffSms_ID = studrec.schlenrollsubjoff_id
+                AND DATE(studrec.schltadi_date) = CURDATE()
+            WHERE schl_enr_subj_off.SchlEnrollSubjOffSms_ID IN ($subj_list)
+            GROUP BY schl_enr_subj_off.SchlEnrollSubjOffSms_ID";
     
     $rreg = $dbConn->query($qry);
     $fetch = $rreg->fetch_all(MYSQLI_ASSOC);
@@ -150,7 +155,7 @@ if($type === 'GET_SUBMITTED_REC'){
             AND `schltadi_date` = CURDATE()
 			ORDER BY schl_tadi.`schltadi_date`, schl_tadi.`schltadi_timein`";
     
-    $stmt = $dbPortal->prepare($qry);
+    $stmt = $dbConn->prepare($qry);
 	$stmt->bind_param("ii",$prof_Id,$subj_Id);
 	$stmt->execute();
 	$result = $stmt->get_result();
@@ -173,7 +178,7 @@ if($type == 'GET_IMAGE'){
 			WHERE `schlprof_id` = ?
 			AND `schltadi_id` = ?";
 	
-	$stmt = $dbPortal->prepare($qry);
+	$stmt = $dbConn->prepare($qry);
 	$stmt->bind_param("ii", $prof_id, $REC_ID);
 	$stmt->execute();
 	$result = $stmt->get_result();
