@@ -93,49 +93,62 @@ function GET_ACADEMICLEVEL() {
     })
     .catch(err => console.error("Academic Level Fetch Error:", err));
 }
-
+const loadingModal = new bootstrap.Modal(document.getElementById('loadingModal'));
 function GET_SUBJECTLIST() {
-    document.getElementById("loadingSpinner").style.display = "block";
     const formData = new FormData();
     formData.append('type','GET_SUBJECT_LIST');
 
+    loadingModal.show();
     fetch("tadi/student/controller/index-info.php", {
         method: "POST",
         body: formData
     })
     .then(response => response.json())
     .then(result => {
-        document.getElementById("loadingSpinner").style.display = "none";
         displaySubjectTable(result);
     })
     .catch(err => {
-        document.getElementById("loadingSpinner").style.display = "none";
         alert("Failed to load subject list. Please try again.");
         console.error("Subject List Error:", err);
+    })
+    .finally(()=>{
+        loadingModal.hide();
     });
 }
 
 function displaySubjectTable(result) {
-    const tbody = document.querySelector("#TadiStudentTadi tbody");
+    const tbody = document.querySelector("#student_tadi_section tbody");
     
-    tbody.innerHTML = result.map((item, index) => `
-        <tr>
+    tbody.innerHTML = result.map((item, index) => 
+        `<tr>
             <td>${item.subj_code}</td>
             <td>${item.subj_desc}</td>
-            <td>${item.prof_name || "No instructor"}</td>
+            <td>${item.prof_name || "No faculty"}</td>
             <td>
                 <button 
-                    class="btn btn-sm w-100"
-                    ${item.prof_name ? "" : "disabled"} 
+                    class="btn btn-sm"
+                    ${item.prof_name ? "" : "disabled"}
                     style="background-color: #181a46; color: white;" 
                     id="tadiModalHandler${index}" 
                     data-bs-toggle="modal" 
-                    data-bs-target="#modal">
+                    data-bs-target="#modal"
+                    ${item.record_count_today == 3 ? "hidden" : ""}>
                     TADI
                 </button>
+
+                <button 
+                    class="btn btn-sm vw_tadi_rec"
+                    style="background-color: #43dd81ff; color: white;" 
+                    data-subj-id = "${item.subj_id}"
+                    data-prof-id = "${item.prof_id}"
+                    data-bs-toggle="modal" 
+                    data-bs-target="#Instructor_Tadi_List"
+                    ${item.record_count_today == 0 ? "hidden" : ""}>
+                    VIEW
+                </button>
             </td>
-        </tr>
-    `).join("");
+        </tr>`
+    ).join("");
 
     result.forEach((value, index) => {
         const btn = document.getElementById(`tadiModalHandler${index}`);
@@ -145,6 +158,118 @@ function displaySubjectTable(result) {
             });
         }
     });
+
+    document.querySelectorAll('.vw_tadi_rec').forEach(button => {
+        button.addEventListener("click", function () {
+            const subj_Id = this.dataset.subjId;
+            const prof_Id = this.dataset.profId;
+
+            const params = new URLSearchParams({
+                type: 'GET_SUBMITTED_REC',
+                subj_Id: subj_Id,
+                prof_Id: prof_Id
+            });
+
+            fetch(`tadi/student/controller/index-info.php`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: params
+            })
+                .then(res => res.json())
+                .then(data => {
+                    const navTabs = document.getElementById('nav-tab');          
+                    const navTabContent = document.getElementById('nav-tabContent'); 
+
+                    navTabs.innerHTML = '';
+                    navTabContent.innerHTML = '';
+
+                    if (!data.length) {
+                        navTabContent.innerHTML = "<div class='p-3 text-center'>No records found</div>";
+                        return;
+                    }
+
+                    data.forEach((record, index) => {
+                        const isActive = index === 0 ? "active" : "";
+
+                        
+                        const tabBtn = document.createElement('button');
+                        tabBtn.className = `nav-link ${isActive}`;
+                        tabBtn.id = `nav-tab-${record.schltadi_ID}`;
+                        tabBtn.setAttribute('data-bs-toggle', 'tab');
+                        tabBtn.setAttribute('data-bs-target', `#tab-pane-${record.schltadi_ID}`);
+                        tabBtn.type = 'button';
+                        tabBtn.role = 'tab';
+                        tabBtn.innerText = `Record ${index + 1}`;
+                        navTabs.appendChild(tabBtn);
+
+                        
+                        const viewUploadCell = record.tadi_filepath
+                            ? `<button class="btn btn-sm w-70 viewAttch" style="background-color: #2980B9; color: white" value="${record.schltadi_ID}">VIEW</button>`
+                            : `<span class="btn btn-sm w-70" style="background-color: #95A5A6; color: white; pointer-events: none;">No Attachment</span>`;
+
+                        const modeTypeMap = {
+                            'online_learning regular': 'Online Regular',
+                            'online_learning makeup': 'Online Make-Up',
+                            'onsite_learning regular': 'Onsite Regular',
+                            'onsite_learning makeup': 'Onsite Make-Up'
+                        };
+
+                        let activity = record.tadi_act.replace(/\\r\\n/g, "<br>");
+                        const statusConfig = record.tadi_status == 1
+                            ? { text: "Verified", color: "green" }
+                            : { text: "Unverified", color: "red" };
+
+                        const tabPane = document.createElement('div');
+                        tabPane.className = `tab-pane fade show ${isActive}`;
+                        tabPane.id = `tab-pane-${record.schltadi_ID}`;
+                        tabPane.role = "tabpanel";
+                        tabPane.setAttribute("aria-labelledby", `nav-tab-${record.schltadi_ID}`);
+
+                        tabPane.innerHTML = `
+                            <div class="p-3">
+                                <div style="margin-bottom:2%">
+                                    <span><span class="label">Date:</span> ${record.tadi_date}</span>
+                                </div>
+                                <div style="margin-bottom:2%">
+                                    <span><span class="label">Time:</span> ${formatTimeToAmPm(record.tadi_timeIn)} - ${formatTimeToAmPm(record.tadi_timeOut)}</span>
+                                </div>
+                                <div style="margin-bottom:2%">
+                                    <span><span class="label">Class Type:</span> ${modeTypeMap[record.tadi_modeType] || record.tadi_modeType}</span>
+                                </div>
+                                <div style="margin-bottom:2%">
+                                    <span class="label">Activity:</span>
+                                    <span class="activity-text" style="cursor: pointer;">${activity}</span>
+                                </div>
+                                <div style="margin-bottom:2%">
+                                    <span><span class="label">Attachment:</span> ${viewUploadCell}</span>
+                                    <input type="hidden" id="imgProf_id" value="${record.SchlProf_ID}">
+                                </div>
+                                <div style="margin-bottom:2%">
+                                    <span class="label">Status:</span>
+                                    <span class="acknw" value="${record.schltadi_ID}" name="${record.tadi_status}" 
+                                    style="color:${statusConfig.color}; font-weight:bold;">${statusConfig.text}</span>
+                                </div>
+                            </div>
+                        `;
+
+                        navTabContent.appendChild(tabPane);
+
+                        const text = tabPane.querySelector('.activity-text');
+                        setupActivityText(text);
+                    });
+
+                    document.querySelectorAll('.viewAttch').forEach(button =>
+                        button.addEventListener('click', GET_IMAGE)
+                    );
+                })
+                .catch(err => {
+                    console.error("Error loading records:", err);
+                });
+        });
+    });
+
 }
 
 function displayTadi(value) {
@@ -161,7 +286,7 @@ function displayTadi(value) {
 
     const instructor = value.prof_name
         ? `<option value='${value.prof_id}'>${value.prof_name}</option>`
-        : "<option value='' selected disabled>No instructor assigned</option>";
+        : "<option value='' selected disabled>No faculty assigned</option>";
     document.getElementById("instructor").innerHTML = instructor;
 }
 
@@ -183,7 +308,7 @@ function GET_IMAGE(event) {
   .then(data => {
     if (data && data.tadi_filepath) {
       const imgPrev = document.getElementById('attchPrev');
-      imgPrev.src = `${window.location.origin}/TADI-FCPC/${data.tadi_filepath}`;
+      imgPrev.src = `tadi/${data.tadi_filepath}`;
 
       const dateTimeUpldStr = `${data.upld_date}T${data.upld_time}`;
       const upldObj = new Date(dateTimeUpldStr);
