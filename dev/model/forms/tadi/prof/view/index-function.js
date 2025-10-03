@@ -347,7 +347,6 @@ function DISPLAY_TADI_LOG(subj_off_id) {
           <td>${record.tadi_type}</td>
           <td>${new Date('1970-01-01T' + record.tadi_timein).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })} - 
               ${new Date('1970-01-01T' + record.tadi_timeout).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}</td>
-          <td><span class="activity-text" style="cursor: pointer;">${record.tadi_act}</span></td>
           <td>
             ${viewUploadCell}
             <input type="hidden" class="pass" id="pass${record.sub_off_id}" value="${record.sub_off_id}">
@@ -356,18 +355,6 @@ function DISPLAY_TADI_LOG(subj_off_id) {
             <button class="btn acknw btn-success" value="${record.schltadi_ID}" name="${record.tadi_status}">Verify</button>
           </td>
         `;
-
-        const text = row.querySelector('.activity-text');
-        text.style.display = '-webkit-box';
-        text.style.webkitLineClamp = '2';
-        text.style.webkitBoxOrient = 'vertical';
-        text.style.overflow = 'hidden';
-        text.addEventListener('click', function() {
-          this.style.display = this.style.display === '-webkit-box' ? 'block' : '-webkit-box';
-          this.style.webkitLineClamp = this.style.display === '-webkit-box' ? '2' : 'none';
-          this.style.webkitBoxOrient = 'vertical';
-          this.style.overflow = 'hidden';
-        });
         tbody.appendChild(row);
       });
 
@@ -417,26 +404,12 @@ function DISPLAYALL_TADI_RECORDS(subj_off_id) {
         <td>${new Date('1970-01-01T' + record.tadi_timein).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })} - 
             ${new Date('1970-01-01T' + record.tadi_timeout).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}</td>
         <td>
-          <span class="activity-text" style="cursor: pointer;">${record.tadi_act}</span>
-        </td>
-        <td>
           ${viewUploadCell}
           <input type="hidden" class="pass" id="pass${record.sub_off_id}" value="${record.sub_off_id}">
         </td>
         <td><button class="btn acknw btn-success" value="${record.schltadi_ID}" name="${record.tadi_status}">Verify</button></td>
       `;
 
-      const text = row.querySelector('.activity-text');
-      text.style.display = '-webkit-box';
-      text.style.webkitLineClamp = '2';
-      text.style.webkitBoxOrient = 'vertical';
-      text.style.overflow = 'hidden';
-      text.addEventListener('click', function() {
-        this.style.display = this.style.display === '-webkit-box' ? 'block' : '-webkit-box';
-        this.style.webkitLineClamp = this.style.display === '-webkit-box' ? '2' : 'none';
-        this.style.webkitBoxOrient = 'vertical';
-        this.style.overflow = 'hidden';
-      });
       tbody.appendChild(row);
     }
 

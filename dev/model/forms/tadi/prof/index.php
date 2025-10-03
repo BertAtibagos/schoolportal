@@ -167,7 +167,6 @@
                                                     <th scope="col" style="color: white; width:20%;">Learning Modality</th>
                                                     <th scope="col" style="color: white; width:20%;">Session Type</th>
                                                     <th scope="col" style="color: white; width:15%;">Time</th>
-                                                    <th scope="col" style="color: white; width:15%;">Activity</th>
                                                     <th scope="col" style="color: white; width:10%;">Attachment</th>
                                                     <th scope="col" style="color: white; width:10%;"></th>
                                                 </tr>
