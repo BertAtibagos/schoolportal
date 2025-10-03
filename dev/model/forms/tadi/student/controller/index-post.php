@@ -1,4 +1,4 @@
-<?php 
+<?php
 // ✅ Secure cookie flags (must be set before session_start)
 ini_set('session.cookie_httponly', 1);
 ini_set('session.cookie_secure', 1);
@@ -29,8 +29,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['type']) && $_POST['ty
         $schltadi_activity = $dbConn->real_escape_string($_POST['comments']);
         $subj_id = $dbConn->real_escape_string($_POST['subjoff_id']);
 
-        
-       
+
+
         // TADI limit check
         $check_sql = "SELECT COUNT(*) as count 
                       FROM schooltadi 
@@ -74,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['type']) && $_POST['ty
         error_log(print_r($_FILES, true));
 
         if (isset($_FILES['attach']) && $_FILES['attach']['error'] === UPLOAD_ERR_OK) {
-            $prof_id = $_POST['instructor'] ?? 'unknown_prof'; 
+            $prof_id = $_POST['instructor'] ?? 'unknown_prof';
             $date_folder = date('Y-m-d');
 
             $baseDir = '../../attachment/';
@@ -87,30 +87,52 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['type']) && $_POST['ty
                     exit;
                 }
             }
-            
+
             date_default_timezone_set("Asia/Manila");
             $originalName = basename($_FILES['attach']['name']);
-            $extension = explode('.', $originalName);
-            $uniqueName = $prof_id . "_" . $date_folder . "_" . time() . "." . end($extension);
+            $extension = strtolower(pathinfo($originalName, PATHINFO_EXTENSION));
+
+            
+            $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+            if (!in_array($extension, $allowedExtensions)) {
+                $fetch['message'] = "Invalid file type. Only JPG, PNG, GIF, and WEBP are allowed.";
+                echo json_encode($fetch);
+                exit;
+            }
+
+        
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            $mimeType = finfo_file($finfo, $_FILES['attach']['tmp_name']);
+            finfo_close($finfo);
+
+            $allowedMimeTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+            if (!in_array($mimeType, $allowedMimeTypes)) {
+                $fetch['message'] = "Invalid file format.";
+                echo json_encode($fetch);
+                exit;
+            }
+
+            
+            $uniqueName = $prof_id . "_" . $date_folder . "_" . time() . "." . $extension;
             $targetPath = $uploadDir . $uniqueName;
 
             if (move_uploaded_file($_FILES['attach']['tmp_name'], $targetPath)) {
                 $image_path = 'attachment/' . $prof_id . '/' . $date_folder . '/' . $uniqueName;
 
+                
                 if (function_exists('exif_read_data')) {
                     $exif = @exif_read_data($targetPath);
                     if ($exif !== false && isset($exif['DateTimeOriginal'])) {
                         $taken_date = date("Y-m-d H:i:s", strtotime($exif['DateTimeOriginal']));
-                            if($taken_date){
-                                $exif_date_only = date("Y-m-d", strtotime($taken_date)); 
-                                $exif_time_only = date("H:i:s", strtotime($taken_date)); 
-                            }
-                            else{
-                                $exif_date_only = null;
-                                $exif_time_only = null;
-                            }
+                        if ($taken_date) {
+                            $exif_date_only = date("Y-m-d", strtotime($taken_date));
+                            $exif_time_only = date("H:i:s", strtotime($taken_date));
+                        } else {
+                            $exif_date_only = null;
+                            $exif_time_only = null;
+                        }
                     } else {
-                        $taken_date = null; 
+                        $taken_date = null;
                     }
                 }
             } else {
@@ -119,6 +141,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['type']) && $_POST['ty
                 exit;
             }
         }
+
+        if (empty($image_path)) {
+            $fetch['message'] = "Image is required to submit TADI.";
+            echo json_encode($fetch);
+            exit;
+        }
+
 
         // Insert
         $stmt = $dbConn->prepare("INSERT INTO schooltadi 
@@ -185,6 +214,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['type']) && $_POST['ty
     }
 }
 
- 
-echo json_encode($fetch);
 
+echo json_encode($fetch);
