@@ -15,7 +15,7 @@
             form.querySelectorAll(".is-invalid").forEach(el => el.classList.remove("is-invalid"));
 
             let isValid = true;
-            const requiredFields = ["instructor", "learning_delivery_modalities", "session_type", "classStartDateTime", "classEndDateTime", "comments"];
+            const requiredFields = ["instructor", "learning_delivery_modalities", "session_type", "classStartDateTime", "classEndDateTime", "attach", "comments"];
 
             requiredFields.forEach(field => {
                 const input = document.getElementById(field);
@@ -50,41 +50,39 @@
             }
 
             if (isValid) {
-                const formData = new FormData(form);
-                formData.append("type", "SUBMIT_TADI");
+                const confirmed = confirm("Are you sure you want to submit this TADI?");
+                if (confirmed) {
+                    const formData = new FormData(form);
+                    formData.append("type", "SUBMIT_TADI");
 
-                fetch("tadi/student/controller/index-post.php", {
-                    method: "POST",
-                    body: formData
-                })
- 
-                .then(res => res.json())
-                .then(result => {
-                    if (result.success) {
-                        const modal = bootstrap.Modal.getInstance(document.getElementById("modal"));
-                        modal.hide();
-                        form.reset();
-                        document.getElementById("error_alert").classList.add("d-none");
+                    fetch("tadi/student/controller/index-post.php", {
+                        method: "POST",
+                        body: formData
+                    })
+                    .then(res => res.json())
+                    .then(result => {
+                        if (result.success) {
+                            const modal = bootstrap.Modal.getInstance(document.getElementById("modal"));
+                            modal.hide();
+                            form.reset();
+                            document.getElementById("error_alert").classList.add("d-none");
 
-                        const toast = new bootstrap.Toast(document.getElementById("successToast"));
-                        document.getElementById("toastMessage").textContent = result.message;
-                        toast.show();
+                            const toast = new bootstrap.Toast(document.getElementById("successToast"));
+                            document.getElementById("toastMessage").textContent = result.message;
+                            toast.show();
 
-                        if (result.count <= 3 && result.count > 0) {
-                            if (confirm(`Would you like to submit another TADI? (${result.count}/3 submitted today)`)) {
-                                form.reset();
-                            }
+                            GET_SUBJECTLIST();
+                        } else {
+                            document.getElementById("errorAlertMessage").textContent = result.message;
+                            document.getElementById("error_alert").classList.remove("d-none");
                         }
-                    } else {
-                        document.getElementById("errorAlertMessage").textContent = result.message;
-                        document.getElementById("error_alert").classList.remove("d-none");
-                    }
-                    
-                })
-                .catch(error => {
-                    console.error("Submission error:", error);
-                    alert("Error submitting TADI: " + error);
-                });
+                    })
+                    .catch(error => {
+                        console.error("Submission error:", error);
+                        alert("Error submitting TADI: " + error);
+                    });
+                }
             }
+
         }
     });
