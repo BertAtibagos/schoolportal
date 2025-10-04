@@ -1,3 +1,13 @@
+const spinner = `<tr class="loading-spinner hide">
+                                    <td colspan="4">
+                                        <div class="text-center">
+                                            <div class="spinner-border " role="status">
+                                                <span class="sr-only">Loading...</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>`;
+
 function GET_SCHOOLYEAR() {
 
     const formData = new FormData();
@@ -93,12 +103,13 @@ function GET_ACADEMICLEVEL() {
     })
     .catch(err => console.error("Academic Level Fetch Error:", err));
 }
-const loadingModal = new bootstrap.Modal(document.getElementById('loadingModal'));
 function GET_SUBJECTLIST() {
     const formData = new FormData();
     formData.append('type','GET_SUBJECT_LIST');
 
-    loadingModal.show();
+    const tbody = document.querySelector('.faculty-list');
+    tbody.innerHTML = spinner;
+    
     fetch("tadi/student/controller/index-info.php", {
         method: "POST",
         body: formData
@@ -111,9 +122,6 @@ function GET_SUBJECTLIST() {
         alert("Failed to load subject list. Please try again.");
         console.error("Subject List Error:", err);
     })
-    .finally(()=>{
-        loadingModal.hide();
-    });
 }
 
 function displaySubjectTable(result) {

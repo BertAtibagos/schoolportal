@@ -91,11 +91,11 @@
     }
 </style>
 <section id="student_tadi_section">
-    <div class="modal fade" id="loadingModal" tabindex="-1" aria-hidden="true">
+    <!-- <div class="modal fade" id="loadingModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content text-center p-4">
                 <div class="modal-body">
-                    <!-- Bootstrap spinner -->
+                    Bootstrap spinner 
                     <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
                         <span class="visually-hidden">Loading...</span>
                     </div>
@@ -103,7 +103,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <div class="container-fluid mt-4" style="margin:1rem">
         <div class="mt-4" >
@@ -226,7 +226,9 @@
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn submitTadi" id="confirmBtn"
-                        style="background-color: #181a46; color: white;">Submit</button>
+                        style="background-color: #181a46; color: white;">
+                        <span class="submit-label">Submit</span>
+                    </button>
                 </div>
             </div>
         </div>
