@@ -1,3 +1,13 @@
+const spinner = `<tr class="loading-spinner hide">
+                            <td colspan="4">
+                                <div class="text-center">
+                                    <div class="spinner-border " role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                </div>
+                            </td>
+                          </tr>`;
+
 function GETACADEMICLEVEL() {
 
   const formData = new FormData();
@@ -41,6 +51,9 @@ function GET_SUBJECT_BY_INSTRUCTOR(value) {
   formData.append('prd_id',prdid);
   formData.append('yr_id',yrid);
   formData.append('yrlvl_id',yrlvlid);
+
+   const tbodySpinner = document.getElementById('subj_list');
+    tbodySpinner.innerHTML = spinner;
 
   fetch(`tadi/dean/controller/index-info.php`,{
     method: "POST",
@@ -205,6 +218,9 @@ function GETALL_TADI_RECORDS(prof_id, subj_id) {
   formData.append('type','GETALL_TADI_RECORDS');
   formData.append('prof_id',prof_id);
   formData.append('subj_off_id',subj_id);
+
+  const tbodySpinner = document.getElementById('prof_tadi_list_table');
+  tbodySpinner.innerHTML = spinner;
 
   fetch(`tadi/dean/controller/index-info.php`,{
     method: "POST",
@@ -408,6 +424,9 @@ document.getElementById("deanDate_srch").addEventListener("click", function () {
   formData.append('strtDateSearch',strtDateSearch);
   formData.append('endDateSearch',endDateSearch);
   formData.append('tadiStatus',tadiStatus);
+
+  const tbodySpinner = document.getElementById('prof_tadi_list_table');
+  tbodySpinner.innerHTML = spinner;
 
   fetch(`tadi/dean/controller/index-info.php`,{
     method: "POST",

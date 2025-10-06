@@ -1,3 +1,13 @@
+const spinner = `<tr class="loading-spinner hide">
+                                    <td colspan="4">
+                                        <div class="text-center">
+                                            <div class="spinner-border " role="status">
+                                                <span class="sr-only">Loading...</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>`;
+
 function GET_ACADEMICLEVEL() {
   fetch("tadi/prof/controller/index-info.php", {
     method: "POST",
@@ -321,14 +331,15 @@ function DISPLAY_TADI_LOG(subj_off_id) {
   formData.append('endDateSearch', endDateSearch);
   formData.append('subj_off_id', subj_off_id);
 
+  const tbody = document.getElementById('rcrd_tbl_body');
+  tbody.innerHTML = spinner;
+
   fetch('tadi/prof/controller/index-info.php', {
     method: 'POST',
     body: formData
   })
     .then(response => response.json())
     .then(data => {
-
-      const tbody = document.getElementById('rcrd_tbl_body');
       tbody.innerHTML = data.length ? "" : "<tr><td colspan='6' class='text-center'>No records found</td></tr>";
 
       data.forEach(record => {
@@ -376,13 +387,16 @@ function DISPLAYALL_TADI_RECORDS(subj_off_id) {
   formData.append('type', 'GETALL_TADI_RECORD');
   formData.append('subj_off_id', subj_off_id);
 
+  let tbody = document.getElementById('rcrd_tbl_body');
+  tbody.innerHTML = spinner;
+
   fetch('tadi/prof/controller/index-info.php', {
     method: 'POST',
     body: formData
   })
   .then(response => response.json())
   .then(data => {
-    let tbody = document.getElementById('rcrd_tbl_body');
+    
     tbody.innerHTML = data.length ? "" : "<tr><td colspan='6' class='text-center'>No records found</td></tr>";
 
     for (let record of data) {

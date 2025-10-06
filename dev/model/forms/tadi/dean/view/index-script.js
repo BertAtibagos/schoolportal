@@ -130,6 +130,17 @@ document.getElementById("search_button").addEventListener("click", function () {
     formData1.append('yr_id', yrid);
     formData1.append('yrlvl_id', yrlvlid);
 
+    const tbodySpinner = document.getElementById('instructor');
+    tbodySpinner.innerHTML =`<tr class="loading-spinner hide">
+                                    <td colspan="4">
+                                        <div class="text-center">
+                                            <div class="spinner-border " role="status">
+                                                <span class="sr-only">Loading...</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>`;
+
     fetch(`tadi/dean/controller/index-info.php`, {
         method: "POST",
         body: formData1

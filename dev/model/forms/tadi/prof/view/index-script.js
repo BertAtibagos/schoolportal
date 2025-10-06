@@ -19,15 +19,26 @@ document.getElementById("searchButton").addEventListener("click", function () {
     formData.append('yr_id', yrid);
     formData.append('search', searchQuery);
 
+    const tbodySpinner = document.querySelector('.prof_dashboard_table');
+    tbodySpinner.innerHTML =`<tr class="loading-spinner hide">
+                                    <td colspan="4">
+                                        <div class="text-center">
+                                            <div class="spinner-border " role="status">
+                                                <span class="sr-only">Loading...</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>`;
+
     fetch('tadi/prof/controller/index-info.php', {
         method: 'POST',
         body: formData
     })
-        .then(response => response.json())
-        .then((result) => {
-            DISPLAY_PROFESSOR_SUBJECT(result);
-        })
-        .catch((err) => console.error("Fetch error:", err));
+    .then(response => response.json())
+    .then((result) => {
+        DISPLAY_PROFESSOR_SUBJECT(result);
+    })
+    .catch((err) => console.error("Fetch error:", err));
 });
 
 document.getElementById("subjectSearch").addEventListener("keypress", function (e) {
@@ -46,7 +57,7 @@ document.getElementById('date_srch').addEventListener("click", () => {
 
 
 // document.addEventListener('DOMContentLoaded', () => {
-    UPDATE_TADI_STATUS();
+UPDATE_TADI_STATUS();
 // });
 
 const BASE_BACKDROP = 1050;
