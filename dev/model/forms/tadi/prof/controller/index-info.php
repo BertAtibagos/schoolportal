@@ -27,7 +27,14 @@
                     `schl_acad_subj`.`SchlAcadSubj_desc` AS `subj_desc`,
                     `schl_enr_subj_off`.`SchlProf_ID` AS `prof_id`,
                     `schl_enr_subj_off`.`SchlEnrollSubjOff_ISACTIVE` AS `subj_act`,
-                        schl_enr_subj_off.`SchlEnrollSubjOffSms_ID` AS sub_off_id
+                    schl_enr_subj_off.`SchlEnrollSubjOffSms_ID` AS sub_off_id,
+                    (
+                        SELECT COUNT(*) 
+                        FROM `schooltadi` AS t
+                        WHERE t.`schltadi_status` = 0
+                        AND t.`schlprof_id` = `schl_enr_subj_off`.`SchlProf_ID`
+                        AND t.`schlenrollsubjoff_id` = `schl_enr_subj_off`.`SchlEnrollSubjOffSms_ID`
+                    ) AS unverified_count
                 FROM
                     `schoolenrollmentsubjectoffered` AS `schl_enr_subj_off`
                 LEFT JOIN
@@ -53,6 +60,7 @@
                 AND `schl_acad_yr_prd`.`SchlAcadYr_ID` = ?
                 AND `schl_enr_subj_off`.`SchlAcadPrd_ID` = ?
                 AND `schl_enr_subj_off`.`SchlProf_ID` = ?
+                AND schl_enr_subj_off.`SchlAcadYrLvl_ID`= ?
                 AND `schl_enr_subj_off`.`SchlEnrollSubjOff_ISACTIVE` = 1 
                 AND `schl_acad_subj`.`SchlAcadSubj_CODE` LIKE ? ";
 
@@ -61,7 +69,7 @@
         if ($stmt) {
             
             $searchTerm = "%" . $search . "%";
-            $stmt->bind_param("iiiis", $lvlid, $yrid, $prdid, $USERID, $searchTerm);
+            $stmt->bind_param("iiiiis", $lvlid, $yrid, $prdid, $USERID, $yrlvlid, $searchTerm);
 
             $stmt->execute();
             $result = $stmt->get_result();
