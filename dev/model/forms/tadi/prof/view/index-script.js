@@ -60,17 +60,16 @@ document.getElementById('date_srch').addEventListener("click", () => {
 UPDATE_TADI_STATUS();
 // });
 
-const BASE_BACKDROP = 1050;
-const BASE_MODAL = 1055;
+
 
 document.addEventListener("show.bs.modal", function (e) {
     const openModals = document.querySelectorAll(".modal.show").length;
 
     const backdrops = document.querySelectorAll(".modal-backdrop");
     if (backdrops.length) {
-        backdrops[backdrops.length - 1].style.zIndex = BASE_BACKDROP + (openModals * 20);
+        backdrops[backdrops.length - 1].style.zIndex = 1050 + (openModals * 20);
     }
-    e.target.style.zIndex = BASE_MODAL + (openModals * 20);
+    e.target.style.zIndex = 1055 + (openModals * 20);
 });
 
 document.addEventListener("hidden.bs.modal", function (e) {
@@ -78,7 +77,7 @@ document.addEventListener("hidden.bs.modal", function (e) {
     const backdrops = document.querySelectorAll(".modal-backdrop");
 
     if (openModals.length > 0) {
-        backdrops[backdrops.length - 1].style.zIndex = BASE_BACKDROP + ((openModals.length - 1) * 20);
+        backdrops[backdrops.length - 1].style.zIndex = 1050 + ((openModals.length - 1) * 20);
         const topModal = openModals[openModals.length - 1];
         topModal.focus();
     } else {
