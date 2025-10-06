@@ -92,7 +92,27 @@ if($_POST['type'] == 'UPLOAD_IMAGE_PROF'){
         $fetch['message'] = "Update failed: " . $stmt->error;
     }
 
+    
+
     $stmt->close();
     echo json_encode($fetch);
+
+}
+if($_POST['type'] == 'GET_UNVERIFIED_COUNT'){
+        $subj_off = $_POST['sub_off_id'];
+        
+        $qry = "SELECT COUNT(`schltadi_id`) AS unverified_count
+                FROM `schooltadi` 
+                WHERE `schltadi_status` = 0 
+                AND`schlenrollsubjoff_id` = ?";
+
+        $stmt = $dbConn->prepare($qry);
+        $stmt->bind_param("i", $subj_off);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $fetch = $result->fetch_assoc();
+        $stmt->close();
+        $dbConn->close();
+        echo json_encode($fetch);
 }
 ?>
