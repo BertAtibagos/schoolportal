@@ -345,7 +345,7 @@
                     WHERE `schlprof_id` = ?
                     AND  `schlenrollsubjoff_id`= ?
                     AND `schl_tadi`.`schltadi_date` BETWEEN ? AND ?
-                    ORDER BY schl_tadi.`schltadi_date` DESC, ";
+                    ORDER BY schl_tadi.`schltadi_date` DESC";
 
         $stmt = $dbConn->prepare($qry);
         $stmt->bind_param("iiss", $USERID, $subj_off_id, $strtDateSearch, $endDateSearch);
