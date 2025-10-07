@@ -147,13 +147,15 @@ document.getElementById("search_button").addEventListener("click", function () {
     })
         .then(res => res.json())
         .then(result => {
-
             const tableRows = result.length
                 ? result.map((item, index) => `
                     <tr class="inst_name" key="${item.subj_id}">
                         <td>${item.prof_name ? item.prof_name : "No instructor"}</td>
                         <td class="col-2 text-center">
-                            <button class="btn btn-sm justify-content-md-center w-75 button-bg-change" ${item.prof_name ? "" : "disabled"} id="instructorModalHandler${index}" data-bs-toggle="modal" data-bs-target="#Instructor_Subject_List">SECTION LIST</button>
+                            <button class="btn btn-sm justify-content-md-center w-75 button-bg-change position-relative" ${item.prof_name ? "" : "disabled"} id="instructorModalHandler${index}" data-bs-toggle="modal" data-bs-target="#Instructor_Subject_List">
+                            SECTION LIST
+                            ${item.unverified_count > 0 ? `<span class="position-absolute top-0 start-100 translate-middle  p-2 bg-danger border border-light rounded-circle">${item.unverified_count}</span>` : ''}
+                            </button>
                         </td>
                     </tr>
                 `).join("")
