@@ -151,17 +151,27 @@ if ($type == 'GET_INSTRUCTOR_LIST') {
 	$yrlvlid = $_POST['yrlvl_id'];
 
 	$qry = "SELECT DISTINCT 
-				`schl_enr_subj_off`.`SchlProf_ID`,
-				CONCAT(
-					emp.SchlEmp_LNAME,
-					', ',
-					emp.SchlEmp_FNAME,
-					' ',
-					emp.SchlEmp_MNAME
-				) AS prof_name 
-
-			FROM `schoolenrollmentsubjectoffered` `schl_enr_subj_off` 
-
+			`schl_enr_subj_off`.`SchlProf_ID`,
+			CONCAT(
+				emp.SchlEmp_LNAME,
+				', ',
+				emp.SchlEmp_FNAME,
+				' ',
+				emp.SchlEmp_MNAME
+			) AS prof_name,
+			(SELECT 
+				COUNT(*) 
+			FROM
+				schooltadi st 
+				INNER JOIN schoolenrollmentsubjectoffered seso 
+				ON st.schlenrollsubjoff_id = seso.SchlEnrollSubjOffSms_ID 
+			WHERE st.SchlProf_ID = `schl_enr_subj_off`.`SchlProf_ID` 
+				AND st.schltadi_status = 0 
+				AND seso.SchlAcadLvl_ID = ?
+				AND seso.SchlAcadYr_ID = ?
+				AND seso.SchlAcadPrd_ID = ? ) AS unverified_count 
+			FROM
+			`schoolenrollmentsubjectoffered` `schl_enr_subj_off` 
 			LEFT JOIN `schoolacademiccourses` `schl_acad_crses` 
 				ON `schl_enr_subj_off`.`SchlAcadCrses_ID` = `schl_acad_crses`.`SchlAcadCrseSms_ID` 
 			LEFT JOIN `schooldepartment` `schl_dept` 
@@ -171,18 +181,18 @@ if ($type == 'GET_INSTRUCTOR_LIST') {
 			WHERE `schl_enr_subj_off`.`SchlAcadLvl_ID` = ?
 			AND `schl_enr_subj_off`.`SchlAcadYr_ID` = ?
 			AND `schl_enr_subj_off`.`SchlAcadPrd_ID` = ?
-			AND `schl_enr_subj_off`.`SchlAcadYrLvl_ID` = ?
-			AND (SELECT 
-				`SchlDept_ID` 
-			FROM
-				`schoolemployee` 
-			WHERE `SchlEmpSms_ID` = ?) = `schl_dept`.`SchlDeptSms_ID`
-				AND `schl_enr_subj_off`.`SchlEnrollSubjOff_ISACTIVE` = 1 
-				AND emp.`SchlEmp_ID` IS NOT NULL 
+			AND `schl_enr_subj_off`.`SchlAcadYrLvl_ID` = ? 
+			AND `schl_dept`.`SchlDeptHead_ID` = ?
+			AND `schl_enr_subj_off`.`SchlEnrollSubjOff_ISACTIVE` = 1 
+			AND emp.`SchlEmp_ID` IS NOT NULL 
+			GROUP BY `schl_enr_subj_off`.`SchlProf_ID`,
+			emp.SchlEmp_LNAME,
+			emp.SchlEmp_FNAME,
+			emp.SchlEmp_MNAME 
 			ORDER BY prof_name ASC ";
 
 	$stmt = $dbConn->prepare($qry);
-	$stmt->bind_param("iiiii", $lvlid, $yrid, $prdid, $yrlvlid, $user);
+	$stmt->bind_param("iiiiiiii", $lvlid, $yrid, $prdid, $lvlid, $yrid, $prdid, $yrlvlid, $user);
 	$stmt->execute();
 	$result = $stmt->get_result();
 	$fetch = $result->fetch_all(MYSQLI_ASSOC);
