@@ -412,6 +412,7 @@ if($type == 'SEARCH_SUBJECT_BY_INSTRUCTOR'){
 	$subjDesc = $_POST['subjDesc'];
 	$subjCode = $_POST['subjCode'];
 	$section = $_POST['section'];
+	$user = $_SESSION['USERID'];
 
 	$qry = "SELECT DISTINCT 
 				CONCAT(emp.SchlEmp_LNAME,',',emp.SchlEmp_FNAME,' ',emp.SchlEmp_MNAME) AS prof_name,
@@ -451,6 +452,8 @@ if($type == 'SEARCH_SUBJECT_BY_INSTRUCTOR'){
 			AND
 				`schl_enr_subj_off`.`SchlAcadPrd_ID` = ?
 			AND
+			 	schl_dept.`SchlDeptHead_ID` = ?
+			AND
 				`schl_enr_subj_off`.`SchlAcadYrLvl_ID` = ?
 			AND `schl_acad_subj`.`SchlAcadSubj_CODE` LIKE ?
 			AND `schl_acad_subj`.`SchlAcadSubj_desc` LIKE ?
@@ -465,7 +468,7 @@ if($type == 'SEARCH_SUBJECT_BY_INSTRUCTOR'){
 		$srchSubDesc = "%" . $subjDesc . "%";
 		$srchSection = "%" . $section . "%";
 
-        $stmt->bind_param("iiiiisss",$prof_id, $lvlid, $yrid, $prdid, $yrlvlid, $srchSubCode, $srchSubDesc, $srchSection);
+        $stmt->bind_param("iiiiiisss",$prof_id, $lvlid, $yrid, $prdid, $user, $yrlvlid, $srchSubCode, $srchSubDesc, $srchSection);
 		$stmt->execute();
 		$result = $stmt->get_result();
 		$fetch = $result->fetch_all(MYSQLI_ASSOC);
