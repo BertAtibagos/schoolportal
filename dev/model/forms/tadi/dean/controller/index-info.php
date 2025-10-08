@@ -163,13 +163,19 @@ if ($type == 'GET_INSTRUCTOR_LIST') {
 				COUNT(*) 
 			FROM
 				schooltadi st 
-				INNER JOIN schoolenrollmentsubjectoffered seso 
-				ON st.schlenrollsubjoff_id = seso.SchlEnrollSubjOffSms_ID 
+			INNER JOIN schoolenrollmentsubjectoffered seso 
+				ON st.schlenrollsubjoff_id = seso.SchlEnrollSubjOffSms_ID
+			LEFT JOIN `schoolacademiccourses` `schl_acad_crses` 
+				ON `seso`.`SchlAcadCrses_ID` = `schl_acad_crses`.`SchlAcadCrseSms_ID`
+			LEFT JOIN `schooldepartment` `schl_dept` 
+				ON `schl_acad_crses`.`SchlDept_ID` = `schl_dept`.`SchlDeptSms_ID` 
 			WHERE st.SchlProf_ID = `schl_enr_subj_off`.`SchlProf_ID` 
 				AND st.schltadi_status = 0 
 				AND seso.SchlAcadLvl_ID = ?
 				AND seso.SchlAcadYr_ID = ?
-				AND seso.SchlAcadPrd_ID = ? ) AS unverified_count 
+				AND seso.SchlAcadPrd_ID = ? 
+				AND `seso`.`SchlAcadYrLvl_ID` = ?
+    			AND `schl_dept`.`SchlDeptHead_ID` = ?) AS unverified_count 
 			FROM
 			`schoolenrollmentsubjectoffered` `schl_enr_subj_off` 
 			LEFT JOIN `schoolacademiccourses` `schl_acad_crses` 
@@ -192,7 +198,7 @@ if ($type == 'GET_INSTRUCTOR_LIST') {
 			ORDER BY prof_name ASC ";
 
 	$stmt = $dbConn->prepare($qry);
-	$stmt->bind_param("iiiiiiii", $lvlid, $yrid, $prdid, $lvlid, $yrid, $prdid, $yrlvlid, $user);
+	$stmt->bind_param("iiiiiiiiii", $lvlid, $yrid, $prdid, $yrlvlid, $user, $lvlid, $yrid, $prdid, $yrlvlid, $user);
 	$stmt->execute();
 	$result = $stmt->get_result();
 	$fetch = $result->fetch_all(MYSQLI_ASSOC);
@@ -207,6 +213,7 @@ if ($type == 'GET_SECTION_LIST') {
 	$prdid = $_POST['prdid'];
 	$yrid = $_POST['yrid'];
 	$yrlvlid = $_POST['yrlvlid'];
+	$user = $_SESSION['USERID'];
 
     $qry = "SELECT DISTINCT
 				`schl_enr_subj_off`.`SchlProf_ID` AS `prof_id`,
@@ -234,10 +241,11 @@ if ($type == 'GET_SECTION_LIST') {
 			AND `schl_enr_subj_off`.`SchlAcadLvl_ID` = ?
 			AND `schl_enr_subj_off`.`SchlAcadPrd_ID` = ?
 			AND `schl_enr_subj_off`.`SchlAcadYr_ID` = ?
-			AND `schl_enr_subj_off`.`SchlAcadYrLvl_ID` = ?";
+			AND `schl_enr_subj_off`.`SchlAcadYrLvl_ID` = ?
+			AND schl_dept.`SchlDeptHead_ID` = ?";
 
 	$stmt = $dbConn->prepare($qry);
-	$stmt->bind_param("iiiii",$profId ,$lvlid, $prdid, $yrid, $yrlvlid);
+	$stmt->bind_param("iiiiii",$profId ,$lvlid, $prdid, $yrid, $yrlvlid, $user);
 	$stmt->execute();
 	$result = $stmt->get_result();
 	$fetch = $result->fetch_all(MYSQLI_ASSOC);
@@ -339,6 +347,7 @@ if ($type == 'GET_SUBJECT_BY_INSTRUCTOR') {
 	$prdid = $_POST['prd_id'];
 	$yrid = $_POST['yr_id'];
 	$yrlvlid = $_POST['yrlvl_id'];
+	$user = $_SESSION['USERID'];
 
 	$qry = "SELECT DISTINCT
 				CONCAT(emp.SchlEmp_LNAME, ',', emp.SchlEmp_FNAME, ' ', emp.SchlEmp_MNAME) AS prof_name,
@@ -352,7 +361,14 @@ if ($type == 'GET_SUBJECT_BY_INSTRUCTOR') {
 				`schl_enr_subj_off`.`SchlAcadYr_ID`AS yrid,
 				`schl_enr_subj_off`.`SchlAcadPrd_ID` AS prdid,
 				`schl_enr_subj_off`.`SchlAcadYrLvl_ID` AS yrlvlid,
-				`schl_enr_subj_off`.`SchlEnrollSubjOff_ISACTIVE` AS `subj_act`
+				`schl_enr_subj_off`.`SchlEnrollSubjOff_ISACTIVE` AS `subj_act`,
+				(
+					SELECT COUNT(*) 
+					FROM `schooltadi` AS t
+					WHERE t.`schltadi_status` = 0
+					AND t.`schlprof_id` = `schl_enr_subj_off`.`SchlProf_ID`
+					AND t.`schlenrollsubjoff_id` = `schl_enr_subj_off`.`SchlEnrollSubjOffSms_ID`
+				) AS unverified_count
 			FROM`schoolenrollmentsubjectoffered` AS `schl_enr_subj_off`
 
 			LEFT JOIN `schoolacademicsubject` AS `schl_acad_subj`
@@ -374,10 +390,11 @@ if ($type == 'GET_SUBJECT_BY_INSTRUCTOR') {
 			AND`schl_enr_subj_off`.`SchlAcadLvl_ID` = ?
 			AND `schl_enr_subj_off`.`SchlAcadYr_ID` = ?
 			AND `schl_enr_subj_off`.`SchlAcadPrd_ID` = ?
-			AND `schl_enr_subj_off`.`SchlAcadYrLvl_ID` = ?";
+			AND `schl_enr_subj_off`.`SchlAcadYrLvl_ID` = ?
+			AND schl_dept.`SchlDeptHead_ID` = ?";
 
 	$stmt = $dbConn->prepare($qry);
-	$stmt->bind_param("iiiii",$profId, $lvlid, $yrid, $prdid, $yrlvlid);
+	$stmt->bind_param("iiiiii",$profId, $lvlid, $yrid, $prdid, $yrlvlid, $user);
 	$stmt->execute();
 	$result = $stmt->get_result();
 	$fetch = $result->fetch_all(MYSQLI_ASSOC);
