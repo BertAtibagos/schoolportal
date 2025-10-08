@@ -1,4 +1,6 @@
-
+<?php
+ var_dump($_SESSION);
+?>
 
 <link rel="stylesheet" href="tadi/dean/css_tadi.css">
 <style>
@@ -116,13 +118,13 @@
                     </select>
                 </div>
                 <!-- Type Dropdown -->
-                <div class="col-md">
+                <!-- <div class="col-md">
                     <select class="form-select border border-dark select-shadow" style="background-color:#EEEEF6;" id="type" name="type">
                         <option value="" disabled selected>Select Type</option>
                         <option value="instructor">Instructor</option>
                         <option value="subject">Subject</option>
                     </select>
-                </div>
+                </div> -->
                 <!-- Search Input for Subject -->
                 <div class="col-md box box-one" style="display:none;">
                     <input type="text" class="form-control border border-dark" id="searchInput" placeholder="Search Subject">
