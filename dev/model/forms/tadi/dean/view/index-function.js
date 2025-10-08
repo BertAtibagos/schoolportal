@@ -369,13 +369,15 @@ function displaySubjList(result) {
                 <td class="col">${item.subj_code}</td>
                 <td class="col">${item.subj_desc}</td>
                 <td class="col">
-                  <button class="btn btn-sm w-100 button-bg-change vw_tadi instructor_Tadi_List" id="tadiModalSubjList${index}" 
+                  <button class="btn btn-sm w-100 button-bg-change position-relative vw_tadi instructor_Tadi_List" id="tadiModalSubjList${index}" 
                   data-bs-target="#Instructor_Tadi_List" 
                   data-bs-toggle="modal"
                   data-suboff-id="${item.sub_off_id}"
                   data-prof-id="${item.SchlProf_ID}"
                   data-sub-desc="${item.subj_desc}"
-                  data-sub-sect="${item.schl_sec || 'No Section'}">VIEW TADI</button>
+                  data-sub-sect="${item.schl_sec || 'No Section'}">VIEW TADI
+                   ${item.unverified_count > 0 ? `<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">${item.unverified_count}</span>` : ''}
+                  </button>
                 </td>
               </tr>`;
     })

@@ -154,7 +154,7 @@ document.getElementById("search_button").addEventListener("click", function () {
                         <td class="col-2 text-center">
                             <button class="btn btn-sm justify-content-md-center w-75 button-bg-change position-relative" ${item.prof_name ? "" : "disabled"} id="instructorModalHandler${index}" data-bs-toggle="modal" data-bs-target="#Instructor_Subject_List">
                             SECTION LIST
-                            ${item.unverified_count > 0 ? `<span class="position-absolute top-0 start-100 translate-middle  p-2 bg-danger border border-light rounded-circle">${item.unverified_count}</span>` : ''}
+                            ${item.unverified_count > 0 ? `<span class="position-absolute top-0 start-100 translate-middle  p-2 bg-danger border border-light rounded-circle"></span>` : ''}
                             </button>
                         </td>
                     </tr>
