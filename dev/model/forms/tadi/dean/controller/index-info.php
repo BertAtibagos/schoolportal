@@ -87,60 +87,60 @@ if ($type == 'GET_ACAD_YEAR') {
 	$dbConn->close();
 }
 
-if ($type == 'GET_DEPARTMENTAL_SUBJECT') {
+// if ($type == 'GET_DEPARTMENTAL_SUBJECT') {
 
-	$user = $_SESSION['USERID'];
-	$lvlid = $_POST['lvl_id'];
-	$prdid = $_POST['prd_id'];
-	$yrid = $_POST['yr_id'];
-	$yrlvlid = $_POST['yrlvl_id'];
+// 	$user = $_SESSION['USERID'];
+// 	$lvlid = $_POST['lvl_id'];
+// 	$prdid = $_POST['prd_id'];
+// 	$yrid = $_POST['yr_id'];
+// 	$yrlvlid = $_POST['yrlvl_id'];
 
-	$qry = "SELECT  DISTINCT 				
-				`schl_acad_subj`.`SchlAcadSubj_desc` AS `subj_desc`,
-				`schl_acad_subj`.`SchlAcadSubj_CODE` AS `subj_code`,
-				`schl_acad_subj`.`SchlAcadSubj_ID` AS `subj_id`,
-				`schl_enr_subj_off`.`SchlAcadLvl_ID` AS `lvlid`,
-				`schl_enr_subj_off`.`SchlAcadYr_ID` AS `yrid`,
-				`schl_enr_subj_off`.`SchlAcadPrd_ID` AS `prdid`,
-				`schl_enr_subj_off`.`SchlAcadYrLvl_ID` AS `yrlvlid`
-			FROM `schoolenrollmentsubjectoffered` AS `schl_enr_subj_off`
+// 	$qry = "SELECT  DISTINCT 				
+// 				`schl_acad_subj`.`SchlAcadSubj_desc` AS `subj_desc`,
+// 				`schl_acad_subj`.`SchlAcadSubj_CODE` AS `subj_code`,
+// 				`schl_acad_subj`.`SchlAcadSubj_ID` AS `subj_id`,
+// 				`schl_enr_subj_off`.`SchlAcadLvl_ID` AS `lvlid`,
+// 				`schl_enr_subj_off`.`SchlAcadYr_ID` AS `yrid`,
+// 				`schl_enr_subj_off`.`SchlAcadPrd_ID` AS `prdid`,
+// 				`schl_enr_subj_off`.`SchlAcadYrLvl_ID` AS `yrlvlid`
+// 			FROM `schoolenrollmentsubjectoffered` AS `schl_enr_subj_off`
 
-			LEFT JOIN `schoolacademicsubject` `schl_acad_subj`
-			ON `schl_enr_subj_off`.`SchlAcadSubj_ID` = `schl_acad_subj`.`SchlAcadSubjSms_ID`
+// 			LEFT JOIN `schoolacademicsubject` `schl_acad_subj`
+// 			ON `schl_enr_subj_off`.`SchlAcadSubj_ID` = `schl_acad_subj`.`SchlAcadSubjSms_ID`
 
-			LEFT JOIN `schoolacademiccourses` `schl_acad_crses`
-			ON `schl_enr_subj_off`.`SchlAcadCrses_ID` = `schl_acad_crses`.`SchlAcadCrseSms_ID`
+// 			LEFT JOIN `schoolacademiccourses` `schl_acad_crses`
+// 			ON `schl_enr_subj_off`.`SchlAcadCrses_ID` = `schl_acad_crses`.`SchlAcadCrseSms_ID`
 
-			LEFT JOIN `schooldepartment` `schl_dept`
-			ON `schl_acad_crses`.`SchlDept_ID` = `schl_dept`.`SchlDeptSms_ID`
+// 			LEFT JOIN `schooldepartment` `schl_dept`
+// 			ON `schl_acad_crses`.`SchlDept_ID` = `schl_dept`.`SchlDeptSms_ID`
 
-			LEFT JOIN`schoolacademicsection` AS `schl_acad_sec`
-			ON `schl_enr_subj_off`.`SchlAcadSec_ID` = `schl_acad_sec`.`SchlAcadSecSms_ID`
+// 			LEFT JOIN`schoolacademicsection` AS `schl_acad_sec`
+// 			ON `schl_enr_subj_off`.`SchlAcadSec_ID` = `schl_acad_sec`.`SchlAcadSecSms_ID`
 
-			LEFT JOIN schoolemployee AS emp
-			ON `schl_enr_subj_off`. `SchlProf_ID`= emp.`SchlEmpSms_ID`
-			WHERE
+// 			LEFT JOIN schoolemployee AS emp
+// 			ON `schl_enr_subj_off`. `SchlProf_ID`= emp.`SchlEmpSms_ID`
+// 			WHERE
 
-			`schl_enr_subj_off`.`SchlAcadLvl_ID` = ?  
-			AND `schl_enr_subj_off`.`SchlAcadYr_ID`  = ?
-			AND  `schl_enr_subj_off`.`SchlAcadPrd_ID` = ?  
-			AND `schl_enr_subj_off`.`SchlAcadYrLvl_ID` = ?
-			AND 
-				(	SELECT `SchlDept_ID` 
-					FROM `schoolemployee` 
-					WHERE `SchlEmpSms_ID` = ?
-				) = `schl_dept`.`SchlDeptSms_ID`
-			AND schl_acad_subj.`SchlAcadSubj_DESC` IS NOT NULL
-			AND `schl_enr_subj_off`.`SchlEnrollSubjOff_ISACTIVE` = 1";
+// 			`schl_enr_subj_off`.`SchlAcadLvl_ID` = ?  
+// 			AND `schl_enr_subj_off`.`SchlAcadYr_ID`  = ?
+// 			AND  `schl_enr_subj_off`.`SchlAcadPrd_ID` = ?  
+// 			AND `schl_enr_subj_off`.`SchlAcadYrLvl_ID` = ?
+// 			AND 
+// 				(	SELECT `SchlDept_ID` 
+// 					FROM `schoolemployee` 
+// 					WHERE `SchlEmpSms_ID` = ?
+// 				) = `schl_dept`.`SchlDeptSms_ID`
+// 			AND schl_acad_subj.`SchlAcadSubj_DESC` IS NOT NULL
+// 			AND `schl_enr_subj_off`.`SchlEnrollSubjOff_ISACTIVE` = 1";
 
-	$stmt = $dbConn->prepare($qry);
-	$stmt->bind_param("iiiii", $lvlid, $yrid, $prdid, $yrlvlid, $user);
-	$stmt->execute();
-	$result = $stmt->get_result();
-	$fetch = $result->fetch_all(MYSQLI_ASSOC);
-	$stmt->close();
-	$dbConn->close();
-}
+// 	$stmt = $dbConn->prepare($qry);
+// 	$stmt->bind_param("iiiii", $lvlid, $yrid, $prdid, $yrlvlid, $user);
+// 	$stmt->execute();
+// 	$result = $stmt->get_result();
+// 	$fetch = $result->fetch_all(MYSQLI_ASSOC);
+// 	$stmt->close();
+// 	$dbConn->close();
+// }
 
 if ($type == 'GET_INSTRUCTOR_LIST') {
 
