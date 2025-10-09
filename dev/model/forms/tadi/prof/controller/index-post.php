@@ -17,6 +17,12 @@ if ($_POST['type'] == 'UPDATE_TADI_STATUS') {
         exit;
     }
 
+    if (!$_SESSION['USERID']) {
+        $fetch['message'] = "Invalid session. Please log in again.";
+        echo json_encode($fetch);
+        exit;
+    }
+
     $USERID = $_SESSION['USERID'];
     $status = $_POST['tadi_status'];
     $tadi_id = $_POST['tadi_ID'];
