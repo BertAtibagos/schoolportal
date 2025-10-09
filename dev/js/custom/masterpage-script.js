@@ -184,6 +184,16 @@ $(document).ready(function()
 		}
 	});
 	
+	$("#user-tadi-dean").on('click',function() {
+	    if ($("#masterpage-menu-label").text().trim() != $(this).text().trim())
+		{
+		    FetchToSession($(this).text());
+    		$("#masterpage-menu-label").html($(this).text());
+    		$('#user-section').empty();
+    		$('#user-section').load('../../model/forms/tadi/dean/index.php');
+		}
+	});
+	
 	$("#user-log-out").on('click',function() {
 		$("#masterpage-menu-label").html($(this).text());
 		$.ajax({
@@ -257,6 +267,8 @@ $(document).ready(function()
 						$('#user-enrollment-master-list').click();
 					} else if (ret == 'TADI'){
 						$('#user-tadi').click();
+					} else if (ret == 'TADI - DEAN'){
+						$('#user-tadi-dean').click();
 					} else {
 						//$('#user-home').click();
 					}
