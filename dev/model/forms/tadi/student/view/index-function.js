@@ -292,9 +292,19 @@ function displayTadi(value) {
     document.getElementById("subject_details").textContent = `Course Code: ${value.subj_code}`;
     document.getElementById("date_now").textContent = formattedDate;
 
-    const instructor = value.prof_name
-        ? `<option value='${value.prof_id}'>${value.prof_name}</option>`
-        : "<option value='' selected disabled>No faculty assigned</option>";
+    let instructor = "";
+    
+    if (value.prof_name && value.prof_id) {
+        const profNames = value.prof_name.split(/[\/,]\s*/);
+        const profIds = value.prof_id.split(/[\/,]\s*/);
+        
+        instructor = profNames.map((name, index) => 
+            `<option value='${profIds[index]?.trim()}'>${name.trim()}</option>`
+        ).join("");
+    } else {
+        instructor = "<option value='' selected disabled>No faculty assigned</option>";
+    }
+
     document.getElementById("instructor").innerHTML = instructor;
 }
 
