@@ -361,6 +361,10 @@ if (!isset($_SESSION['USERID']))
 							<li class="nav-item" id="mnu-tadi" style="width: -webkit-fill-available;">
 								<a href="" id="user-tadi" class="main nav-link px-0 align-middle" style="color:white; border-radius:0px" data-bs-toggle="tab"><span class="ms-1  d-sm-inline"><i class="fa-regular fa-rectangle-list" style="margin-left:10px" ></i>&nbsp &nbspTadi</span></a>
 							</li>
+
+							<li class="nav-item" id="mnu-tadi-dean" style="width: -webkit-fill-available;">
+								<a href="" id="user-tadi-dean" class="main nav-link px-0 align-middle" style="color:white; border-radius:0px" data-bs-toggle="tab"><span class="ms-1  d-sm-inline"><i class="fa-regular fa-rectangle-list" style="margin-left:10px" ></i>&nbsp &nbspTadi - Dean</span></a>
+							</li>
 							
 							<li class="nav-item" id="mnu-create-user" style="width: -webkit-fill-available;">
 								<a href="" id="user-create-user" class="main nav-link px-0 align-middle" style="color:white; border-radius:0px" data-bs-toggle="tab"><span class="ms-1  d-sm-inline"><i class="fa fa-user-pen" style="margin-left:10px" ></i>&nbsp &nbspUsers</span></a>

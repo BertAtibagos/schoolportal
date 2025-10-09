@@ -8,17 +8,19 @@
     }
 
     if($_SESSION['USERTYPE'] == 'EMPLOYEE'){
-        $priv = $_SESSION['PRIVILEGES'] ?? '';
+        include_once 'prof/index.php';
+        // $priv = $_SESSION['PRIVILEGES'] ?? '';
     
-        if(str_contains($priv, 'GRADING SCALE') || str_contains($_SESSION['USERACCESSRIGHTS'], 'mnu-grading-scale')){
-            include_once 'dean/index.php';
-        } else {
-            include_once 'prof/index.php';
-        }
+        // if(str_contains($priv, 'GRADING SCALE') || str_contains($_SESSION['USERACCESSRIGHTS'], 'mnu-grading-scale')){
+        //     include_once 'dean/index.php';
+        // } else {
+            
+        // }
     }
 
 
 ?>
+
 
 <div style="margin-bottom: 5rem;">
 
