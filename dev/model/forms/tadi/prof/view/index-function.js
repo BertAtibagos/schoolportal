@@ -1,12 +1,3 @@
-const profspinner = `<tr class="loading-spinner hide">
-                                    <td colspan="4">
-                                        <div class="text-center">
-                                            <div class="spinner-border " role="status">
-                                                <span class="sr-only">Loading...</span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>`;
 function GET_ACADEMICLEVEL() {
   fetch("tadi/prof/controller/index-info.php", {
     method: "POST",
@@ -332,7 +323,15 @@ function DISPLAY_TADI_LOG(subj_off_id) {
   formData.append('subj_off_id', subj_off_id);
 
   const tbody = document.getElementById('rcrd_tbl_body');
-  tbody.innerHTML = profspinner;
+  tbody.innerHTML = `<tr class="loading-spinner hide">
+                                    <td colspan="4">
+                                        <div class="text-center">
+                                            <div class="spinner-border " role="status">
+                                                <span class="sr-only">Loading...</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>`;
 
   fetch('tadi/prof/controller/index-info.php', {
     method: 'POST',
@@ -388,7 +387,15 @@ function DISPLAYALL_TADI_RECORDS(subj_off_id) {
   formData.append('subj_off_id', subj_off_id);
 
   let tbody = document.getElementById('rcrd_tbl_body');
-  tbody.innerHTML = profspinner;
+  tbody.innerHTML = `<tr class="loading-spinner hide">
+                                    <td colspan="4">
+                                        <div class="text-center">
+                                            <div class="spinner-border " role="status">
+                                                <span class="sr-only">Loading...</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>`;
 
   fetch('tadi/prof/controller/index-info.php', {
     method: 'POST',
