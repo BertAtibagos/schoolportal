@@ -19,6 +19,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['type']) && $_POST['ty
     $YRID = $_SESSION['YRID'] ?? 0;
     $PRDID = $_SESSION['PRDID'] ?? 0;
 
+
+    // SESSION validation
     if (!$STUDID || !$LVLID || !$YRID || !$PRDID) {
         $fetch['message'] = "Invalid session. Please log in again.";
         echo json_encode($fetch);
