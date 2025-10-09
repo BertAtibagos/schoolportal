@@ -1,4 +1,4 @@
-const spinner = `<tr class="loading-spinner hide">
+const profspinner = `<tr class="loading-spinner hide">
                                     <td colspan="4">
                                         <div class="text-center">
                                             <div class="spinner-border " role="status">
@@ -332,7 +332,7 @@ function DISPLAY_TADI_LOG(subj_off_id) {
   formData.append('subj_off_id', subj_off_id);
 
   const tbody = document.getElementById('rcrd_tbl_body');
-  tbody.innerHTML = spinner;
+  tbody.innerHTML = profspinner;
 
   fetch('tadi/prof/controller/index-info.php', {
     method: 'POST',
@@ -388,7 +388,7 @@ function DISPLAYALL_TADI_RECORDS(subj_off_id) {
   formData.append('subj_off_id', subj_off_id);
 
   let tbody = document.getElementById('rcrd_tbl_body');
-  tbody.innerHTML = spinner;
+  tbody.innerHTML = profspinner;
 
   fetch('tadi/prof/controller/index-info.php', {
     method: 'POST',
@@ -537,7 +537,7 @@ function UPDATE_TADI_STATUS() {
       .catch(error => {
         console.error("Error:", error);
         button.disabled = false;
-        alert("Failed to verify: " + error.message);
+        alert("Failed to verify: Session expired please log in again");
       });
     }
   });
