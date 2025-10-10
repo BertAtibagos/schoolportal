@@ -128,7 +128,7 @@ function DISPLAY_PROFESSOR_SUBJECT(result) {
                   data-bs-toggle="modal" 
                   data-bs-target="#sectionList" 
                   name="${value.sub_off_id}">
-                  VIEW TADI
+                  VIEW TADI  <span class="badge bg-secondary ms-2">${value.total_count}</span>
                   ${value.unverified_count > 0 ? `<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">${value.unverified_count}</span>` : ''}
                 </button>
               </td>
