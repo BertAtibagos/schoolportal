@@ -107,6 +107,10 @@
         max-height: 60vh;
     	overflow-y: auto;
     }
+    .legend{
+        font-size: 14px;
+        margin-top: 10px;
+    }
 </style>
 
 <section>
@@ -258,7 +262,11 @@
                         </div>
 
                         <!-- Modal Footer -->
-                        <div class="modal-footer">
+                        <div class="modal-footer d-flex justify-content-between">
+                            <div class="legend"> 
+                                <div>Number in <span class="badge bg-secondary"> </span> : Total number of records</div>
+                                <div>Number in <span class="badge bg-danger"> </span> : Total number of unverified records</div>
+                            </div>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         </div>
 

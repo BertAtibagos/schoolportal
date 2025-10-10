@@ -80,7 +80,7 @@
         display: inline-block;
         text-align: left;
     }
-    .fixed-modal{
+	.fixed-modal{
 		width: 600px;
     	height: 500px;
     	max-width: 90vw;
@@ -100,10 +100,13 @@
 		object-fit: contain;
 	}
 	.inst_list_tbl_wrapper{
-		max-height: 60vh;
+		max-height: 56vh;
     	overflow-y: auto;
 	}
-
+    .legend{
+        font-size: 14px;
+        margin-top: 10px;
+    }
 </style>
 
 <section>
@@ -141,9 +144,9 @@
                 </div>
             </div>
 
-            <div class="mt-4">
+            <div class="my-4">
                 <div class="card shadow-sm">
-                    <div class="card-body">
+                   <div class="card-body">
                         <!-- <h4 class="card-title mb-3">Records</h4> -->
                         <div class="inst_list_tbl_wrapper">
                             <table class="table table-bordered table-hover" style="line-height: 2.5; border-color: rgb(157, 157, 157);">
@@ -162,6 +165,10 @@
                             </table>
                         </div>
                     </div>
+                </div>
+                <div class="legend"> 
+                    <div>Number in <span class="badge bg-secondary"> </span> : Total number of records</div>
+                    <div>Number in <span class="badge bg-danger"> </span> : Total number of unverified records</div>
                 </div>
             </div>
         </div>
