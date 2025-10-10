@@ -80,6 +80,29 @@
         display: inline-block;
         text-align: left;
     }
+    .fixed-modal{
+		width: 600px;
+    	height: 500px;
+    	max-width: 90vw;
+    	max-height: 90vh;
+	}
+	.img-container{
+		width: 100%;
+		height: 400px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		overflow: hidden;
+	}
+	.img-container img{
+		max-width: 100%;
+		max-height: 100%;
+		object-fit: contain;
+	}
+	.inst_list_tbl_wrapper{
+		max-height: 60vh;
+    	overflow-y: auto;
+	}
 
 </style>
 
@@ -118,23 +141,26 @@
                 </div>
             </div>
 
-            <div class="my-4">
+            <div class="mt-4">
                 <div class="card shadow-sm">
                     <div class="card-body">
-                        <h4 class="card-title mb-3">Records</h4>
-                        <table class="table table-bordered table-hover mt-3" style="line-height: 2.5; border-color: rgb(157, 157, 157);">
-                            <thead class="table-primary">
-                                <tr>
-                                    <th scope="col" style="background-color: #181a46; color: white;">Section</th>
-                                    <th scope="col" style="background-color: #181a46; color: white;">Subject Code</th>
-                                    <th scope="col" style="background-color: #181a46; color: white;">Description</th>
-                                    <th scope="col" style="background-color: #181a46; color: white;"></th>
-                                </tr>
-                            </thead>
-                            <tbody class="prof_dashboard_table">
+                        <!-- <h4 class="card-title mb-3">Records</h4> -->
+                        <div class="inst_list_tbl_wrapper">
+                            <table class="table table-bordered table-hover" style="line-height: 2.5; border-color: rgb(157, 157, 157);">
+                                <thead style="position:sticky; top:0; z-index:2">
+                                    <tr>
+                                        <th scope="col" style="background-color: #181a46; color: white;">Section</th>
+                                        <th scope="col" style="background-color: #181a46; color: white;">Subject Code</th>
+                                        <th scope="col" style="background-color: #181a46; color: white;">Description</th>
+                                        <th scope="col" style="background-color: #181a46; color: white;"></th>
+                                    </tr>
+                                </thead>
                                 
-                            </tbody>
-                        </table>
+                                <tbody class="prof_dashboard_table">
+                                    
+                                </tbody>                            
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -187,12 +213,12 @@
         <!-- VIEW IMAGE MODAL -->
         <div id="imageModal" class="modal fade" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
+                <div class="modal-content fixed-modal">
                     <div class="modalHead">
                         <button type="button" class="btn-close" id="closeModalBtn"></button>
                     </div>
                     <div class="modal-body">
-                        <div style="text-align:center">
+                        <div class="img-container">
                             <img id="attchPrev" src="" alt="Image Preview" class="img-fluid" />
                         </div>
                         <div class="img_details">

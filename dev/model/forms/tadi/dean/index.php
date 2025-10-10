@@ -1,6 +1,4 @@
-<?php
- var_dump($_SESSION);
-?>
+
 
 <link rel="stylesheet" href="tadi/dean/css_tadi.css">
 <style>
@@ -81,6 +79,33 @@
     #prof_tadi_list_table tr, #prof_tadi_list_table td,
     #prof_section_list_table tr, #prof_section_list_table td{
         background-color: white;
+    }
+	.fixed-modal{
+		width: 600px;
+    	height: 500px;
+    	max-width: 90vw;
+    	max-height: 90vh;
+	}
+	.img-container{
+		width: 100%;
+		height: 400px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		overflow: hidden;
+	}
+	.img-container img{
+		max-width: 100%;
+		max-height: 100%;
+		object-fit: contain;
+	}
+	.inst_list_tbl_wrapper{
+		max-height: 65vh;
+    	overflow-y: auto;
+	}
+    .table-scroll-width-limit{
+        max-height: 60vh;
+    	overflow-y: auto;
     }
 </style>
 
@@ -192,39 +217,41 @@
                             <div class="mt-4">
                                 <div class="shadow-sm">
                                     <div class="body">
-                                        <div class="table-responsive">
-                                            <table class="table table-hover table-bordered" style="line-height: 2.5; border-color: rgb(157, 157, 157);">
+                                        
+                                            <div class="row" style="margin-bottom: 10px;">
+                                                <div class="col-4" style="width: auto;">
+                                                    <label for="BySubjDescCode">By Subject Description</label>
+                                                    <input class="form-control" type="text" id="BySubjDesc" placeholder="Subject Description">
+                                                </div>
+                                                <div class="col-4" style="width: auto;">
+                                                    <label for="BySubjDescCode">By Subject Code</label>
+                                                    <input class="form-control" type="text" id="ByCode" placeholder="Subject Code">
+                                                </div>
+                                                <div class="col-3" style="width: auto;">
+                                                    <label for="ByCode">By Section</label>
+                                                    <input class="form-control" type="text" id="BySection" placeholder="Search Section">
+                                                </div>
+                                                <div class="col-1" style="width: auto; padding-top: 24px;">
+                                                    <button id="searchSubjBtn" class="btn btn-primary searchSubjBtn">Search</button>
+                                                </div>
+                                            </div>
+                                            <div class="table-scroll-width-limit">
+                                                <table class="table table-hover table-bordered" style="line-height: 2.5; border-color: rgb(157, 157, 157);">
+                                                    <thead style="background-color: #181a46; color: white; position:sticky; top:0; z-index:2">
+                                                        <tr>
+                                                            <th class="col" style="background-color: #181a46; color: white;">Section</th>
+                                                            <th class="col-3" style="background-color: #181a46; color: white;">Subject Code</th>
+                                                            <th class="col-3" style="background-color: #181a46; color: white;">Subject Description</th>
+                                                            <th class="col-3" style="background-color: #181a46; color: white;"></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="subj_list">
+                                                        
 
-                                                <head style="background-color: #181a46; color: white;">
-                                                    <tr>
-                                                        <th class="col" style="background-color: #181a46; color: white;">Section</th>
-                                                        <th class="col-3" style="background-color: #181a46; color: white;">Subject Code</th>
-                                                        <th class="col-3" style="background-color: #181a46; color: white;">Subject Description</th>
-                                                        <th class="col-3" style="background-color: #181a46; color: white;"></th>
-                                                    </tr>
-                                                </head>
-                                                <tbody id="subj_list">
-                                                    <div class="row" style="margin-bottom: 10px;">
-                                                        <div class="col-4" style="width: auto;">
-                                                            <label for="BySubjDescCode">By Subject Description</label>
-                                                            <input class="form-control" type="text" id="BySubjDesc" placeholder="Subject Description">
-                                                        </div>
-                                                        <div class="col-4" style="width: auto;">
-                                                            <label for="BySubjDescCode">By Subject Code</label>
-                                                            <input class="form-control" type="text" id="ByCode" placeholder="Subject Code">
-                                                        </div>
-                                                        <div class="col-3" style="width: auto;">
-                                                            <label for="ByCode">By Section</label>
-                                                            <input class="form-control" type="text" id="BySection" placeholder="Search Section">
-                                                        </div>
-                                                        <div class="col-1" style="width: auto; padding-top: 24px;">
-                                                            <button id="searchSubjBtn" class="btn btn-primary searchSubjBtn">Search</button>
-                                                        </div>
-                                                    </div>
-
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                       
                                     </div>
                                 </div>
                             </div>
@@ -361,12 +388,12 @@
             <!-- Image Modal -->
             <div id="imageModal" class="image modal fade" tabindex="-1">
                 <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
+                    <div class="modal-content fixed-modal">
                         <div class="modalHead">
                             <button type="button" class="btn-close" id="closeModalBtn"></button>
                         </div>
                         <div class="modal-body">
-                            <div style="text-align:center">
+                            <div class="img-container">
                                 <img id="attchPrev" src="" alt="Image Preview" class="img-fluid" />
                             </div>
                             <div class="img_details">
