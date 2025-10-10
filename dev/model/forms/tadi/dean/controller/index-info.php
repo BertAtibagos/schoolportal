@@ -363,6 +363,13 @@ if ($type == 'GET_SUBJECT_BY_INSTRUCTOR') {
 				`schl_enr_subj_off`.`SchlAcadYrLvl_ID` AS yrlvlid,
 				`schl_enr_subj_off`.`SchlEnrollSubjOff_ISACTIVE` AS `subj_act`,
 				(
+				SELECT 
+					COUNT(*) 
+				FROM
+					`schooltadi` AS t 
+				WHERE t.`schlprof_id` = `schl_enr_subj_off`.`SchlProf_ID` 
+					AND t.`schlenrollsubjoff_id` = `schl_enr_subj_off`.`SchlEnrollSubjOffSms_ID`) AS total_count,
+				(
 					SELECT COUNT(*) 
 					FROM `schooltadi` AS t
 					WHERE t.`schltadi_status` = 0
@@ -426,7 +433,20 @@ if($type == 'SEARCH_SUBJECT_BY_INSTRUCTOR'){
 				`schl_enr_subj_off`.`SchlAcadYr_ID` AS yrid,
 				`schl_enr_subj_off`.`SchlAcadPrd_ID` AS prdid,
 				`schl_enr_subj_off`.`SchlAcadYrLvl_ID` AS yrlvlid,
-				`schl_enr_subj_off`.`SchlEnrollSubjOff_ISACTIVE` AS `subj_act` 
+				`schl_enr_subj_off`.`SchlEnrollSubjOff_ISACTIVE` AS `subj_act`,
+				(SELECT 
+					COUNT(*) 
+				FROM
+					`schooltadi` AS t 
+				WHERE t.`schlprof_id` = `schl_enr_subj_off`.`SchlProf_ID` 
+					AND t.`schlenrollsubjoff_id` = `schl_enr_subj_off`.`SchlEnrollSubjOffSms_ID`) AS total_count,
+				(SELECT 
+					COUNT(*) 
+				FROM
+					`schooltadi` AS t 
+				WHERE t.`schltadi_status` = 0 
+					AND t.`schlprof_id` = `schl_enr_subj_off`.`SchlProf_ID` 
+					AND t.`schlenrollsubjoff_id` = `schl_enr_subj_off`.`SchlEnrollSubjOffSms_ID`) AS unverified_count 
 			FROM `schoolenrollmentsubjectoffered` AS `schl_enr_subj_off`
 
 			LEFT JOIN `schoolacademicsubject` AS `schl_acad_subj` 

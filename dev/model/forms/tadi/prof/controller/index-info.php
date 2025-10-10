@@ -29,6 +29,13 @@
                     `schl_enr_subj_off`.`SchlEnrollSubjOff_ISACTIVE` AS `subj_act`,
                     schl_enr_subj_off.`SchlEnrollSubjOffSms_ID` AS sub_off_id,
                     (
+                    SELECT 
+                        COUNT(*) 
+                    FROM
+                        `schooltadi` AS t 
+                        WHERE t.`schlprof_id` = `schl_enr_subj_off`.`SchlProf_ID` 
+                        AND t.`schlenrollsubjoff_id` = `schl_enr_subj_off`.`SchlEnrollSubjOffSms_ID`) AS total_count,
+                    (
                         SELECT COUNT(*) 
                         FROM `schooltadi` AS t
                         WHERE t.`schltadi_status` = 0
