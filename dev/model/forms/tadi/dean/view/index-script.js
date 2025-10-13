@@ -173,3 +173,9 @@ document.getElementById("search_button").addEventListener("click", function () {
         });
 });
 
+// Add to your existing search button handler
+document.getElementById("try").addEventListener("click", function() {
+    // ...existing code...
+    displayTeacherTadiReport();
+});
+
