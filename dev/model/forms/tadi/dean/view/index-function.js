@@ -287,3 +287,208 @@ document.getElementById("searchSubjBtn").addEventListener("click", function() {
   })
   .catch(error => console.error("Error searching subjects by instructor:", error));
 });
+
+
+function displayTeacherTadiReport() {
+    const lvlid = 2
+    const yrlvlid = 8
+    const prdid = 5
+    const yrid = 19
+
+    const formData = new FormData();
+    formData.append('type', 'GET_TEACHER_TADI_REPORT');
+    formData.append('lvl_id', lvlid);
+    formData.append('prd_id', prdid);
+    formData.append('yr_id', yrid);
+    formData.append('yrlvl_id', yrlvlid);
+
+    fetch("tadi/dean/controller/index-info.php", { 
+        method: "POST", 
+        body: formData 
+    })
+    .then(res => res.json())
+    .then(data => {
+        // Store raw data for export
+        window.tadiReportData = data;
+
+        const teacherGroups = data.reduce((groups, record) => {
+            const group = groups[record.SchlEmpSms_ID] || {
+                prof_name: record.prof_name,
+                subjects: {}
+            };
+            
+            if (!group.subjects[record.subject_code]) {
+                group.subjects[record.subject_code] = {
+                    subject_code: record.subject_code,
+                    subject_desc: record.subject_desc,
+                    section_name: record.section_name,
+                    sessions: []
+                };
+            }
+
+            if (record.schltadi_id) {
+                group.subjects[record.subject_code].sessions.push({
+                    date: record.tadi_date,
+                    time_in: record.time_in,
+                    time_out: record.time_out,
+                    duration: record.duration,
+                    mode: record.mode,
+                    type: record.type,
+                    session_type: record.session_type,
+                    status: record.status,
+                    activity: record.activity
+                });
+            }
+
+            groups[record.SchlEmpSms_ID] = group;
+            return groups;
+        }, {});
+
+        const reportContainer = document.getElementById('reportContainer');
+        reportContainer.innerHTML = `
+            <div class="d-flex justify-content-between mb-3">
+                <h4>TADI Records Report</h4>
+                <button class="btn btn-success" onclick="exportAllTadiToExcel()">
+                    <i class="fas fa-file-excel me-2"></i>Export All to Excel
+                </button>
+            </div>
+            ${Object.entries(teacherGroups)
+                .map(([profId, teacher]) => `
+                    <div class="card mb-4">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0">${teacher.prof_name}</h5>
+                        </div>
+                        <div class="card-body">
+                            ${Object.values(teacher.subjects).map(subject => `
+                                <div class="mb-4">
+                                    <h6>${subject.subject_code} - ${subject.subject_desc}</h6>
+                                    <p class="small text-muted">Section: ${subject.section_name || 'No Section'}</p>
+                                    <div class="table-responsive">
+                                        <table class="table table-sm table-bordered table-hover">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th>Date</th>
+                                                    <th>Time In</th>
+                                                    <th>Time Out</th>
+                                                    <th>Duration</th>
+                                                    <th>Mode</th>
+                                                    <th>Session Type</th>
+                                                    <th>Activity</th>
+                                                    <th>Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                ${subject.sessions.map(session => `
+                                                    <tr>
+                                                        <td>${session.date}</td>
+                                                        <td>${session.time_in}</td>
+                                                        <td>${session.time_out}</td>
+                                                        <td>${session.duration}</td>
+                                                        <td>${session.mode}</td>
+                                                        <td>${session.session_type}</td>
+                                                        <td>${session.activity || 'No activity recorded'}</td>
+                                                        <td>
+                                                            <span class="badge ${session.status == 1 ? 'bg-success' : 'bg-danger'}">
+                                                                ${session.status == 1 ? 'Verified' : 'Unverified'}
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                `).join('')}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `).join('')}`;
+    })
+    .catch(err => console.error("Error generating TADI report:", err));
+}
+
+function exportAllTadiToExcel() {
+    const data = window.tadiReportData;
+    if (!data || !data.length) {
+        alert('No data available to export');
+        return;
+    }
+
+    // Create workbook and worksheet
+    const wb = XLSX.utils.book_new();
+    const allRows = [];
+
+    // Add headers
+    allRows.push([
+        'Professor Name',
+        'Subject Code',
+        'Subject Description',
+        'Section',
+        'Date',
+        'Time In',
+        'Time Out',
+        'Duration',
+        'Mode',
+        'Session Type',
+        'Activity',
+        'Status'
+    ]);
+
+    // Process data directly from raw data
+    data.forEach(record => {
+        if (record.schltadi_id) {
+            allRows.push([
+                record.prof_name,
+                record.subject_code,
+                record.subject_desc,
+                record.section_name || 'No Section',
+                record.tadi_date,
+                record.time_in,
+                record.time_out,
+                record.duration,
+                record.mode,
+                record.session_type,
+                record.activity || 'No activity recorded',
+                record.status == 1 ? 'Verified' : 'Unverified'
+            ]);
+        }
+    });
+
+    // Create worksheet
+    const ws = XLSX.utils.aoa_to_sheet(allRows);
+
+    // Set column widths
+    ws['!cols'] = [
+        { wch: 30 }, // Professor Name
+        { wch: 15 }, // Subject Code
+        { wch: 40 }, // Subject Description
+        { wch: 15 }, // Section
+        { wch: 12 }, // Date
+        { wch: 10 }, // Time In
+        { wch: 10 }, // Time Out
+        { wch: 10 }, // Duration
+        { wch: 15 }, // Mode
+        { wch: 12 }, // Session Type
+        { wch: 50 }, // Activity
+        { wch: 10 }  // Status
+    ];
+
+    // Style headers
+    const range = XLSX.utils.decode_range(ws['!ref']);
+    for (let C = range.s.c; C <= range.e.c; ++C) {
+        const address = XLSX.utils.encode_cell({ r: 0, c: C });
+        if (!ws[address]) continue;
+        ws[address].s = {
+            fill: { fgColor: { rgb: "FFFF00" } },
+            font: { bold: true }
+        };
+    }
+
+    XLSX.utils.book_append_sheet(wb, ws, "TADI Records");
+
+    // Generate filename
+    const date = new Date().toLocaleDateString('en-CA'); // YYYY-MM-DD format
+    const filename = `TADI_Report_${date}.xlsx`;
+
+    // Save file
+    XLSX.writeFile(wb, filename);
+}
