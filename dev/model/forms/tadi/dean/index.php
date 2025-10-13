@@ -197,6 +197,11 @@
                     </div>
                 </div>
             </div>
+            <span id="try" style="color: white">Click Me!</span>
+
+            <div id="reportContainer" class="container-fluid mt-4">
+                <!-- Report content will be generated here -->
+            </div>
             <!-- End Instructor Dashboard -->
 
             <!-- Modals -->
@@ -495,6 +500,6 @@
     </div>
 
 </section>
-
+<script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
 <script src="tadi/dean/view/index-function.js?t=<?php echo time(); ?>"></script>
 <script src="tadi/dean/view/index-script.js?t=<?php echo time(); ?>"></script>
