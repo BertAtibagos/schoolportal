@@ -4,10 +4,20 @@
     // define("DB_PASS", "sDKmksGWX#R7qScX62c4");
     // define("DB_NAME", "schoolportal_fcpc_edu_ph");
 
-    define("DB_HOST", "localhost");
-    define("DB_USER", "root");
-    define("DB_PASS", "sacred");
+    
+    // local server
+    // define("DB_HOST", "localhost");
+    // define("DB_USER", "root");
+    // define("DB_PASS", "sacred");
+    // define("DB_NAME", "schoolportal_fcpc_edu_ph");
+    // define("DB_PORT", "3307");
+
+    // live server
+    define("DB_HOST", "46.21.150.116");
+    define("DB_USER", "schoolportal_fcpc_edu_ph_remote_user");
+    define("DB_PASS", '6$Sf&i3@8!Nx5GcKYbjP');
     define("DB_NAME", "schoolportal_fcpc_edu_ph");
+    define("DB_PORT", "3306");
 
 	//$servername = "localhost";
 	//$serverusername = "root";
@@ -19,7 +29,6 @@
     //define("DB_PASS", "FCPCsince1984");
     //define("DB_NAME", "fcpc_school_portal");
     
-	define("DB_PORT", "3307");
 	//define("DB_CHARSET", "utf8mb4");
 	
     // define("DB_HOST", "184.168.101.93");
