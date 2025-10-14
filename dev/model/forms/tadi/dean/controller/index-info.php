@@ -610,52 +610,40 @@ if ($type == 'GET_TEACHER_TADI_REPORT') {
         schl_acad_subj.SchlAcadSubj_desc AS subject_desc,
         schl_acad_sec.SchlAcadSec_NAME AS section_name,
         t.schltadi_id,
-        DATE_FORMAT(t.schltadi_date, '%Y-%m-%d') AS tadi_date,
-        TIME_FORMAT(t.schltadi_timein, '%h:%i %p') AS time_in,
-        TIME_FORMAT(t.schltadi_timeout, '%h:%i %p') AS time_out,
-        TIME_FORMAT(TIMEDIFF(t.schltadi_timeout, t.schltadi_timein), '%H:%i') AS duration,
+        t.schltadi_date AS tadi_date,
+        t.schltadi_timein AS time_in,
+        t.schltadi_timeout AS time_out,
+        TIMEDIFF(t.schltadi_timeout, t.schltadi_timein) AS duration,
         t.schltadi_mode AS mode,
         t.schltadi_type AS type,
         t.schltadi_activity AS activity,
-        CASE 
-            WHEN t.schltadi_type LIKE '%makeup%' THEN 'Make-up'
-            WHEN t.schltadi_type LIKE '%regular%' THEN 'Regular'
-            ELSE 'Other'
-        END as session_type,
+        IF(t.schltadi_type LIKE '%makeup%', 'Make-up',
+            IF(t.schltadi_type LIKE '%regular%', 'Regular', 'Other')
+        ) as session_type,
         t.schltadi_status AS status,
-        schl_enr_subj_off.SchlEnrollSubjOffSms_ID AS subj_off_id,
-        (
-            SELECT COUNT(*) 
-            FROM schooltadi 
-            WHERE schlprof_id = emp.SchlEmpSms_ID 
-            AND schlenrollsubjoff_id = schl_enr_subj_off.SchlEnrollSubjOffSms_ID
-        ) as total_tadi,
-        (
-            SELECT COUNT(*) 
-            FROM schooltadi 
-            WHERE schlprof_id = emp.SchlEmpSms_ID 
-            AND schlenrollsubjoff_id = schl_enr_subj_off.SchlEnrollSubjOffSms_ID
-            AND schltadi_status = 0
-        ) as unverified_tadi
+        schl_enr_subj_off.SchlEnrollSubjOffSms_ID AS subj_off_id
     FROM schoolemployee emp
-    INNER JOIN schoolenrollmentsubjectoffered schl_enr_subj_off 
-        ON emp.SchlEmpSms_ID = schl_enr_subj_off.SchlProf_ID
+    INNER JOIN (
+        SELECT DISTINCT SchlProf_ID, SchlEnrollSubjOffSms_ID, SchlAcadSubj_ID, SchlAcadSec_ID, 
+               SchlAcadCrses_ID
+        FROM schoolenrollmentsubjectoffered 
+        WHERE SchlAcadLvl_ID = ? 
+        AND SchlAcadYr_ID = ?
+        AND SchlAcadPrd_ID = ?
+        AND SchlAcadYrLvl_ID = ?
+        AND SchlEnrollSubjOff_ISACTIVE = 1
+    ) schl_enr_subj_off ON emp.SchlEmpSms_ID = schl_enr_subj_off.SchlProf_ID
+    INNER JOIN schoolacademiccourses schl_acad_crses
+        ON schl_enr_subj_off.SchlAcadCrses_ID = schl_acad_crses.SchlAcadCrseSms_ID
+    INNER JOIN schooldepartment schl_dept
+        ON schl_acad_crses.SchlDept_ID = schl_dept.SchlDeptSms_ID
+        AND schl_dept.SchlDeptHead_ID = ?
     LEFT JOIN schoolacademicsubject schl_acad_subj
         ON schl_enr_subj_off.SchlAcadSubj_ID = schl_acad_subj.SchlAcadSubjSms_ID
     LEFT JOIN schoolacademicsection schl_acad_sec
         ON schl_enr_subj_off.SchlAcadSec_ID = schl_acad_sec.SchlAcadSecSms_ID
-    LEFT JOIN schoolacademiccourses schl_acad_crses
-        ON schl_enr_subj_off.SchlAcadCrses_ID = schl_acad_crses.SchlAcadCrseSms_ID
-    LEFT JOIN schooldepartment schl_dept
-        ON schl_acad_crses.SchlDept_ID = schl_dept.SchlDeptSms_ID
-    LEFT JOIN schooltadi t 
+    INNER JOIN schooltadi t 
         ON schl_enr_subj_off.SchlEnrollSubjOffSms_ID = t.schlenrollsubjoff_id
-    WHERE schl_enr_subj_off.SchlAcadLvl_ID = ?
-        AND schl_enr_subj_off.SchlAcadYr_ID = ?
-        AND schl_enr_subj_off.SchlAcadPrd_ID = ?
-        AND schl_enr_subj_off.SchlAcadYrLvl_ID = ?
-        AND schl_dept.SchlDeptHead_ID = ?
-        AND schl_enr_subj_off.SchlEnrollSubjOff_ISACTIVE = 1
     ORDER BY 
         emp.SchlEmp_LNAME, 
         schl_acad_subj.SchlAcadSubj_CODE,
