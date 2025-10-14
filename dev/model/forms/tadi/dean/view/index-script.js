@@ -174,8 +174,26 @@ document.getElementById("search_button").addEventListener("click", function () {
 });
 
 // Add to your existing search button handler
-document.getElementById("try").addEventListener("click", function() {
-    // ...existing code...
-    displayTeacherTadiReport();
+document.getElementById("exportBtn").addEventListener("click", function() {
+    document.querySelector(".instr-table").style.display = "none";
+    document.getElementById("tadiBtn").style.display = "block";
+    document.getElementById("exportBtn").style.display = "none";
+    document.getElementById("reportContainer").style.display = "block";
+    document.getElementById("tadiTitle").innerText = "TADI Report";
+    document.querySelector(".tadi-search").id = "reportSearch";
+
+
+    document.getElementById("reportSearch").addEventListener("click",() => {
+        displayTeacherTadiReport();
+    });
+});
+
+document.getElementById("tadiBtn").addEventListener("click", function() {
+    document.querySelector(".instr-table").style.display = "block";
+    document.getElementById("tadiBtn").style.display = "none";
+    document.getElementById("exportBtn").style.display = "block";
+    document.getElementById("reportContainer").style.display = "none";
+    document.getElementById("tadiTitle").innerText = "TADI - Dean";
+    document.querySelector(".tadi-search").id = "search_button";
 });
 
