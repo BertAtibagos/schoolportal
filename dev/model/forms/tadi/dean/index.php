@@ -103,13 +103,17 @@
 		max-height: 65vh;
     	overflow-y: auto;
 	}
-    .table-scroll-width-limit{
+    .table-scroll-width-limit,
+    .report-container{
         max-height: 60vh;
     	overflow-y: auto;
     }
     .legend{
         font-size: 14px;
         margin-top: 10px;
+    }
+    .subject-card-header{
+        background-color: #181a46;
     }
 </style>
 
@@ -118,8 +122,10 @@
     <div class="card ms-3 me-3 mt-5">
         <!-- Filter Dropdown Section -->
         <div class="container-fluid mt-4">
-            <div class="m-2">
-                <h3>TADI - Dean</h3>
+            <div class="m-2 d-flex justify-content-between align-items-center">
+                <h3 id="tadiTitle">TADI - Dean</h3>
+                <button class="btn button-bg-change" id="exportBtn">Generate Report</button>
+                <button class="btn button-bg-change" id="tadiBtn" style="display: none">Go back to TADI</button>
             </div>
             <div class="row justify-content-center align-items-center g-3 mt-4">
                 <!-- Academic Level Dropdown -->
@@ -164,7 +170,7 @@
                 </div>
                 <!-- Search Button -->
                 <div class="col-md">
-                    <button type="button" id="search_button" name="search_button" class="btn w-100 button-search-bg-change">
+                    <button type="button" id="search_button" name="search_button" class="btn w-100 button-search-bg-change tadi-search">
                         Search
                     </button>
                 </div>
@@ -197,9 +203,10 @@
                     </div>
                 </div>
             </div>
-            <span id="try" style="color: white">Click Me!</span>
-
-            <div id="reportContainer" class="container-fluid mt-4">
+            <div class="d-flex justify-content-between mb-3 export-header" >
+                
+            </div>
+            <div id="reportContainer" class="container-fluid mt-4 report-container">
                 <!-- Report content will be generated here -->
             </div>
             <!-- End Instructor Dashboard -->
