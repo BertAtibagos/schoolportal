@@ -290,10 +290,15 @@ document.getElementById("searchSubjBtn").addEventListener("click", function() {
 
 
 function displayTeacherTadiReport() {
-    const lvlid = 2
-    const yrlvlid = 8
-    const prdid = 5
-    const yrid = 19
+    const lvlid = document.getElementById("academiclevel").value;
+    const yrlvlid = document.getElementById("academicyearlevel").value;
+    const prdid = document.getElementById("academicperiod").value;
+    const yrid = document.getElementById("acadyear").value;
+
+    if(!lvlid || !yrlvlid || !prdid || !yrid){
+      alert("Please select all filters to generate the report");
+      return;
+    }
 
     const formData = new FormData();
     formData.append('type', 'GET_TEACHER_TADI_REPORT');
@@ -301,6 +306,9 @@ function displayTeacherTadiReport() {
     formData.append('prd_id', prdid);
     formData.append('yr_id', yrid);
     formData.append('yrlvl_id', yrlvlid);
+
+    const reportContainer = document.getElementById('reportContainer');
+    reportContainer.innerHTML = loadingRow(4);
 
     fetch("tadi/dean/controller/index-info.php", { 
         method: "POST", 
@@ -329,14 +337,14 @@ function displayTeacherTadiReport() {
             if (record.schltadi_id) {
                 group.subjects[record.subject_code].sessions.push({
                     date: record.tadi_date,
-                    time_in: record.time_in,
-                    time_out: record.time_out,
+                    time_in: formatTimeToAmPm(record.time_in),
+                    time_out: formatTimeToAmPm(record.time_out),
                     duration: record.duration,
-                    mode: record.mode,
+                    mode: record.mode == 'online_learning' ? 'Online' : 'Onsite',
                     type: record.type,
                     session_type: record.session_type,
                     status: record.status,
-                    activity: record.activity
+                    activity: record.activity ? record.activity.replace(/\\r\\n/g, "<br>") : 'No activity recorded'
                 });
             }
 
@@ -344,18 +352,14 @@ function displayTeacherTadiReport() {
             return groups;
         }, {});
 
-        const reportContainer = document.getElementById('reportContainer');
+       document.querySelector(".export-header").innerHTML = `<button class="btn btn-success export-all-btn" onclick="exportAllTadiToExcel()">
+                                                              <i class="fas fa-file-excel me-2"></i>Export All to Excel
+                                                            </button>`;
         reportContainer.innerHTML = `
-            <div class="d-flex justify-content-between mb-3">
-                <h4>TADI Records Report</h4>
-                <button class="btn btn-success" onclick="exportAllTadiToExcel()">
-                    <i class="fas fa-file-excel me-2"></i>Export All to Excel
-                </button>
-            </div>
             ${Object.entries(teacherGroups)
                 .map(([profId, teacher]) => `
-                    <div class="card mb-4">
-                        <div class="card-header bg-primary text-white">
+                  <div class="card mb-4">
+                        <div class="card-header text-white subject-card-header">
                             <h5 class="mb-0">${teacher.prof_name}</h5>
                         </div>
                         <div class="card-body">
@@ -368,10 +372,8 @@ function displayTeacherTadiReport() {
                                             <thead class="table-light">
                                                 <tr>
                                                     <th>Date</th>
-                                                    <th>Time In</th>
-                                                    <th>Time Out</th>
+                                                    <th>Time</th>
                                                     <th>Duration</th>
-                                                    <th>Mode</th>
                                                     <th>Session Type</th>
                                                     <th>Activity</th>
                                                     <th>Status</th>
@@ -381,12 +383,10 @@ function displayTeacherTadiReport() {
                                                 ${subject.sessions.map(session => `
                                                     <tr>
                                                         <td>${session.date}</td>
-                                                        <td>${session.time_in}</td>
-                                                        <td>${session.time_out}</td>
+                                                        <td>${session.time_in} - ${session.time_out}</td>
                                                         <td>${session.duration}</td>
-                                                        <td>${session.mode}</td>
-                                                        <td>${session.session_type}</td>
-                                                        <td>${session.activity || 'No activity recorded'}</td>
+                                                        <td>${session.mode} ${session.session_type}</td>
+                                                        <td>${session.activity}</td>
                                                         <td>
                                                             <span class="badge ${session.status == 1 ? 'bg-success' : 'bg-danger'}">
                                                                 ${session.status == 1 ? 'Verified' : 'Unverified'}
@@ -401,7 +401,7 @@ function displayTeacherTadiReport() {
                             `).join('')}
                         </div>
                     </div>
-                `).join('')}`;
+              `).join('')}`;
     })
     .catch(err => console.error("Error generating TADI report:", err));
 }
