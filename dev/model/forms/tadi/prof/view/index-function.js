@@ -470,85 +470,88 @@ function attachSubjectClickHandlers(results) {
 
 
 function UPDATE_TADI_STATUS() {
-  let isInitialized = false;
-  
-  if (isInitialized) return;
-  
-  document.addEventListener('click', function(e) {
-    if (e.target.classList.contains('acknw')) {
-      const button = e.target;
-      if (!confirm('Are you sure you want to verify this record?')) {
-        return;
-      }
-      button.disabled = true;
-      
-      const status = button.getAttribute('name');
-      const tadiId = button.value;
-      
-      const hiddenInput = document.querySelector('.pass');
-      const subOffId = hiddenInput ? hiddenInput.value : null;
-      
-      fetch(`tadi/prof/controller/index-post.php`, {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams({
-          type: "UPDATE_TADI_STATUS", 
-          tadi_status: status,
-          tadi_ID: tadiId
-        })
-      })
-      .then(response => {
-        if (!response.ok) throw new Error('Network response was not ok');
-        return response.json();
-      })
-      .then(data => {
-        let acknowledgedText = document.createTextNode('Verified');
-        let span = document.createElement('span');
-        span.style.color = '#198754';
-        span.style.fontWeight = 'bold';
-        span.appendChild(acknowledgedText);
-        button.replaceWith(span);
-
-        if (subOffId) {
-          fetch("tadi/prof/controller/index-post.php", {
-            method: "POST",
-            headers: { "Content-Type": "application/x-www-form-urlencoded" },
-            body: new URLSearchParams({
-              type: "GET_UNVERIFIED_COUNT",
-              sub_off_id: subOffId
-            })
-          })
-          .then(res => res.json())
-          .then(result => {
-
-            const mainTableButton = document.querySelector(`button[name="${subOffId}"]`);
-            if (mainTableButton) {
-              const badge = mainTableButton.querySelector('.badge');
-              if (result.unverified_count > 0) {
-                if (badge) {
-                  badge.textContent = result.unverified_count;
-                } else {
-                  const newBadge = document.createElement('span');
-                  newBadge.className = 'position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger';
-                  newBadge.textContent = result.unverified_count;
-                  mainTableButton.appendChild(newBadge);
-                }
-              } else if (badge) {
-                badge.remove();
-              }
-            }
-          })
-          .catch(err => console.error("Error updating unverified count:", err));
-        }
-      })
-      .catch(error => {
-        console.error("Error:", error);
-        button.disabled = false;
-        alert("Failed to verify: Session expired please log in again");
-      });
+    // Use a closure to maintain initialization state
+    if (typeof UPDATE_TADI_STATUS.initialized === 'undefined') {
+        UPDATE_TADI_STATUS.initialized = false;
     }
-  });
-  isInitialized = true;
+    
+    if (UPDATE_TADI_STATUS.initialized) return;
+
+    document.addEventListener('click', async function(e) {
+        if (!e.target.classList.contains('acknw')) return;
+
+        const button = e.target;
+        if (!confirm('Are you sure you want to verify this record?')) {
+            return;
+        }
+
+        try {
+            button.disabled = true;
+            
+            const status = button.getAttribute('name');
+            const tadiId = button.value;
+            const row = button.closest('tr');
+            const hiddenInput = row.querySelector('.pass');
+            const subOffId = hiddenInput ? hiddenInput.value : null;
+
+            // Update TADI status
+            const response = await fetch('tadi/prof/controller/index-post.php', {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: new URLSearchParams({
+                    type: "UPDATE_TADI_STATUS",
+                    tadi_status: status,
+                    tadi_ID: tadiId
+                })
+            });
+
+            if (!response.ok) throw new Error('Network response was not ok');
+            const data = await response.json();
+
+            // Replace button with verified text
+            const span = document.createElement('span');
+            span.style.cssText = 'color: #198754; font-weight: bold;';
+            span.textContent = 'Verified';
+            button.replaceWith(span);
+
+            // Update unverified count if subOffId exists
+            if (subOffId) {
+                const countResponse = await fetch("tadi/prof/controller/index-post.php", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                    body: new URLSearchParams({
+                        type: "GET_UNVERIFIED_COUNT",
+                        sub_off_id: subOffId
+                    })
+                });
+
+                const result = await countResponse.json();
+                const mainTableButton = document.querySelector(`button[name="${subOffId}"]`);
+                
+                if (mainTableButton) {
+                    const badge = mainTableButton.querySelector('.badge.bg-danger');
+                    if (result.unverified_count > 0) {
+                        if (badge) {
+                            badge.textContent = result.unverified_count;
+                        } else {
+                            const newBadge = document.createElement('span');
+                            newBadge.className = 'position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger';
+                            newBadge.textContent = result.unverified_count;
+                            mainTableButton.appendChild(newBadge);
+                        }
+                    } else if (badge) {
+                        badge.remove();
+                    }
+                }
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            button.disabled = false;
+            alert("Failed to verify: " + (error.message || "Session expired please log in again"));
+        }
+    });
+
+    UPDATE_TADI_STATUS.initialized = true;
 }
 
 
