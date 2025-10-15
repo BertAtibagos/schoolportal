@@ -180,10 +180,18 @@ document.getElementById("exportBtn").addEventListener("click", function() {
     document.getElementById("exportBtn").style.display = "none";
     document.getElementById("reportContainer").style.display = "block";
     document.getElementById("tadiTitle").innerText = "TADI Report";
-    document.querySelector(".tadi-search").id = "reportSearch";
+    const tadiSearch = document.querySelector(".tadi-search");
+    tadiSearch.innerText = "Generate Report";
+    tadiSearch.id = "reportSearch";
+    document.querySelector(".export-header").style.display = "block";
+    document.querySelector(".report-container").style.display = "block";
+    document.querySelectorAll(".date-range-xport").forEach(element => {
+        element.style.display = "block";
+    });
 
 
     document.getElementById("reportSearch").addEventListener("click",() => {
+        document.querySelector(".export-content").innerHTML = '';
         displayTeacherTadiReport();
     });
 });
@@ -194,6 +202,13 @@ document.getElementById("tadiBtn").addEventListener("click", function() {
     document.getElementById("exportBtn").style.display = "block";
     document.getElementById("reportContainer").style.display = "none";
     document.getElementById("tadiTitle").innerText = "TADI - Dean";
-    document.querySelector(".tadi-search").id = "search_button";
+    const tadiSearch = document.querySelector(".tadi-search");
+    tadiSearch.id = "search_button";
+    tadiSearch.innerText = "Search";
+    document.querySelector(".export-header").style.display = "none";
+    document.querySelector(".report-container").style.display = "none";
+    document.querySelectorAll(".date-range-xport").forEach(element=>{
+        element.style.display = "none";
+    })
 });
 
