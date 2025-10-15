@@ -105,7 +105,7 @@
 	}
     .table-scroll-width-limit,
     .report-container{
-        max-height: 60vh;
+        max-height: 58vh;
     	overflow-y: auto;
     }
     .legend{
@@ -151,6 +151,13 @@
                     <select class="form-select border border-dark select-shadow" style="background-color:#EEEEF6;" id="acadyear" name="acadyear">
                         <option value="" disabled selected>Academic Year</option>
                     </select>
+                </div>
+                <!-- Start date and end time -->
+                <div class="col-md date-range-xport" style="display:none">
+                    <input type="date" class="form-control border border-dark select-shadow" style="background-color:#EEEEF6;" id="startDate" name="startDate">
+                </div>
+                <div class="col-md date-range-xport" style="display:none">
+                    <input type="date" class="form-control border border-dark select-shadow" style="background-color:#EEEEF6;" id="endDate" name="endDate">
                 </div>
                 <!-- Type Dropdown -->
                 <!-- <div class="col-md">
@@ -203,11 +210,16 @@
                     </div>
                 </div>
             </div>
-            <div class="d-flex justify-content-between mb-3 export-header" >
-                
+            <div class="export-header">
+                <div class="export-content d-flex justify-content-between">
+                </div>
             </div>
-            <div id="reportContainer" class="container-fluid mt-4 report-container">
-                <!-- Report content will be generated here -->
+            
+            <div id="reportContainer" class="container-fluid mt-4 report-container" style="display:none">
+                <div style="text-align: center;">
+                    <p>Select all filters above and click "Generate Report" to generate report.</p>
+                    <p>The start date and end date can be blank.</p>
+                </div>
             </div>
             <!-- End Instructor Dashboard -->
 
