@@ -294,6 +294,8 @@ function displayTeacherTadiReport() {
     const yrlvlid = document.getElementById("academicyearlevel").value;
     const prdid = document.getElementById("academicperiod").value;
     const yrid = document.getElementById("acadyear").value;
+    const startDate = document.getElementById("startDate").value;
+    const endDate = document.getElementById("endDate").value;
 
     if(!lvlid || !yrlvlid || !prdid || !yrid){
       alert("Please select all filters to generate the report");
@@ -307,8 +309,68 @@ function displayTeacherTadiReport() {
     formData.append('yr_id', yrid);
     formData.append('yrlvl_id', yrlvlid);
 
+    let date = new Date().toLocaleDateString('en-CA');
+    let lvl = null;
+    let yrlvl = null;
+    let prd = null;
+    
+    switch(lvlid){
+      case '1':
+        lvl = "Basic Education";
+        break;
+      case '2':
+        lvl = "Tertiary";
+        break;
+      case '3':
+        lvl = "Graduate School";
+        break;
+        default:
+          lvl = null;
+    }
+
+    switch(yrlvlid){
+      case '6':
+        yrlvl = "1st Year";
+        break;
+      case '7':
+        yrlvl = "2nd Year";
+        break;
+      case '8':
+        yrlvl = "3rd Year";
+        break;
+      case '9':
+        yrlvl = "4th Year";
+        break;
+      default:
+        yrlvl = null;
+    }
+
+    switch(prdid){
+      case '5':
+        prd = "1st Semester";
+        break;
+      case '6':
+        prd = "2nd Semester";
+        break;
+      case '7':
+        prd = "Mid Year";
+        break;
+      default:
+        prd = null;
+    }
+
+    let headerLabel = `${lvl} ${yrlvl} - ${prd}`;
+
+
+    if(startDate && endDate){
+      formData.append('startDate', startDate);
+      formData.append('endDate', endDate);
+      // headerLabel.appendChild(` ${startDate} to ${endDate}`);
+    }
+
     const reportContainer = document.getElementById('reportContainer');
     reportContainer.innerHTML = loadingRow(4);
+    
 
     fetch("tadi/dean/controller/index-info.php", { 
         method: "POST", 
@@ -352,9 +414,7 @@ function displayTeacherTadiReport() {
             return groups;
         }, {});
 
-       document.querySelector(".export-header").innerHTML = `<button class="btn btn-success export-all-btn" onclick="exportAllTadiToExcel()">
-                                                              <i class="fas fa-file-excel me-2"></i>Export All to Excel
-                                                            </button>`;
+       
         reportContainer.innerHTML = `
             ${Object.entries(teacherGroups)
                 .map(([profId, teacher]) => `
@@ -402,6 +462,14 @@ function displayTeacherTadiReport() {
                         </div>
                     </div>
               `).join('')}`;
+              document.querySelector(".export-content").innerHTML = `<h4>${headerLabel} Report</h4>
+                                                            <button class="btn btn-success export-all-btn" id="exportAll">
+                                                              <i class="fas fa-file-excel me-2"></i>Export All to Excel
+                                                            </button>
+                                                            `;
+              document.getElementById("exportAll").addEventListener("click", () =>{
+                  exportAllTadiToExcel();
+              });
     })
     .catch(err => console.error("Error generating TADI report:", err));
 }
