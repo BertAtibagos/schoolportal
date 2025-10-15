@@ -602,6 +602,14 @@ if ($type == 'GET_TEACHER_TADI_REPORT') {
     $prdid = $_POST['prd_id'];
     $yrid = $_POST['yr_id'];
     $yrlvlid = $_POST['yrlvl_id'];
+    $startDate = $_POST['startDate'] ?? null;
+    $endDate = $_POST['endDate'] ?? null;
+
+	if(!$user){
+		$fetch = "Failed to generate report. Please login again.";
+		echo json_encode($fetch);
+		exit;
+	}
 
     $qry = "SELECT 
         emp.SchlEmpSms_ID,
@@ -643,21 +651,31 @@ if ($type == 'GET_TEACHER_TADI_REPORT') {
     LEFT JOIN schoolacademicsection schl_acad_sec
         ON schl_enr_subj_off.SchlAcadSec_ID = schl_acad_sec.SchlAcadSecSms_ID
     INNER JOIN schooltadi t 
-        ON schl_enr_subj_off.SchlEnrollSubjOffSms_ID = t.schlenrollsubjoff_id
-    ORDER BY 
+        ON schl_enr_subj_off.SchlEnrollSubjOffSms_ID = t.schlenrollsubjoff_id";
+
+    if ($startDate && $endDate) {
+        $qry .= " WHERE t.schltadi_date BETWEEN ? AND ?";
+    }
+
+    $qry .= " ORDER BY 
         emp.SchlEmp_LNAME, 
         schl_acad_subj.SchlAcadSubj_CODE,
-        t.schltadi_date DESC,
+        t.schltadi_date,
         t.schltadi_timein";
 
     $stmt = $dbConn->prepare($qry);
-    $stmt->bind_param("iiiii", $lvlid, $yrid, $prdid, $yrlvlid, $user);
+    
+    if ($startDate && $endDate) {
+        $stmt->bind_param("iiiiiss", $lvlid, $yrid, $prdid, $yrlvlid, $user, $startDate, $endDate);
+    } else {
+        $stmt->bind_param("iiiii", $lvlid, $yrid, $prdid, $yrlvlid, $user);
+    }
+    
     $stmt->execute();
     $result = $stmt->get_result();
     $fetch = $result->fetch_all(MYSQLI_ASSOC);
     $stmt->close();
     $dbConn->close();
 }
-
 
 echo json_encode($fetch); 
