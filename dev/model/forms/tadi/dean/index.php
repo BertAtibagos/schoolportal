@@ -115,6 +115,36 @@
     .subject-card-header{
         background-color: #181a46;
     }
+    .report-btn{
+        background-color: #EEEEF6;
+        transition: background-color 0.1s ease;
+        border: 1px solid transparent;
+        border-color: #0d6efd;
+    }
+    .report-btn:hover{
+        background-color: #0d6efd;
+        color: white;
+    }
+    .gotadi-btn{
+        background-color: #EEEEF6;
+        transition: background-color 0.1s ease;
+        border: 1px solid transparent;
+        border-color: #d59432ff;
+    }
+    .gotadi-btn:hover{
+        background-color: #d59432ff;
+        color: white;
+    }
+    .button-gen-rep-bg-change {
+        background-color: #28A745;
+        transition: background-color 0.1s ease;
+        border: 1px solid transparent;
+        color: white;
+    }
+    .button-gen-rep-bg-change:hover {
+        background-color: #26893dff;
+        color: white;
+    }
 </style>
 
 <section>
@@ -124,8 +154,8 @@
         <div class="container-fluid mt-4">
             <div class="m-2 d-flex justify-content-between align-items-center">
                 <h3 id="tadiTitle">TADI - Dean</h3>
-                <button class="btn button-bg-change" id="exportBtn">Generate Report</button>
-                <button class="btn button-bg-change" id="tadiBtn" style="display: none">Go back to TADI</button>
+                <button class="btn report-btn" id="exportBtn">Generate Report</button>
+                <button class="btn gotadi-btn" id="tadiBtn" style="display: none">Go back to TADI</button>
             </div>
             <div class="row justify-content-center align-items-center g-3 mt-4">
                 <!-- Academic Level Dropdown -->
@@ -177,8 +207,10 @@
                 </div>
                 <!-- Search Button -->
                 <div class="col-md">
-                    <button type="button" id="search_button" name="search_button" class="btn w-100 button-search-bg-change tadi-search">
+                    <button type="button" id="search_button" class="btn w-100 button-search-bg-change tadi-search">
                         Search
+                    </button><button type="button" id="reportSearch" class="btn w-100 button-gen-rep-bg-change tadi-search" style="display:none">
+                        Generate Report
                     </button>
                 </div>
             </div>
@@ -216,10 +248,7 @@
             </div>
             
             <div id="reportContainer" class="container-fluid mt-4 report-container" style="display:none">
-                <div style="text-align: center;">
-                    <p>Select all filters above and click "Generate Report" to generate report.</p>
-                    <p>The start date and end date can be blank.</p>
-                </div>
+                
             </div>
             <!-- End Instructor Dashboard -->
 
