@@ -289,8 +289,11 @@ document.getElementById("searchSubjBtn").addEventListener("click", function() {
 });
 
 
-function displayTeacherTadiReport() {
-    const lvlid = document.getElementById("academiclevel").value;
+document.getElementById("reportSearch").addEventListener("click", function(){
+
+  document.querySelector(".export-content").innerHTML = '';
+  
+  const lvlid = document.getElementById("academiclevel").value;
     const yrlvlid = document.getElementById("academicyearlevel").value;
     const prdid = document.getElementById("academicperiod").value;
     const yrid = document.getElementById("acadyear").value;
@@ -309,7 +312,6 @@ function displayTeacherTadiReport() {
     formData.append('yr_id', yrid);
     formData.append('yrlvl_id', yrlvlid);
 
-    let date = new Date().toLocaleDateString('en-CA');
     let lvl = null;
     let yrlvl = null;
     let prd = null;
@@ -361,16 +363,19 @@ function displayTeacherTadiReport() {
 
     let headerLabel = `${lvl} ${yrlvl} - ${prd}`;
 
-
     if(startDate && endDate){
       formData.append('startDate', startDate);
       formData.append('endDate', endDate);
-      // headerLabel.appendChild(` ${startDate} to ${endDate}`);
-    }
+      headerLabel = `${lvl} ${yrlvl} - ${prd} (${startDate} to ${endDate})`; 
+      
+      if(startDate > endDate){
+        alert("Start date must be earlier than end date.");
+        return;
+      };
+    };
 
     const reportContainer = document.getElementById('reportContainer');
     reportContainer.innerHTML = loadingRow(4);
-    
 
     fetch("tadi/dean/controller/index-info.php", { 
         method: "POST", 
@@ -414,7 +419,6 @@ function displayTeacherTadiReport() {
             return groups;
         }, {});
 
-       
         reportContainer.innerHTML = `
             ${Object.entries(teacherGroups)
                 .map(([profId, teacher]) => `
@@ -472,7 +476,7 @@ function displayTeacherTadiReport() {
               });
     })
     .catch(err => console.error("Error generating TADI report:", err));
-}
+});
 
 function exportAllTadiToExcel() {
     const data = window.tadiReportData;
