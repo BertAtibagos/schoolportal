@@ -83,46 +83,6 @@ document.getElementById("search_button").addEventListener("click", function () {
     const prdid = document.getElementById("academicperiod").value;
     const yrid = document.getElementById("acadyear").value;
 
-    // const category = document.getElementById("type").value;
-
-    // const formData = new FormData();
-    // formData.append('type', 'GET_DEPARTMENTAL_SUBJECT');
-    // formData.append('lvl_id', lvlid);
-    // formData.append('prd_id', prdid);
-    // formData.append('yr_id', yrid);
-    // formData.append('yrlvl_id', yrlvlid);
-    // formData.append('category', category);
-
-    // fetch(`tadi/dean/controller/index-info.php`, {
-    //     method: "POST",
-    //     body: formData
-    // })
-    //     .then(res => res.json())
-    //     .then(result => {
-
-    //         const tableRows = result.length
-    //             ? result.map((item, index) => `
-    //                 <tr key="${item.subj_Code}">
-    //                     <td class="bysub-subj-code" id="bysubSubjCode">${item.subj_code}</td>
-    //                     <td class="col-6 bysub-subj-desc" id="bysubSubjDesc">${item.subj_desc}</td>
-    //                     <td>
-    //                         <button class="btn btn-sm w-100 button-bg-change inst-subj-list" id="subjectModalHandler${index}" data-bs-toggle="modal" data-bs-target="#Subject_Instructor_List">INSTRUCTOR LIST</button>
-    //                     </td>
-    //                 </tr>
-    //             `).join("")
-    //             : `<tr class="flex justify-center align-center">
-    //                     <td colspan="5" class="text-center">No data available</td>
-    //                 </tr>`;
-
-    //         document.getElementById("subject").innerHTML = tableRows;
-
-    //         result.forEach((value, index) => {
-    //             document.getElementById(`subjectModalHandler${index}`)?.addEventListener("click", function () {
-    //                 GET_INSTRUCTOR_BY_SUBJECT(value);
-    //             });
-    //         });
-    //     });
-
     const formData1 = new FormData();
     formData1.append('type', 'GET_INSTRUCTOR_LIST');
     formData1.append('lvl_id', lvlid);
@@ -178,35 +138,47 @@ document.getElementById("exportBtn").addEventListener("click", function() {
     document.querySelector(".instr-table").style.display = "none";
     document.getElementById("tadiBtn").style.display = "block";
     document.getElementById("exportBtn").style.display = "none";
-    document.getElementById("reportContainer").style.display = "block";
+    document.getElementById("search_button").style.display = "none";
+    document.getElementById("reportSearch").style.display = "block";
+
+    const repCont = document.getElementById("reportContainer");
+    repCont.style.display = "block";
+    repCont.innerHTML = `<div style="text-align: center;">
+                            <p>Select all filters above and click "Generate Report" to generate report.</p>
+                            <p>The start date and end date can be blank.</p>
+                        </div>`;
     document.getElementById("tadiTitle").innerText = "TADI Report";
-    const tadiSearch = document.querySelector(".tadi-search");
-    tadiSearch.innerText = "Generate Report";
-    tadiSearch.id = "reportSearch";
+
     document.querySelector(".export-header").style.display = "block";
     document.querySelector(".report-container").style.display = "block";
+
     document.querySelectorAll(".date-range-xport").forEach(element => {
         element.style.display = "block";
     });
 
-
-    document.getElementById("reportSearch").addEventListener("click",() => {
-        document.querySelector(".export-content").innerHTML = '';
-        displayTeacherTadiReport();
-    });
 });
 
 document.getElementById("tadiBtn").addEventListener("click", function() {
     document.querySelector(".instr-table").style.display = "block";
     document.getElementById("tadiBtn").style.display = "none";
+    document.querySelector(".export-content").innerHTML = '';
     document.getElementById("exportBtn").style.display = "block";
-    document.getElementById("reportContainer").style.display = "none";
+    document.getElementById("search_button").style.display = "block";
+    document.getElementById("reportSearch").style.display = "none";
+
+    const repCont = document.getElementById("reportContainer");
+    repCont.innerHTML = `<div style="text-align: center;">
+                            <p>Select all filters above and click "Generate Report" to generate report.</p>
+                            <p>The start date and end date can be blank.</p>
+                        </div>`;
+    repCont.style.display = "none";
+    
     document.getElementById("tadiTitle").innerText = "TADI - Dean";
-    const tadiSearch = document.querySelector(".tadi-search");
-    tadiSearch.id = "search_button";
-    tadiSearch.innerText = "Search";
+
+
     document.querySelector(".export-header").style.display = "none";
     document.querySelector(".report-container").style.display = "none";
+
     document.querySelectorAll(".date-range-xport").forEach(element=>{
         element.style.display = "none";
     })
