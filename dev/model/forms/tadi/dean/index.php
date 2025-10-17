@@ -184,10 +184,10 @@
                 </div>
                 <!-- Start date and end time -->
                 <div class="col-md date-range-xport" style="display:none">
-                    <input type="date" class="form-control border border-dark select-shadow" style="background-color:#EEEEF6;" id="startDate" name="startDate">
+                    <input type="text" class="form-control border border-dark select-shadow" style="background-color:#EEEEF6;" id="startDate" name="startDate" placeholder="Start Date">
                 </div>
                 <div class="col-md date-range-xport" style="display:none">
-                    <input type="date" class="form-control border border-dark select-shadow" style="background-color:#EEEEF6;" id="endDate" name="endDate">
+                    <input type="text" class="form-control border border-dark select-shadow" style="background-color:#EEEEF6;" id="endDate" name="endDate" placeholder="End Date">
                 </div>
                 <!-- Type Dropdown -->
                 <!-- <div class="col-md">
