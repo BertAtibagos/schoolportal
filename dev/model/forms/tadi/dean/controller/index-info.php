@@ -629,7 +629,10 @@ if ($type == 'GET_TEACHER_TADI_REPORT') {
             IF(t.schltadi_type LIKE '%regular%', 'Regular', 'Other')
         ) as session_type,
         t.schltadi_status AS status,
-        schl_enr_subj_off.SchlEnrollSubjOffSms_ID AS subj_off_id
+        schl_enr_subj_off.SchlEnrollSubjOffSms_ID AS subj_off_id,
+        CONCAT(schl_reg_stud.SchlEnrollRegStudInfo_LAST_NAME, ', ', 
+               schl_reg_stud.SchlEnrollRegStudInfo_FIRST_NAME, ' ',
+               schl_reg_stud.SchlEnrollRegStudInfo_MIDDLE_NAME) AS student_name
     FROM schoolemployee emp
     INNER JOIN (
         SELECT DISTINCT SchlProf_ID, SchlEnrollSubjOffSms_ID, SchlAcadSubj_ID, SchlAcadSec_ID, 
@@ -651,7 +654,13 @@ if ($type == 'GET_TEACHER_TADI_REPORT') {
     LEFT JOIN schoolacademicsection schl_acad_sec
         ON schl_enr_subj_off.SchlAcadSec_ID = schl_acad_sec.SchlAcadSecSms_ID
     INNER JOIN schooltadi t 
-        ON schl_enr_subj_off.SchlEnrollSubjOffSms_ID = t.schlenrollsubjoff_id";
+        ON schl_enr_subj_off.SchlEnrollSubjOffSms_ID = t.schlenrollsubjoff_id
+    LEFT JOIN schoolstudent schl_stud
+        ON t.schlstud_id = schl_stud.SchlStudSms_ID
+    LEFT JOIN schoolenrollmentregistration schl_enr_reg
+        ON schl_stud.SchlEnrollRegColl_ID = schl_enr_reg.SchlEnrollRegSms_ID
+    LEFT JOIN schoolenrollmentregistrationstudentinformation schl_reg_stud
+        ON schl_enr_reg.SchlEnrollRegSms_ID = schl_reg_stud.SchlEnrollReg_ID";
 
     if ($startDate && $endDate) {
         $qry .= " WHERE t.schltadi_date BETWEEN ? AND ?";
