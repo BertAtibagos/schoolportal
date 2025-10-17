@@ -165,6 +165,11 @@ document.getElementById("tadiBtn").addEventListener("click", function() {
     document.getElementById("exportBtn").style.display = "block";
     document.getElementById("search_button").style.display = "block";
     document.getElementById("reportSearch").style.display = "none";
+    const start_date = document.getElementById("startDate");
+    const end_date = document.getElementById("endDate");
+    start_date.type = "text";
+    end_date.type = "text";
+    end_date.value = "";
 
     const repCont = document.getElementById("reportContainer");
     repCont.innerHTML = `<div style="text-align: center;">
@@ -182,5 +187,15 @@ document.getElementById("tadiBtn").addEventListener("click", function() {
     document.querySelectorAll(".date-range-xport").forEach(element=>{
         element.style.display = "none";
     })
+});
+
+document.getElementById("startDate").addEventListener("focus", function(){
+    this.type = "date";
+});
+
+document.getElementById("endDate").addEventListener("focus", function(){
+    this.type = "date";
+    const date = new Date().toLocaleDateString('en-CA');
+    this.value = date;
 });
 
