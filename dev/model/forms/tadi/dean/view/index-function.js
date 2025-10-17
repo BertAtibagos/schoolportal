@@ -362,11 +362,13 @@ document.getElementById("reportSearch").addEventListener("click", function(){
     }
 
     let headerLabel = `${lvl} ${yrlvl} - ${prd}`;
+    let exprtname = `TADI-REPORT-${lvl.toUpperCase()}-${yrlvl.toUpperCase()}-${prd.toUpperCase()}`;
 
     if(startDate && endDate){
       formData.append('startDate', startDate);
       formData.append('endDate', endDate);
-      headerLabel = `${lvl} ${yrlvl} - ${prd} (${startDate} to ${endDate})`; 
+      headerLabel = `${headerLabel} (${startDate} to ${endDate})`; 
+      exprtname = `${exprtname}-(${startDate}-TO-${endDate})`;
       
       if(startDate > endDate){
         alert("Start date must be earlier than end date.");
@@ -377,142 +379,178 @@ document.getElementById("reportSearch").addEventListener("click", function(){
     const reportContainer = document.getElementById('reportContainer');
     reportContainer.innerHTML = loadingRow(4);
 
+    const repBtn = document.getElementById("reportSearch");
+    const backTadi = document.getElementById("tadiBtn");
+    repBtn.disabled = "true";
+    backTadi.disabled = "true";
+
     fetch("tadi/dean/controller/index-info.php", { 
         method: "POST", 
         body: formData 
     })
     .then(res => res.json())
-    .then(data => {
-        // Store raw data for export
-        window.tadiReportData = data;
+  .then(data => {
+    // Store raw data for export
+    window.tadiReportData = data;
 
-        const teacherGroups = data.reduce((groups, record) => {
-            const group = groups[record.SchlEmpSms_ID] || {
-                prof_name: record.prof_name,
-                subjects: {}
-            };
-            
-            if (!group.subjects[record.subject_code]) {
-                group.subjects[record.subject_code] = {
-                    subject_code: record.subject_code,
-                    subject_desc: record.subject_desc,
-                    section_name: record.section_name,
-                    sessions: []
-                };
-            }
-
-            if (record.schltadi_id) {
-                group.subjects[record.subject_code].sessions.push({
-                    date: record.tadi_date,
-                    time_in: formatTimeToAmPm(record.time_in),
-                    time_out: formatTimeToAmPm(record.time_out),
-                    duration: record.duration,
-                    mode: record.mode == 'online_learning' ? 'Online' : 'Onsite',
-                    type: record.type,
-                    session_type: record.session_type,
-                    status: record.status,
-                    activity: record.activity ? record.activity.replace(/\\r\\n/g, "<br>") : 'No activity recorded'
-                });
-            }
-
-            groups[record.SchlEmpSms_ID] = group;
-            return groups;
-        }, {});
-
+    // Check if there’s no data
+    if (!data || data.length === 0) {
         reportContainer.innerHTML = `
-            ${Object.entries(teacherGroups)
-                .map(([profId, teacher]) => `
-                  <div class="card mb-4">
-                        <div class="card-header text-white subject-card-header">
-                            <h5 class="mb-0">${teacher.prof_name}</h5>
-                        </div>
-                        <div class="card-body">
-                            ${Object.values(teacher.subjects).map(subject => `
-                                <div class="mb-4">
-                                    <h6>${subject.subject_code} - ${subject.subject_desc}</h6>
-                                    <p class="small text-muted">Section: ${subject.section_name || 'No Section'}</p>
-                                    <div class="table-responsive">
-                                        <table class="table table-sm table-bordered table-hover">
-                                            <thead class="table-light">
-                                                <tr>
-                                                    <th>Date</th>
-                                                    <th>Time</th>
-                                                    <th>Duration</th>
-                                                    <th>Session Type</th>
-                                                    <th>Activity</th>
-                                                    <th>Status</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                ${subject.sessions.map(session => `
-                                                    <tr>
-                                                        <td>${session.date}</td>
-                                                        <td>${session.time_in} - ${session.time_out}</td>
-                                                        <td>${session.duration}</td>
-                                                        <td>${session.mode} ${session.session_type}</td>
-                                                        <td>${session.activity}</td>
-                                                        <td>
-                                                            <span class="badge ${session.status == 1 ? 'bg-success' : 'bg-danger'}">
-                                                                ${session.status == 1 ? 'Verified' : 'Unverified'}
-                                                            </span>
-                                                        </td>
-                                                    </tr>
-                                                `).join('')}
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            `).join('')}
-                        </div>
-                    </div>
-              `).join('')}`;
-              document.querySelector(".export-content").innerHTML = `<h4>${headerLabel} Report</h4>
-                                                            <button class="btn btn-success export-all-btn" id="exportAll">
-                                                              <i class="fas fa-file-excel me-2"></i>Export All to Excel
-                                                            </button>
-                                                            `;
-              document.getElementById("exportAll").addEventListener("click", () =>{
-                  exportAllTadiToExcel();
-              });
-    })
-    .catch(err => console.error("Error generating TADI report:", err));
-});
-
-function exportAllTadiToExcel() {
-    const data = window.tadiReportData;
-    if (!data || !data.length) {
-        alert('No data available to export');
-        return;
+            <div class="alert alert-warning text-center mt-4" role="alert">
+                <i class="fas fa-exclamation-circle me-2"></i>
+                No TADI records found for the selected criteria.
+            </div>
+        `;
+        document.querySelector(".export-content").innerHTML = `
+            <h4>${headerLabel} Report</h4>
+            <button class="btn btn-success export-all-btn" id="exportAll" disabled>
+                <i class="fas fa-file-excel me-2"></i>Export All to Excel
+            </button>
+        `;
+        return; // stop further processing
     }
 
-    // Create workbook and worksheet
-    const wb = XLSX.utils.book_new();
-    const allRows = [];
+    const teacherGroups = data.reduce((groups, record) => {
+        const group = groups[record.SchlEmpSms_ID] || {
+            prof_name: record.prof_name,
+            subjects: {}
+        };
+        
+        if (!group.subjects[record.subject_code]) {
+            group.subjects[record.subject_code] = {
+                subject_code: record.subject_code,
+                subject_desc: record.subject_desc,
+                section_name: record.section_name,
+                sessions: []
+            };
+        }
 
-    // Add headers
-    allRows.push([
-        'Professor Name',
-        'Subject Code',
-        'Subject Description',
-        'Section',
-        'Date',
-        'Time In',
-        'Time Out',
-        'Duration',
-        'Mode',
-        'Session Type',
-        'Activity',
-        'Status'
-    ]);
-
-    // Process data directly from raw data
-    data.forEach(record => {
         if (record.schltadi_id) {
+            group.subjects[record.subject_code].sessions.push({
+                date: record.tadi_date,
+                time_in: formatTimeToAmPm(record.time_in),
+                time_out: formatTimeToAmPm(record.time_out),
+                duration: record.duration,
+                mode: record.mode == 'online_learning' ? 'Online' : 'Onsite',
+                type: record.type,
+                session_type: record.session_type,
+                status: record.status,
+                activity: record.activity ? record.activity.replace(/\\r\\n/g, "<br>") : 'No activity recorded',
+                stud_name: record.student_name
+            });
+        }
+
+        groups[record.SchlEmpSms_ID] = group;
+        return groups;
+    }, {});
+
+    // Generate HTML output
+    reportContainer.innerHTML = `
+        ${Object.entries(teacherGroups)
+            .map(([profId, teacher]) => `
+              <div class="card mb-4">
+                    <div class="card-header text-white subject-card-header">
+                        <h5 class="mb-0">${teacher.prof_name}</h5>
+                    </div>
+                    <div class="card-body">
+                        ${Object.values(teacher.subjects).map(subject => `
+                            <div class="mb-4">
+                                <h6>${subject.subject_code} - ${subject.subject_desc}</h6>
+                                <p class="small text-muted">Section: ${subject.section_name || 'No Section'}</p>
+                                <div class="table-responsive">
+                                    <table class="table table-sm table-bordered table-hover">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th>Date</th>
+                                                <th>Time</th>
+                                                <th>Duration</th>
+                                                <th>Session Type</th>
+                                                <th>Submitted By</th>
+                                                <th>Activity</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            ${subject.sessions.map(session => `
+                                                <tr>
+                                                    <td>${session.date}</td>
+                                                    <td>${session.time_in} - ${session.time_out}</td>
+                                                    <td>${session.duration}</td>
+                                                    <td>${session.mode} ${session.session_type}</td>
+                                                    <td>${session.stud_name}</td>
+                                                    <td>${session.activity}</td>
+                                                    <td>
+                                                        <span class="badge ${session.status == 1 ? 'bg-success' : 'bg-danger'}">
+                                                            ${session.status == 1 ? 'Verified' : 'Unverified'}
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            `).join('')}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+          `).join('')}`;
+
+    // Add Export button
+    document.querySelector(".export-content").innerHTML = `
+        <h4>${headerLabel} Report</h4>
+        <button class="btn btn-success export-all-btn" id="exportAll">
+            <i class="fas fa-file-excel me-2"></i>Export All to Excel
+        </button>
+    `;
+
+    document.getElementById("exportAll").addEventListener("click", () => {
+        const data = window.tadiReportData;
+        if (!data || !data.length) {
+            alert('No data available to export');
+            return;
+        }
+
+        // Create workbook and worksheet
+        const wb = XLSX.utils.book_new();
+        const allRows = [];
+
+        // Add headers
+        allRows.push([
+            'Professor Name',
+            'Subject Code',
+            'Subject Description',
+            'Section',
+            'Student Name',
+            'Date',
+            'Time In',
+            'Time Out',
+            'Duration',
+            'Mode',
+            'Session Type',
+            'Activity',
+            'Status'
+        ]);
+
+        // Sort by professor name to group them together
+        data.sort((a, b) => a.prof_name.localeCompare(b.prof_name));
+
+        let currentProf = null;
+
+        // Process data and insert blank rows between professors
+        data.forEach(record => {
+            if (!record.schltadi_id) return;
+
+            // Insert a blank row when the professor changes (skip before first)
+            if (currentProf && record.prof_name !== currentProf) {
+                allRows.push([]); // blank row separator
+            }
+
             allRows.push([
                 record.prof_name,
                 record.subject_code,
                 record.subject_desc,
                 record.section_name || 'No Section',
+                record.student_name,
                 record.tadi_date,
                 record.time_in,
                 record.time_out,
@@ -522,45 +560,55 @@ function exportAllTadiToExcel() {
                 record.activity || 'No activity recorded',
                 record.status == 1 ? 'Verified' : 'Unverified'
             ]);
+
+            currentProf = record.prof_name;
+        });
+
+        // Create worksheet
+        const ws = XLSX.utils.aoa_to_sheet(allRows);
+
+        // Set column widths
+        ws['!cols'] = [
+            { wch: 30 }, // Professor Name
+            { wch: 15 }, // Subject Code
+            { wch: 40 }, // Subject Description
+            { wch: 15 }, // Section
+            { wch: 30 }, // Student Name
+            { wch: 12 }, // Date
+            { wch: 10 }, // Time In
+            { wch: 10 }, // Time Out
+            { wch: 10 }, // Duration
+            { wch: 15 }, // Mode
+            { wch: 12 }, // Session Type
+            { wch: 50 }, // Activity
+            { wch: 10 }  // Status
+        ];
+
+        // Style headers
+        const range = XLSX.utils.decode_range(ws['!ref']);
+        for (let C = range.s.c; C <= range.e.c; ++C) {
+            const address = XLSX.utils.encode_cell({ r: 0, c: C });
+            if (!ws[address]) continue;
+            ws[address].s = {
+                fill: { fgColor: { rgb: "FFFF00" } },
+                font: { bold: true }
+            };
         }
-    });
 
-    // Create worksheet
-    const ws = XLSX.utils.aoa_to_sheet(allRows);
+        // Append worksheet to workbook
+        XLSX.utils.book_append_sheet(wb, ws, "TADI Records");
 
-    // Set column widths
-    ws['!cols'] = [
-        { wch: 30 }, // Professor Name
-        { wch: 15 }, // Subject Code
-        { wch: 40 }, // Subject Description
-        { wch: 15 }, // Section
-        { wch: 12 }, // Date
-        { wch: 10 }, // Time In
-        { wch: 10 }, // Time Out
-        { wch: 10 }, // Duration
-        { wch: 15 }, // Mode
-        { wch: 12 }, // Session Type
-        { wch: 50 }, // Activity
-        { wch: 10 }  // Status
-    ];
+        // Generate filename
+        const filename = `${exprtname}.xlsx`;
 
-    // Style headers
-    const range = XLSX.utils.decode_range(ws['!ref']);
-    for (let C = range.s.c; C <= range.e.c; ++C) {
-        const address = XLSX.utils.encode_cell({ r: 0, c: C });
-        if (!ws[address]) continue;
-        ws[address].s = {
-            fill: { fgColor: { rgb: "FFFF00" } },
-            font: { bold: true }
-        };
-    }
+        // Save file
+        XLSX.writeFile(wb, filename);
+        });
+    })
+.catch(err => console.error("Error generating TADI report:", err))
+.finally(() => {
+  repBtn.disabled = "false";
+  backTadi.disabled = "false";
+});
+})
 
-    XLSX.utils.book_append_sheet(wb, ws, "TADI Records");
-
-    // Generate filename
-    const date = new Date().toLocaleDateString('en-CA'); // YYYY-MM-DD format
-    const filename = `TADI_Report_${date}.xlsx`;
-
-    // Save file
-    XLSX.writeFile(wb, filename);
-}
