@@ -294,101 +294,109 @@ document.getElementById("reportSearch").addEventListener("click", function(){
   document.querySelector(".export-content").innerHTML = '';
   
   const lvlid = document.getElementById("academiclevel").value;
-    const yrlvlid = document.getElementById("academicyearlevel").value;
-    const prdid = document.getElementById("academicperiod").value;
-    const yrid = document.getElementById("acadyear").value;
-    const startDate = document.getElementById("startDate").value;
-    const endDate = document.getElementById("endDate").value;
+  const yrlvlid = document.getElementById("academicyearlevel").value;
+  const prdid = document.getElementById("academicperiod").value;
+  const yrid = document.getElementById("acadyear").value;
+  const startDate = document.getElementById("startDate").value;
+  const endDate = document.getElementById("endDate").value;
 
-    if(!lvlid || !yrlvlid || !prdid || !yrid){
-      alert("Please select all filters to generate the report");
-      return;
-    }
+  if(!lvlid || !yrlvlid || !prdid || !yrid){
+    alert("Please select all filters to generate the report");
+    return;
+  }
 
-    const formData = new FormData();
-    formData.append('type', 'GET_TEACHER_TADI_REPORT');
-    formData.append('lvl_id', lvlid);
-    formData.append('prd_id', prdid);
-    formData.append('yr_id', yrid);
-    formData.append('yrlvl_id', yrlvlid);
+  const formData = new FormData();
+  formData.append('type', 'GET_TEACHER_TADI_REPORT');
+  formData.append('lvl_id', lvlid);
+  formData.append('prd_id', prdid);
+  formData.append('yr_id', yrid);
+  formData.append('yrlvl_id', yrlvlid);
 
-    let lvl = null;
-    let yrlvl = null;
-    let prd = null;
+  let lvl = null;
+  let yrlvl = null;
+  let prd = null;
+  
+  switch(lvlid){
+    case '1':
+      lvl = "Basic Education";
+      break;
+    case '2':
+      lvl = "Tertiary";
+      break;
+    case '3':
+      lvl = "Graduate School";
+      break;
+      default:
+        lvl = null;
+  }
+
+  switch(yrlvlid){
+    case '6':
+      yrlvl = "1st Year";
+      break;
+    case '7':
+      yrlvl = "2nd Year";
+      break;
+    case '8':
+      yrlvl = "3rd Year";
+      break;
+    case '9':
+      yrlvl = "4th Year";
+      break;
+    default:
+      yrlvl = null;
+  }
+
+  switch(prdid){
+    case '5':
+      prd = "1st Semester";
+      break;
+    case '6':
+      prd = "2nd Semester";
+      break;
+    case '7':
+      prd = "Mid Year";
+      break;
+    default:
+      prd = null;
+  }
+
+  let headerLabel = `${lvl} ${yrlvl} - ${prd}`;
+  let exprtname = `TADI-REPORT-${lvl.toUpperCase()}-${yrlvl.toUpperCase()}-${prd.toUpperCase()}`;
+
+  if(startDate && endDate){
+    formData.append('startDate', startDate);
+    formData.append('endDate', endDate);
+    headerLabel = `${headerLabel} (${startDate} to ${endDate})`; 
+    exprtname = `${exprtname}-(${startDate}-TO-${endDate})`;
     
-    switch(lvlid){
-      case '1':
-        lvl = "Basic Education";
-        break;
-      case '2':
-        lvl = "Tertiary";
-        break;
-      case '3':
-        lvl = "Graduate School";
-        break;
-        default:
-          lvl = null;
-    }
-
-    switch(yrlvlid){
-      case '6':
-        yrlvl = "1st Year";
-        break;
-      case '7':
-        yrlvl = "2nd Year";
-        break;
-      case '8':
-        yrlvl = "3rd Year";
-        break;
-      case '9':
-        yrlvl = "4th Year";
-        break;
-      default:
-        yrlvl = null;
-    }
-
-    switch(prdid){
-      case '5':
-        prd = "1st Semester";
-        break;
-      case '6':
-        prd = "2nd Semester";
-        break;
-      case '7':
-        prd = "Mid Year";
-        break;
-      default:
-        prd = null;
-    }
-
-    let headerLabel = `${lvl} ${yrlvl} - ${prd}`;
-    let exprtname = `TADI-REPORT-${lvl.toUpperCase()}-${yrlvl.toUpperCase()}-${prd.toUpperCase()}`;
-
-    if(startDate && endDate){
-      formData.append('startDate', startDate);
-      formData.append('endDate', endDate);
-      headerLabel = `${headerLabel} (${startDate} to ${endDate})`; 
-      exprtname = `${exprtname}-(${startDate}-TO-${endDate})`;
-      
-      if(startDate > endDate){
-        alert("Start date must be earlier than end date.");
-        return;
-      };
+    if(startDate > endDate){
+      alert("Start date must be earlier than end date.");
+      return;
     };
+  };
 
-    const reportContainer = document.getElementById('reportContainer');
-    reportContainer.innerHTML = loadingRow(4);
+  if(!startDate && endDate){
+    alert("Please select a start date.");
+    return;
+  }else if(startDate && !endDate){
+    alert("Please select an end date.");
+    return;
+  };
 
-    const repBtn = document.getElementById("reportSearch");
-    const backTadi = document.getElementById("tadiBtn");
-    repBtn.disabled = "true";
-    backTadi.disabled = "true";
+  const reportContainer = document.getElementById('reportContainer');
+  reportContainer.innerHTML = loadingRow(4);
 
-    fetch("tadi/dean/controller/index-info.php", { 
-        method: "POST", 
-        body: formData 
-    })
-    .then(res => res.json())
+  const repBtn = document.getElementById("reportSearch");
+  const backTadi = document.getElementById("tadiBtn");
+  repBtn.disabled = true;
+  backTadi.disabled = true;
+
+  fetch("tadi/dean/controller/index-info.php", { 
+      method: "POST", 
+      body: formData 
+  })
+  .then(res => res.json())
   .then(data => {
     // Store raw data for export
     window.tadiReportData = data;
@@ -607,8 +615,8 @@ document.getElementById("reportSearch").addEventListener("click", function(){
     })
 .catch(err => console.error("Error generating TADI report:", err))
 .finally(() => {
-  repBtn.disabled = "false";
-  backTadi.disabled = "false";
+  repBtn.disabled = false;
+  backTadi.disabled = false;
 });
 })
 
