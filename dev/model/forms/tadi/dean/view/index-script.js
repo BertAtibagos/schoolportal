@@ -100,6 +100,12 @@ document.getElementById("search_button").addEventListener("click", function () {
                                         </div>
                                     </td>
                                 </tr>`;
+    
+    const srchBtn = document.getElementById("search_button");
+    const genReportBtn = document.getElementById("exportBtn"); 
+    srchBtn.disabled = true;
+    genReportBtn.disabled = true;
+
 
     fetch(`tadi/dean/controller/index-info.php`, {
         method: "POST",
@@ -130,6 +136,11 @@ document.getElementById("search_button").addEventListener("click", function () {
                     GET_SUBJECT_BY_INSTRUCTOR(value);
                 });
             });
+        })
+        .catch(err => console.error("Error:", err))
+        .finally(()=>{
+            srchBtn.disabled = false;
+            genReportBtn.disabled = false;
         });
 });
 
