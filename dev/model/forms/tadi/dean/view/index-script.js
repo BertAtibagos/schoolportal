@@ -210,3 +210,10 @@ document.getElementById("endDate").addEventListener("focus", function(){
     this.value = date;
 });
 
+function showAlertModal(message) {
+  const modalEl = document.getElementById('alertModal');
+  const modalBody = document.getElementById('alertModalBody');
+  modalBody.textContent = message;
+  const modal = new bootstrap.Modal(modalEl);
+  modal.show();
+}
