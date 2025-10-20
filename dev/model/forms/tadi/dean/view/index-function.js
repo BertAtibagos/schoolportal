@@ -301,7 +301,7 @@ document.getElementById("reportSearch").addEventListener("click", function(){
   const endDate = document.getElementById("endDate").value;
 
   if(!lvlid || !yrlvlid || !prdid || !yrid){
-    alert("Please select all filters to generate the report");
+   showAlertModal("Please select all filters to generate the report");
     return;
   }
 
@@ -371,16 +371,24 @@ document.getElementById("reportSearch").addEventListener("click", function(){
     exprtname = `${exprtname}-(${startDate}-TO-${endDate})`;
     
     if(startDate > endDate){
-      alert("Start date must be earlier than end date.");
+      showAlertModal("Start date must be earlier than end date.");
+      const startDate = document.getElementById("startDate");
+      startDate.classList.remove("border-dark");
+      startDate.classList.add("border-danger");
+      startDate.classList.add("is-invalid");
       return;
     };
   };
 
   if(!startDate && endDate){
-    alert("Please select a start date.");
+    showAlertModal("Please select a start date.");
+    const startDate = document.getElementById("startDate");
+    startDate.classList.remove("border-dark");
+    startDate.classList.add("border-danger");
+    startDate.classList.add("is-invalid");
     return;
   }else if(startDate && !endDate){
-    alert("Please select an end date.");
+    showAlertModal('No data available to export');
     return;
   };
 
