@@ -291,6 +291,9 @@
                                                 <div class="col-1" style="width: auto; padding-top: 24px;">
                                                     <button id="searchSubjBtn" class="btn btn-primary searchSubjBtn">Search</button>
                                                 </div>
+                                                <div class="col-3 err-message-box border border-warning rounded-3" style="width: auto; margin-top: 1.5rem; padding:5px; background-color: #fff3e4; display:none;" id="subjErrorMessage">
+                                                    <!--Warning Message -->
+                                                </div>
                                             </div>
                                             <div class="table-scroll-width-limit">
                                                 <table class="table table-hover table-bordered" style="line-height: 2.5; border-color: rgb(157, 157, 157);">
