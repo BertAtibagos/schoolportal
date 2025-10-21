@@ -214,7 +214,7 @@ document.getElementById("searchSubjBtn").addEventListener("click", function() {
   let BySection = document.getElementById("BySection").value;
 
   if (!BySubjDesc && !BySubjCode && !BySection) {
-    alert("Please enter at least one search criteria.");
+    errorMessageBox("Please enter at least one search criteria.");
     return;
   }
 
@@ -223,8 +223,10 @@ document.getElementById("searchSubjBtn").addEventListener("click", function() {
   const cachedData = JSON.parse(tbody.dataset.source || '[]');
   
   if (!cachedData.length) {
-    alert("No subject data available");
+    showAlertModal("No subject data available");
     return;
+  }else{
+    clearErrorMessageBox();
   }
 
   const formData = new FormData();
@@ -302,7 +304,10 @@ document.getElementById("reportSearch").addEventListener("click", function(){
 
   if(!lvlid || !yrlvlid || !prdid || !yrid){
    showAlertModal("Please select all filters to generate the report");
+   emptyCriteriaReport();
     return;
+  }else{
+    resetCriteriaReport();
   }
 
   const formData = new FormData();
@@ -372,25 +377,24 @@ document.getElementById("reportSearch").addEventListener("click", function(){
     
     if(startDate > endDate){
       showAlertModal("Start date must be earlier than end date.");
-      const startDate = document.getElementById("startDate");
-      startDate.classList.remove("border-dark");
-      startDate.classList.add("border-danger");
-      startDate.classList.add("is-invalid");
+      invalidStartDateInput()
       return;
-    };
+    }else{
+      resetStartEndDateInput();
+    }
   };
 
   if(!startDate && endDate){
     showAlertModal("Please select a start date.");
-    const startDate = document.getElementById("startDate");
-    startDate.classList.remove("border-dark");
-    startDate.classList.add("border-danger");
-    startDate.classList.add("is-invalid");
+    invalidStartDateInput();
     return;
   }else if(startDate && !endDate){
-    showAlertModal('No data available to export');
+    showAlertModal('Please select an end date');
+    invalidEndDateInput();
     return;
-  };
+  }else{
+    resetStartEndDateInput();
+  }
 
   const reportContainer = document.getElementById('reportContainer');
   reportContainer.innerHTML = loadingRow(4);
@@ -522,7 +526,7 @@ document.getElementById("reportSearch").addEventListener("click", function(){
     document.getElementById("exportAll").addEventListener("click", () => {
         const data = window.tadiReportData;
         if (!data || !data.length) {
-            alert('No data available to export');
+            showAlertModal('No data available to export');
             return;
         }
 
