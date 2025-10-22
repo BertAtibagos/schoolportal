@@ -68,6 +68,10 @@
             width: auto;
             margin: auto
         }
+        #student_tadi_section .subj-list-wrapper{
+            max-height: 80vh;
+            overflow-y: auto;
+        }
     }
 
     #student_tadi_section .label {
@@ -110,8 +114,9 @@
             <div class="shadow-sm">
                 <div class="card-body">
                     <div class="table-responsive">
+                        <div class="subj-list-wrapper">
                         <table class="table table-hover" style="line-height: 2.5;">
-                            <thead style="background-color: #181a46;">
+                            <thead style="background-color: #181a46; position:sticky; top:0; z-index:2">
                                 <tr>
                                     <th class="thlabel" scope="col">Subject Code</th>
                                     <th class="thlabel" scope="col">Description</th>
@@ -123,6 +128,7 @@
 
                             </tbody>
                         </table>
+                    </div>
                     </div>
                 </div>
             </div>
@@ -142,7 +148,7 @@
                     <button type="button" id="close_modal" class="btn-close btn-close-white" data-bs-dismiss="modal"
                         aria-label="Close"></button>
                 </div>
-                <div class="modal-body" style="padding-inline: 2rem;">
+                <div class="modal-body" style="padding-inline: 2rem; max-height:50vh; overflow-y:auto;">
                     <form id="tadiForm" enctype="multipart/form-data" novalidate>
                         <div class="container">
                             <div class="row my-4">
@@ -304,6 +310,23 @@
             </div>
             <div class="toast-body">
                 <span id="toastMessage"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="confirmSubmitModal" tabindex="-1" aria-labelledby="confirmSubmitModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmSubmitModalLabel">Confirm Submission</h5>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to submit this TADI?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="confirmSubmitBtn">Submit</button>
+            </div>
             </div>
         </div>
     </div>
