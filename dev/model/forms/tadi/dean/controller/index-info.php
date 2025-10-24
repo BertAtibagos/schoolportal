@@ -13,13 +13,27 @@
 $type = $_POST['type'];
 
 if ($type == 'GET_ACADEMIC_LEVEL') {
+	$user = $_SESSION['USERID'];
 
-	$qry = "SELECT `SchlAcadLvl_ID`,`SchlAcadLvl_NAME`, `SchlAcadLvl_DESC`
-			FROM `schoolacademiclevel`
-			WHERE `SchlAcadLvl_ISACTIVE` = 1";
+	$qry = "SELECT DISTINCT
+				acad_lvl.`SchlAcadLvl_ID`,
+				acad_lvl.`SchlAcadLvl_NAME`,
+				acad_lvl.`SchlAcadLvl_DESC` 
+			FROM
+				`schoolacademiclevel` acad_lvl 
+			LEFT JOIN `schoolenrollmentsubjectoffered` subj_off 
+				ON acad_lvl.`SchlAcadLvlSms_ID` = subj_off.`SchlAcadLvl_ID` 
+			LEFT JOIN `schooldepartment` `schl_dept` 
+				ON acad_lvl.`SchlAcadLvlSms_ID` = `schl_dept`.`SchlAcadLvl_ID`
+			WHERE `SchlAcadLvl_ISACTIVE` = 1
+			AND  `subj_off`.`SchlProf_ID` = ?";
 
-	$rreg = $dbConn->query($qry);
-	$fetch = $rreg->fetch_ALL(MYSQLI_ASSOC);
+	$stmt = $dbConn->prepare($qry);
+	$stmt->bind_param("i",$user);
+	$stmt->execute();
+	$result = $stmt->get_result();
+	$fetch = $result->fetch_all(MYSQLI_ASSOC);
+	$stmt->close();
 	$dbConn->close();
 }
 
@@ -611,66 +625,58 @@ if ($type == 'GET_TEACHER_TADI_REPORT') {
 		exit;
 	}
 
-    $qry = "SELECT 
-        emp.SchlEmpSms_ID,
-        CONCAT(emp.SchlEmp_LNAME, ', ', emp.SchlEmp_FNAME, ' ', emp.SchlEmp_MNAME) AS prof_name,
-        schl_acad_subj.SchlAcadSubj_CODE AS subject_code,
-        schl_acad_subj.SchlAcadSubj_desc AS subject_desc,
-        schl_acad_sec.SchlAcadSec_NAME AS section_name,
-        t.schltadi_id,
-        t.schltadi_date AS tadi_date,
-        t.schltadi_timein AS time_in,
-        t.schltadi_timeout AS time_out,
-        TIMEDIFF(t.schltadi_timeout, t.schltadi_timein) AS duration,
-        t.schltadi_mode AS mode,
-        t.schltadi_type AS type,
-        t.schltadi_activity AS activity,
-        IF(t.schltadi_type LIKE '%makeup%', 'Make-up',
-            IF(t.schltadi_type LIKE '%regular%', 'Regular', 'Other')
-        ) as session_type,
-        t.schltadi_status AS status,
-        schl_enr_subj_off.SchlEnrollSubjOffSms_ID AS subj_off_id,
-        CONCAT(schl_reg_stud.SchlEnrollRegStudInfo_LAST_NAME, ', ', 
-               schl_reg_stud.SchlEnrollRegStudInfo_FIRST_NAME, ' ',
-               schl_reg_stud.SchlEnrollRegStudInfo_MIDDLE_NAME) AS student_name
-    FROM schoolemployee emp
-    INNER JOIN (
-        SELECT DISTINCT SchlProf_ID, SchlEnrollSubjOffSms_ID, SchlAcadSubj_ID, SchlAcadSec_ID, 
-               SchlAcadCrses_ID
-        FROM schoolenrollmentsubjectoffered 
-        WHERE SchlAcadLvl_ID = ? 
-        AND SchlAcadYr_ID = ?
-        AND SchlAcadPrd_ID = ?
-        AND SchlAcadYrLvl_ID = ?
-        AND SchlEnrollSubjOff_ISACTIVE = 1
-    ) schl_enr_subj_off ON emp.SchlEmpSms_ID = schl_enr_subj_off.SchlProf_ID
-    INNER JOIN schoolacademiccourses schl_acad_crses
-        ON schl_enr_subj_off.SchlAcadCrses_ID = schl_acad_crses.SchlAcadCrseSms_ID
-    INNER JOIN schooldepartment schl_dept
-        ON schl_acad_crses.SchlDept_ID = schl_dept.SchlDeptSms_ID
-        AND schl_dept.SchlDeptHead_ID = ?
-    LEFT JOIN schoolacademicsubject schl_acad_subj
-        ON schl_enr_subj_off.SchlAcadSubj_ID = schl_acad_subj.SchlAcadSubjSms_ID
-    LEFT JOIN schoolacademicsection schl_acad_sec
-        ON schl_enr_subj_off.SchlAcadSec_ID = schl_acad_sec.SchlAcadSecSms_ID
-    INNER JOIN schooltadi t 
-        ON schl_enr_subj_off.SchlEnrollSubjOffSms_ID = t.schlenrollsubjoff_id
-    LEFT JOIN schoolstudent schl_stud
-        ON t.schlstud_id = schl_stud.SchlStudSms_ID
-    LEFT JOIN schoolenrollmentregistration schl_enr_reg
-        ON schl_stud.SchlEnrollRegColl_ID = schl_enr_reg.SchlEnrollRegSms_ID
-    LEFT JOIN schoolenrollmentregistrationstudentinformation schl_reg_stud
-        ON schl_enr_reg.SchlEnrollRegSms_ID = schl_reg_stud.SchlEnrollReg_ID";
+    $qry = "SELECT  
+			CONCAT(emp.`SchlEmp_LNAME`, ', ', emp.`SchlEmp_FNAME`) AS prof_name,
+			subj.`SchlAcadSubj_CODE` AS subject_code,
+			subj.`SchlAcadSubj_DESC` AS subject_desc,
+			sec.`SchlAcadSec_NAME` AS section_name,
+			tadi.`schltadi_id`,
+			tadi.`schltadi_date` AS tadi_date,
+			tadi.`schltadi_timein` AS time_in,
+			tadi.`schltadi_timeout` AS time_out,
+			TIMEDIFF(tadi.schltadi_timeout, tadi.schltadi_timein) AS duration,
+			tadi.`schltadi_mode` AS MODE,
+			tadi.`schltadi_type` AS TYPE,
+			tadi.`schltadi_activity` AS activity,
+			tadi.`schltadi_status` AS status,
+			CONCAT(info.`SchlEnrollRegStudInfo_LAST_NAME`, ', ', info.`SchlEnrollRegStudInfo_FIRST_NAME`) AS student_name
+
+			FROM schooltadi tadi
+
+			LEFT JOIN schoolstudent stud
+			ON tadi.`schlstud_id` = stud.`SchlStudSms_ID`
+			LEFT JOIN schoolenrollmentregistrationstudentinformation info
+			ON stud.`SchlEnrollRegColl_ID` = info.`SchlEnrollReg_ID`
+
+			LEFT JOIN schoolenrollmentsubjectoffered off
+			ON tadi.`schlenrollsubjoff_id` = off.`SchlEnrollSubjOffSms_ID`
+			LEFT JOIN schoolacademicsubject subj
+			ON off.`SchlAcadSubj_ID` = subj.`SchlAcadSubjSms_ID`
+			LEFT JOIN schoolacademicsection sec
+			ON off.`SchlAcadSec_ID` = sec.`SchlAcadSecSms_ID`
+			LEFT JOIN schoolacademiccourses crse
+			ON off.`SchlAcadCrses_ID` = crse.`SchlAcadCrseSms_ID`
+			LEFT JOIN schooldepartment dept
+			ON crse.`SchlDept_ID` = dept.`SchlDeptSms_ID`
+
+			LEFT JOIN schoolemployee emp
+			ON tadi.`schlprof_id` = emp.`SchlEmpSms_ID`
+
+			WHERE off.`SchlAcadLvl_ID` = ?
+			AND off.`SchlAcadYr_ID` = ?
+			AND off.`SchlAcadPrd_ID` = ?
+			AND off.`SchlAcadYrLvl_ID` = ?
+			AND dept.`SchlDeptHead_ID` = ?";
 
     if ($startDate && $endDate) {
-        $qry .= " WHERE t.schltadi_date BETWEEN ? AND ?";
+        $qry .= " WHERE tadi.schltadi_date BETWEEN ? AND ?";
     }
 
     $qry .= " ORDER BY 
         emp.SchlEmp_LNAME, 
-        schl_acad_subj.SchlAcadSubj_CODE,
-        t.schltadi_date,
-        t.schltadi_timein";
+        subj.SchlAcadSubj_CODE,
+        tadi.schltadi_date,
+        tadi.schltadi_timein";
 
     $stmt = $dbConn->prepare($qry);
     
