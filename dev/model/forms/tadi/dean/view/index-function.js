@@ -9,6 +9,10 @@ function GETACADEMICLEVEL() {
       select.innerHTML = result.length
         ? result.map(v => `<option value="${v.SchlAcadLvl_ID}">${v.SchlAcadLvl_NAME}</option>`).join("")
         : `<option>No Academic Level Found.</option>`;
+
+        if(result.length){
+              GETYEARLVL()
+        }
     })
     .catch(err => console.error("Error fetching academic level:", err));
 }
@@ -410,15 +414,14 @@ document.getElementById("reportSearch").addEventListener("click", function(){
   })
   .then(res => res.json())
   .then(data => {
-    // Store raw data for export
-    window.tadiReportData = data;
+    console.log('Raw data:', data); // For debugging
 
-    // Check if there’s no data
-    if (!data || data.length === 0) {
+    // Check if data is empty or has error
+    if (!data || data.error || data.length === 0) {
         reportContainer.innerHTML = `
             <div class="alert alert-warning text-center mt-4" role="alert">
                 <i class="fas fa-exclamation-circle me-2"></i>
-                No TADI records found for the selected criteria.
+                ${data?.error ? data.message : 'No TADI records found for the selected criteria.'}
             </div>
         `;
         document.querySelector(".export-content").innerHTML = `
@@ -427,17 +430,26 @@ document.getElementById("reportSearch").addEventListener("click", function(){
                 <i class="fas fa-file-excel me-2"></i>Export All to Excel
             </button>
         `;
-        return; // stop further processing
+        return;
     }
 
+    // Store raw data for export
+    window.tadiReportData = data;
+
+    // Group by professor first
     const teacherGroups = data.reduce((groups, record) => {
-        const group = groups[record.SchlEmpSms_ID] || {
-            prof_name: record.prof_name,
-            subjects: {}
-        };
+        const profId = record.prof_name; // Use prof_name as key since it's unique
         
-        if (!group.subjects[record.subject_code]) {
-            group.subjects[record.subject_code] = {
+        if (!groups[profId]) {
+            groups[profId] = {
+                prof_name: record.prof_name,
+                subjects: {}
+            };
+        }
+
+        const subjKey = record.subject_code;
+        if (!groups[profId].subjects[subjKey]) {
+            groups[profId].subjects[subjKey] = {
                 subject_code: record.subject_code,
                 subject_desc: record.subject_desc,
                 section_name: record.section_name,
@@ -445,75 +457,120 @@ document.getElementById("reportSearch").addEventListener("click", function(){
             };
         }
 
+        // Add session details if valid
         if (record.schltadi_id) {
-            group.subjects[record.subject_code].sessions.push({
+            groups[profId].subjects[subjKey].sessions.push({
                 date: record.tadi_date,
                 time_in: formatTimeToAmPm(record.time_in),
                 time_out: formatTimeToAmPm(record.time_out),
                 duration: record.duration,
-                mode: record.mode == 'online_learning' ? 'Online' : 'Onsite',
-                type: record.type,
-                session_type: record.session_type,
+                mode: record.mode === 'online_learning' ? 'Online' : 'Onsite',
+                type: record.type === 'makeup' ? 'Make-up' : 'Regular',
                 status: record.status,
                 activity: record.activity ? record.activity.replace(/\\r\\n/g, "<br>") : 'No activity recorded',
                 stud_name: record.student_name
             });
         }
 
-        groups[record.SchlEmpSms_ID] = group;
         return groups;
     }, {});
 
-    // Generate HTML output
+    // Generate summary stats
+    const stats = Object.values(teacherGroups).reduce((acc, teacher) => {
+        const teacherStats = Object.values(teacher.subjects).reduce((subAcc, subject) => {
+            subAcc.totalSessions += subject.sessions.length;
+            subAcc.verifiedSessions += subject.sessions.filter(s => s.status == 1).length;
+            return subAcc;
+        }, { totalSessions: 0, verifiedSessions: 0 });
+        
+        acc.totalTeachers++;
+        acc.totalSessions += teacherStats.totalSessions;
+        acc.verifiedSessions += teacherStats.verifiedSessions;
+        return acc;
+    }, { totalTeachers: 0, totalSessions: 0, verifiedSessions: 0 });
+
+    // Generate HTML output with summary
     reportContainer.innerHTML = `
-        ${Object.entries(teacherGroups)
-            .map(([profId, teacher]) => `
-              <div class="card mb-4">
-                    <div class="card-header text-white subject-card-header">
-                        <h5 class="mb-0">${teacher.prof_name}</h5>
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Report Summary</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="border rounded p-3 text-center">
+                            <h6>Total Teachers</h6>
+                            <h3>${stats.totalTeachers}</h3>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        ${Object.values(teacher.subjects).map(subject => `
-                            <div class="mb-4">
-                                <h6>${subject.subject_code} - ${subject.subject_desc}</h6>
-                                <p class="small text-muted">Section: ${subject.section_name || 'No Section'}</p>
-                                <div class="table-responsive">
-                                    <table class="table table-sm table-bordered table-hover">
-                                        <thead class="table-light">
-                                            <tr>
-                                                <th>Date</th>
-                                                <th>Time</th>
-                                                <th>Duration</th>
-                                                <th>Session Type</th>
-                                                <th>Submitted By</th>
-                                                <th>Activity</th>
-                                                <th>Status</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            ${subject.sessions.map(session => `
-                                                <tr>
-                                                    <td>${session.date}</td>
-                                                    <td>${session.time_in} - ${session.time_out}</td>
-                                                    <td>${session.duration}</td>
-                                                    <td>${session.mode} ${session.session_type}</td>
-                                                    <td>${session.stud_name}</td>
-                                                    <td>${session.activity}</td>
-                                                    <td>
-                                                        <span class="badge ${session.status == 1 ? 'bg-success' : 'bg-danger'}">
-                                                            ${session.status == 1 ? 'Verified' : 'Unverified'}
-                                                        </span>
-                                                    </td>
-                                                </tr>
-                                            `).join('')}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        `).join('')}
+                    <div class="col-md-4">
+                        <div class="border rounded p-3 text-center">
+                            <h6>Total Sessions</h6>
+                            <h3>${stats.totalSessions}</h3>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="border rounded p-3 text-center">
+                            <h6>Verification Rate</h6>
+                            <h3>${Math.round((stats.verifiedSessions / stats.totalSessions) * 100)}%</h3>
+                        </div>
                     </div>
                 </div>
-          `).join('')}`;
+            </div>
+        </div>
+        ${Object.entries(teacherGroups).map(([profId, teacher]) => `
+            <div class="card mb-4">
+                <div class="card-header bg-secondary text-white d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">${teacher.prof_name}</h5>
+                    <span class="badge bg-light text-dark">
+                        ${Object.values(teacher.subjects).reduce((sum, subj) => sum + subj.sessions.length, 0)} sessions
+                    </span>
+                </div>
+                <div class="card-body">
+                    ${Object.values(teacher.subjects).map(subject => `
+                        <div class="mb-4">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <h6 class="mb-0">${subject.subject_code} - ${subject.subject_desc}</h6>
+                                <span class="badge bg-primary">${subject.section_name || 'No Section'}</span>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-sm table-bordered table-hover">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Time</th>
+                                            <th>Duration</th>
+                                            <th>Session Type</th>
+                                            <th>Submitted By</th>
+                                            <th>Activity</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        ${subject.sessions.map(session => `
+                                            <tr>
+                                                <td>${session.date}</td>
+                                                <td>${session.time_in} - ${session.time_out}</td>
+                                                <td>${session.duration}</td>
+                                                <td>${session.mode} ${session.type}</td>
+                                                <td>${session.stud_name}</td>
+                                                <td>${session.activity}</td>
+                                                <td>
+                                                    <span class="badge ${session.status == 1 ? 'bg-success' : 'bg-danger'}">
+                                                        ${session.status == 1 ? 'Verified' : 'Unverified'}
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        `).join('')}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        `).join('')}
+    `;
 
     // Add Export button
     document.querySelector(".export-content").innerHTML = `
@@ -576,7 +633,7 @@ document.getElementById("reportSearch").addEventListener("click", function(){
                 record.time_out,
                 record.duration,
                 record.mode,
-                record.session_type,
+                record.type,
                 record.activity || 'No activity recorded',
                 record.status == 1 ? 'Verified' : 'Unverified'
             ]);
