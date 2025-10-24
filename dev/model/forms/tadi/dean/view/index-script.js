@@ -17,8 +17,9 @@ document.querySelector(".instr-table").style.display = "block";
 //     }
 // });
 
-document.getElementById("academiclevel").addEventListener("change", function () {
-    const lvlid = this.value;
+function GETYEARLVL(){
+    const lvlid = document.getElementById('academiclevel').value;
+    console.log("lvl: ",lvlid);
 
     const formData = new FormData();
     formData.append('type', 'GET_ACADEMIC_YEAR_LEVEL');
@@ -53,7 +54,7 @@ document.getElementById("academiclevel").addEventListener("change", function () 
 
             document.getElementById("academicperiod").dispatchEvent(new Event("change"));
         });
-});
+};
 
 document.getElementById("academicperiod").addEventListener("change", function () {
     const lvlid = document.getElementById("academiclevel").value;
