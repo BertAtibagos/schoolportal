@@ -579,8 +579,19 @@ document.getElementById("reportSearch").addEventListener("click", function(){
             <i class="fas fa-file-excel me-2"></i>Export All to Excel
         </button>
     `;
+    document.getElementById("exportAll").addEventListener("click",() =>{
+      tadiReportExport(exprtname)
+    });
 
-    document.getElementById("exportAll").addEventListener("click", () => {
+    })
+.catch(err => console.error("Error generating TADI report:", err))
+.finally(() => {
+  repBtn.disabled = false;
+  backTadi.disabled = false;
+});
+})
+
+function tadiReportExport(exprtname){
         const data = window.tadiReportData;
         if (!data || !data.length) {
             showAlertModal('No data available to export');
@@ -680,12 +691,5 @@ document.getElementById("reportSearch").addEventListener("click", function(){
 
         // Save file
         XLSX.writeFile(wb, filename);
-        });
-    })
-.catch(err => console.error("Error generating TADI report:", err))
-.finally(() => {
-  repBtn.disabled = false;
-  backTadi.disabled = false;
-});
-})
+};
 
