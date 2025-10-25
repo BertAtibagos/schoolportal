@@ -626,41 +626,39 @@ if ($type == 'GET_TEACHER_TADI_REPORT') {
 	}
 
     $qry = "SELECT  
-			CONCAT(emp.`SchlEmp_LNAME`, ', ', emp.`SchlEmp_FNAME`) AS prof_name,
-			subj.`SchlAcadSubj_CODE` AS subject_code,
-			subj.`SchlAcadSubj_DESC` AS subject_desc,
-			sec.`SchlAcadSec_NAME` AS section_name,
-			tadi.`schltadi_id`,
-			tadi.`schltadi_date` AS tadi_date,
-			tadi.`schltadi_timein` AS time_in,
-			tadi.`schltadi_timeout` AS time_out,
-			TIMEDIFF(tadi.schltadi_timeout, tadi.schltadi_timein) AS duration,
-			tadi.`schltadi_mode` AS MODE,
-			tadi.`schltadi_type` AS TYPE,
-			tadi.`schltadi_activity` AS activity,
-			tadi.`schltadi_status` AS status,
-			CONCAT(info.`SchlEnrollRegStudInfo_LAST_NAME`, ', ', info.`SchlEnrollRegStudInfo_FIRST_NAME`) AS student_name
+				CONCAT(emp.`SchlEmp_LNAME`, ', ', emp.`SchlEmp_FNAME`) AS prof_name,
+				subj.`SchlAcadSubj_CODE` AS subject_code,
+				subj.`SchlAcadSubj_DESC` AS subject_desc,
+				sec.`SchlAcadSec_NAME` AS section_name,
+				tadi.`schltadi_id`,
+				tadi.`schltadi_date` AS tadi_date,
+				tadi.`schltadi_timein` AS time_in,
+				tadi.`schltadi_timeout` AS time_out,
+				TIMEDIFF(tadi.schltadi_timeout, tadi.schltadi_timein) AS duration,
+				tadi.`schltadi_mode` AS mode,
+				tadi.`schltadi_type` AS type,
+				tadi.`schltadi_activity` AS activity,
+				tadi.`schltadi_status` AS status,
+				CONCAT(info.`SchlEnrollRegStudInfo_LAST_NAME`, ', ', info.`SchlEnrollRegStudInfo_FIRST_NAME`) AS student_name
 
 			FROM schooltadi tadi
 
 			LEFT JOIN schoolstudent stud
-			ON tadi.`schlstud_id` = stud.`SchlStudSms_ID`
+				ON tadi.`schlstud_id` = stud.`SchlStudSms_ID`
 			LEFT JOIN schoolenrollmentregistrationstudentinformation info
-			ON stud.`SchlEnrollRegColl_ID` = info.`SchlEnrollReg_ID`
-
+				ON stud.`SchlEnrollRegColl_ID` = info.`SchlEnrollReg_ID`
 			LEFT JOIN schoolenrollmentsubjectoffered off
-			ON tadi.`schlenrollsubjoff_id` = off.`SchlEnrollSubjOffSms_ID`
+				ON tadi.`schlenrollsubjoff_id` = off.`SchlEnrollSubjOffSms_ID`
 			LEFT JOIN schoolacademicsubject subj
-			ON off.`SchlAcadSubj_ID` = subj.`SchlAcadSubjSms_ID`
+				ON off.`SchlAcadSubj_ID` = subj.`SchlAcadSubjSms_ID`
 			LEFT JOIN schoolacademicsection sec
-			ON off.`SchlAcadSec_ID` = sec.`SchlAcadSecSms_ID`
+				ON off.`SchlAcadSec_ID` = sec.`SchlAcadSecSms_ID`
 			LEFT JOIN schoolacademiccourses crse
-			ON off.`SchlAcadCrses_ID` = crse.`SchlAcadCrseSms_ID`
+				ON off.`SchlAcadCrses_ID` = crse.`SchlAcadCrseSms_ID`
 			LEFT JOIN schooldepartment dept
-			ON crse.`SchlDept_ID` = dept.`SchlDeptSms_ID`
-
+				ON crse.`SchlDept_ID` = dept.`SchlDeptSms_ID`
 			LEFT JOIN schoolemployee emp
-			ON tadi.`schlprof_id` = emp.`SchlEmpSms_ID`
+				ON tadi.`schlprof_id` = emp.`SchlEmpSms_ID`
 
 			WHERE off.`SchlAcadLvl_ID` = ?
 			AND off.`SchlAcadYr_ID` = ?
