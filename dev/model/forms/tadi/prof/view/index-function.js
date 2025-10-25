@@ -14,14 +14,12 @@ function GET_ACADEMICLEVEL() {
       ? result.map(value => `<option value="${value.AcadLvl_ID}">${value.AcadLvl_Name}</option>`).join("")
       : "<option>No Academic Level Found.</option>";
     document.querySelector("#academiclevel").insertAdjacentHTML('beforeend', optLevel);
-  })
-  .catch(err => console.error("Error fetching academic levels:", err));
 
-  document.querySelector("#academiclevel").addEventListener("change", function () {
-    const lvlid = this.value;
+    const lvlid = document.getElementById("academiclevel").value;
     getAcademicYearLevels(lvlid);
     getAcademicPeriods(lvlid);
-  });
+  })
+  .catch(err => console.error("Error fetching academic levels:", err));
 }
 
 function getAcademicYearLevels(lvlid) {
@@ -129,7 +127,7 @@ function DISPLAY_PROFESSOR_SUBJECT(result) {
                   data-bs-target="#sectionList" 
                   name="${value.sub_off_id}">
                   VIEW TADI  <span class="badge bg-secondary ms-2">${value.total_count}</span>
-                  ${value.unverified_count > 0 ? `<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">${value.unverified_count}</span>` : ''}
+				   ${value.unverified_count > 0 ? `<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">${value.unverified_count}</span>` : ''}
                 </button>
               </td>
           </tr>
@@ -329,7 +327,7 @@ function DISPLAY_TADI_LOG(subj_off_id) {
   formData.append('strtDateSearch', strtDateSearch);
   formData.append('endDateSearch', endDateSearch);
   formData.append('subj_off_id', subj_off_id);
-
+	
   const tbody = document.getElementById('rcrd_tbl_body');
   tbody.innerHTML = `<tr class="loading-spinner hide">
                                     <td colspan="4">
@@ -347,6 +345,7 @@ function DISPLAY_TADI_LOG(subj_off_id) {
   })
     .then(response => response.json())
     .then(data => {
+
       tbody.innerHTML = data.length ? "" : "<tr><td colspan='6' class='text-center'>No records found</td></tr>";
 
       data.forEach(record => {
@@ -365,6 +364,7 @@ function DISPLAY_TADI_LOG(subj_off_id) {
           <td>${record.tadi_type}</td>
           <td>${new Date('1970-01-01T' + record.tadi_timein).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })} - 
               ${new Date('1970-01-01T' + record.tadi_timeout).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}</td>
+          
           <td>
             ${viewUploadCell}
             <input type="hidden" class="pass" id="pass${record.sub_off_id}" value="${record.sub_off_id}">
@@ -373,6 +373,7 @@ function DISPLAY_TADI_LOG(subj_off_id) {
             <button class="btn acknw btn-success" value="${record.schltadi_ID}" name="${record.tadi_status}">Verify</button>
           </td>
         `;
+
         tbody.appendChild(row);
       });
 
@@ -393,7 +394,7 @@ function DISPLAYALL_TADI_RECORDS(subj_off_id) {
   const formData = new FormData();
   formData.append('type', 'GETALL_TADI_RECORD');
   formData.append('subj_off_id', subj_off_id);
-
+	
   let tbody = document.getElementById('rcrd_tbl_body');
   tbody.innerHTML = `<tr class="loading-spinner hide">
                                     <td colspan="4">
@@ -411,7 +412,6 @@ function DISPLAYALL_TADI_RECORDS(subj_off_id) {
   })
   .then(response => response.json())
   .then(data => {
-    
     tbody.innerHTML = data.length ? "" : "<tr><td colspan='6' class='text-center'>No records found</td></tr>";
 
     for (let record of data) {
@@ -432,16 +432,15 @@ function DISPLAYALL_TADI_RECORDS(subj_off_id) {
         <td>${record.tadi_type}</td>
         <td>${new Date('1970-01-01T' + record.tadi_timein).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })} - 
             ${new Date('1970-01-01T' + record.tadi_timeout).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}</td>
+        
         <td>
           ${viewUploadCell}
           <input type="hidden" class="pass" id="pass${record.sub_off_id}" value="${record.sub_off_id}">
         </td>
-        <td>
-          <button class="btn acknw btn-success" value="${record.schltadi_ID}" name="${record.tadi_status}">Verify</button>
-          <input type="hidden" class="pass" id="pass${record.sub_off_id}" value="${record.sub_off_id}">
-        </td>
+        <td><button class="btn acknw btn-success" value="${record.schltadi_ID}" name="${record.tadi_status}">Verify</button></td>
       `;
 
+      
       tbody.appendChild(row);
     }
 
@@ -457,6 +456,7 @@ function DISPLAYALL_TADI_RECORDS(subj_off_id) {
   })
   .catch(error => console.error('Error fetching data:', error));
 }
+
 
 
 function attachSubjectClickHandlers(results) {
@@ -475,10 +475,8 @@ function attachSubjectClickHandlers(results) {
   });
 }
 
-
-
-// filepath: c:\xampp\htdocs\schoolportal\dev\model\forms\tadi\prof\view\index-function.js
 function UPDATE_TADI_STATUS() {
+    // Use a closure to maintain initialization state
     if (typeof UPDATE_TADI_STATUS.initialized === 'undefined') {
         UPDATE_TADI_STATUS.initialized = false;
     }
@@ -489,92 +487,76 @@ function UPDATE_TADI_STATUS() {
         if (!e.target.classList.contains('acknw')) return;
 
         const button = e.target;
-        
-        // Store the button reference for later use
-        const confirmModal = new bootstrap.Modal(document.getElementById('confirmModal'));
-        const confirmVerifyBtn = document.getElementById('confirmVerifyBtn');
-        
-        // Create one-time click handler for the confirm button
-        const verifyHandler = async () => {
-            try {
-                button.disabled = true;
-                confirmVerifyBtn.disabled = true;
-                
-                const status = button.getAttribute('name');
-                const tadiId = button.value;
-                const row = button.closest('tr');
-                const hiddenInput = row.querySelector('.pass');
-                const subOffId = hiddenInput ? hiddenInput.value : null;
+        if (!confirm('Are you sure you want to verify this record?')) {
+            return;
+        }
 
-                // Update TADI status
-                const response = await fetch('tadi/prof/controller/index-post.php', {
+        try {
+            button.disabled = true;
+            
+            const status = button.getAttribute('name');
+            const tadiId = button.value;
+            const row = button.closest('tr');
+            const hiddenInput = row.querySelector('.pass');
+            const subOffId = hiddenInput ? hiddenInput.value : null;
+
+            // Update TADI status
+            const response = await fetch('tadi/prof/controller/index-post.php', {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: new URLSearchParams({
+                    type: "UPDATE_TADI_STATUS",
+                    tadi_status: status,
+                    tadi_ID: tadiId
+                })
+            });
+
+            if (!response.ok) throw new Error('Network response was not ok');
+            const data = await response.json();
+
+            // Replace button with verified text
+            const span = document.createElement('span');
+            span.style.cssText = 'color: #198754; font-weight: bold;';
+            span.textContent = 'Verified';
+            button.replaceWith(span);
+
+            // Update unverified count if subOffId exists
+            if (subOffId) {
+                const countResponse = await fetch("tadi/prof/controller/index-post.php", {
                     method: "POST",
                     headers: { "Content-Type": "application/x-www-form-urlencoded" },
                     body: new URLSearchParams({
-                        type: "UPDATE_TADI_STATUS",
-                        tadi_status: status,
-                        tadi_ID: tadiId
+                        type: "GET_UNVERIFIED_COUNT",
+                        sub_off_id: subOffId
                     })
                 });
 
-                if (!response.ok) throw new Error('Network response was not ok');
-                const data = await response.json();
-
-                // Replace button with verified text
-                const span = document.createElement('span');
-                span.style.cssText = 'color: #198754; font-weight: bold;';
-                span.textContent = 'Verified';
-                button.replaceWith(span);
-
-                // Update unverified count if subOffId exists
-                if (subOffId) {
-                    const countResponse = await fetch("tadi/prof/controller/index-post.php", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                        body: new URLSearchParams({
-                            type: "GET_UNVERIFIED_COUNT",
-                            sub_off_id: subOffId
-                        })
-                    });
-
-                    const result = await countResponse.json();
-                    const mainTableButton = document.querySelector(`button[name="${subOffId}"]`);
-                    
-                    if (mainTableButton) {
-                        const badge = mainTableButton.querySelector('.badge.bg-danger');
-                        if (result.unverified_count > 0) {
-                            if (badge) {
-                                badge.textContent = result.unverified_count;
-                            } else {
-                                const newBadge = document.createElement('span');
-                                newBadge.className = 'position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger';
-                                newBadge.textContent = result.unverified_count;
-                                mainTableButton.appendChild(newBadge);
-                            }
-                        } else if (badge) {
-                            badge.remove();
+                const result = await countResponse.json();
+                const mainTableButton = document.querySelector(`button[name="${subOffId}"]`);
+                
+                if (mainTableButton) {
+                    const badge = mainTableButton.querySelector('.badge.bg-danger');
+                    if (result.unverified_count > 0) {
+                        if (badge) {
+                            badge.textContent = result.unverified_count;
+                        } else {
+                            const newBadge = document.createElement('span');
+                            newBadge.className = 'position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger';
+                            newBadge.textContent = result.unverified_count;
+                            mainTableButton.appendChild(newBadge);
                         }
+                    } else if (badge) {
+                        badge.remove();
                     }
                 }
-
-                confirmModal.hide();
-            } catch (error) {
-                console.error("Error:", error);
-                button.disabled = false;
-                confirmVerifyBtn.disabled = false;
-                showAlertModal("Failed to verify: " + ("Session expired please log in again"));
             }
-        };
-
-        // Remove any existing click handlers and add new one
-        confirmVerifyBtn.removeEventListener('click', verifyHandler);
-        confirmVerifyBtn.addEventListener('click', verifyHandler);
-        
-        // Show the confirm modal
-        confirmModal.show();
+        } catch (error) {
+            console.error("Error:", error);
+            button.disabled = false;
+            alert("Failed to verify: " + (error.message || "Session expired please log in again"));
+        }
     });
 
     UPDATE_TADI_STATUS.initialized = true;
 }
-
 
