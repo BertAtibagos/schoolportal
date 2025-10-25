@@ -198,26 +198,29 @@
     }
 
     if($type == 'GET_ACADEMIC_LEVEL'){
+        $user = $_SESSION['USERID'];
 
-        $qry = "SELECT 
-                    `SchlAcadLvl_NAME` AS `AcadLvl_Name`,
-                    `SchlAcadLvl_DESC` AS `AcadLvl_Desc`,
-                    `SchlAcadLvlSms_ID` AS `AcadLvl_ID`
-                FROM `schoolacademiclevel`
-                WHERE `SchlAcadLvl_ISACTIVE` = 1";
+        $qry = "SELECT DISTINCT
+                    acad_lvl.`SchlAcadLvl_ID` AcadLvl_ID,
+                    acad_lvl.`SchlAcadLvl_NAME` AcadLvl_Name,
+                    acad_lvl.`SchlAcadLvl_DESC` 
+                FROM
+                    `schoolacademiclevel` acad_lvl 
+                LEFT JOIN `schoolenrollmentsubjectoffered` subj_off 
+                    ON acad_lvl.`SchlAcadLvlSms_ID` = subj_off.`SchlAcadLvl_ID` 
+                LEFT JOIN `schooldepartment` `schl_dept` 
+                    ON acad_lvl.`SchlAcadLvlSms_ID` = `schl_dept`.`SchlAcadLvl_ID`
+                WHERE `SchlAcadLvl_ISACTIVE` = 1
+                AND  `subj_off`.`SchlProf_ID` = ?";
 
         $stmt = $dbConn->prepare($qry);
-
-        if ($stmt) {
-            $stmt->execute();
-            $result = $stmt->get_result();
-            $fetch = $result->fetch_all(MYSQLI_ASSOC);
-            $stmt->close();
-        } else {
-            error_log("Prepare failed: " . $dbConn->error);
-            $fetch = [];
-        }
+        $stmt->bind_param("i",$user);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $fetch = $result->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
         $dbConn->close();
+
     }
 
     if($type == 'GET_ACADEMIC_YEAR_LEVEL') {
