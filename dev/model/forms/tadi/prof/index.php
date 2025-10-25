@@ -118,7 +118,6 @@
             <div class="row justify-content-center align-items-center g-3 mt-4">
                 <div class="col-md">
                     <select class="form-select border border-dark select-shadow" id="academiclevel" style="background-color: #EEEEF6;" name="academiclevel">
-                        <option value="" disabled selected>Status Level</option>
                     </select>
                 </div>
                 <div class="col-md">
