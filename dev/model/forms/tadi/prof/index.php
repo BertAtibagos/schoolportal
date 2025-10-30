@@ -103,10 +103,25 @@
 		max-height: 56vh;
     	overflow-y: auto;
 	}
+    .inst_list_tbl_wrapper.dashboard{
+        max-height: 45vh;
+    }
     .legend{
         font-size: 14px;
         margin-top: 10px;
     }
+    ::-webkit-scrollbar {
+        width: 5px;
+    }
+    ::-webkit-scrollbar-track {
+        border-radius: 10px;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+        background: rgb(75, 75, 75); 
+        border-radius: 10px;
+    }
+
 </style>
 
 <section>
@@ -139,21 +154,44 @@
                     <input type="text" class="form-control" id="subjectSearch" name="subjectCode" style="background-color: #EEEEF6;" placeholder="Subject Code">
                 </div>
                 <div class="col-md">
-                    <button type="button" class="btn w-100" style="background-color: #181a46; color: white;" id="searchButton">Search</button>
+                    <button type="button" class="btn w-100" style="background-color: #181a46; color: white;" id="searchButton" disabled>Search</button>
                 </div>
             </div>
 
             <div class="my-4">
                 <div class="card shadow-sm">
                    <div class="card-body">
-                        <!-- <h4 class="card-title mb-3">Records</h4> -->
-                        <div class="inst_list_tbl_wrapper">
+                        <h4 id="summaryId">Summary</h4>
+                        <div class="row">
+                            <div class="summary row justify-content-center">
+                                <div class="col-md-3 mx-2" style="margin-bottom: 5px">
+                                    <div class="border rounded p-3 text-center h-100 border-secondary border-3" style="background-color: #c9c9c9;">
+                                        <h6>Total Records</h6>
+                                        <h3 id="totalCount">0</h3>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 mx-2" style="margin-bottom: 5px">
+                                    <div class="border rounded p-3 text-center h-100 border-success border-3 text-success" style="background-color: #ddffef;">
+                                        <h6>Total Verified</h6>
+                                        <h3 id="totalVerified">0</h3>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 mx-2" style="margin-bottom: 5px">
+                                    <div class="border rounded p-3 text-center h-100 border-danger border-3 text-danger" style="background-color: #fff1f2;">
+                                        <h6>Total Unverified</h6>
+                                        <h3 id="totalUnverified">0</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="inst_list_tbl_wrapper dashboard">
                             <table class="table table-bordered table-hover" style="line-height: 2.5; border-color: rgb(157, 157, 157);">
-                                <thead style="position:sticky; top:0; z-index:2">
-                                    <tr>
+                                <thead style="position:sticky; top:0; z-index:2" id="theadTable">
+                                    <tr id="defaultHeader">
                                         <th scope="col" style="background-color: #181a46; color: white;">Section</th>
-                                        <th scope="col" style="background-color: #181a46; color: white;">Subject Code</th>
-                                        <th scope="col" style="background-color: #181a46; color: white;">Description</th>
+                                        <th scope="col" style="background-color: #181a46; color: white;">Subject</th>
+                                        <th scope="col" style="background-color: #181a46; color: white;">Total Records</th>
+                                        <th scope="col" style="background-color: #181a46; color: white;">Unverified Records</th>
                                         <th scope="col" style="background-color: #181a46; color: white;"></th>
                                     </tr>
                                 </thead>
@@ -165,7 +203,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="legend"> 
+                <div class="legend" style="display: none"> 
                     <div>Number in <span class="badge bg-secondary"> </span> : Total number of records</div>
                     <div>Number in <span class="badge bg-danger"> </span> : Total number of unverified records</div>
                 </div>
@@ -188,7 +226,7 @@
                         <input type="date" class="dte_srch" id="strtDateSearch">
                         <label for="endDateSearch">AND</label>
                         <input type="date" class="dte_srch" id="endDateSearch" value="<?php echo date('Y-m-d'); ?>">
-                        <button class="btn srchdte" id="date_srch">Search</button>
+                        <button class="btn srchdte" id="date_srch" data-summary="false">Search</button>
                         <div class="mt-4">
                             <div class="card shadow-sm">
                                 <div class="card-body">
