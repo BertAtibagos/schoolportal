@@ -211,7 +211,8 @@
                 LEFT JOIN `schooldepartment` `schl_dept` 
                     ON acad_lvl.`SchlAcadLvlSms_ID` = `schl_dept`.`SchlAcadLvl_ID`
                 WHERE `SchlAcadLvl_ISACTIVE` = 1
-                AND  `subj_off`.`SchlProf_ID` = ?";
+                AND  `subj_off`.`SchlProf_ID` = ?
+                ORDER BY AcadLvl_Name DESC";
 
         $stmt = $dbConn->prepare($qry);
         $stmt->bind_param("i",$user);
@@ -441,6 +442,133 @@
         $stmt->close();
         $dbConn->close();
     }
+
+    if($type == 'GET_ALL_TADI_SUMMARY'){
+
+        $lvlid = $_POST['lvl_id'];
+        $prdid = $_POST['prd_id'];
+        $yrid = $_POST['yr_id'];
+        $USERID = $_SESSION['USERID']; 
+
+        $qry = "SELECT DISTINCT 
+                    `schl_acad_sec`.`SchlAcadSec_NAME` AS schl_sec,
+                    `schl_acad_subj`.`SchlAcadSubj_CODE` AS `subj_code`,
+                    `schl_acad_subj`.`SchlAcadSubj_desc` AS `subj_desc`,
+                    `schl_enr_subj_off`.`SchlProf_ID` AS `prof_id`,
+                    `schl_enr_subj_off`.`SchlEnrollSubjOff_ISACTIVE` AS `subj_act`,
+                    schl_enr_subj_off.`SchlEnrollSubjOffSms_ID` AS sub_off_id,
+                (SELECT 
+                    COUNT(*) 
+                FROM
+                    `schooltadi` AS t 
+                WHERE t.`schlprof_id` = `schl_enr_subj_off`.`SchlProf_ID` 
+                    AND t.`schlenrollsubjoff_id` = `schl_enr_subj_off`.`SchlEnrollSubjOffSms_ID`) AS total_count,
+                (SELECT 
+                    COUNT(*) 
+                FROM
+                    `schooltadi` AS t 
+                WHERE t.`schltadi_status` = 0 
+                    AND t.`schlprof_id` = `schl_enr_subj_off`.`SchlProf_ID` 
+                    AND t.`schlenrollsubjoff_id` = `schl_enr_subj_off`.`SchlEnrollSubjOffSms_ID`) AS unverified_count 
+                FROM
+                `schoolenrollmentsubjectoffered` AS `schl_enr_subj_off` 
+                LEFT JOIN `schoolacademicsubject` AS `schl_acad_subj` 
+                    ON `schl_enr_subj_off`.`SchlAcadSubj_ID` = `schl_acad_subj`.`SchlAcadSubjSms_ID` 
+                LEFT JOIN `schoolacademicsection` AS `schl_acad_sec` 
+                    ON `schl_enr_subj_off`.`SchlAcadSec_ID` = `schl_acad_sec`.`SchlAcadSecSms_ID` 
+                LEFT JOIN `schoolacademiccourses` AS `schl_acad_crses` 
+                    ON `schl_enr_subj_off`.`SchlAcadCrses_ID` = `schl_acad_crses`.`SchlAcadCrseSms_ID` 
+                LEFT JOIN `schooldepartment` AS `schl_dept` 
+                    ON `schl_acad_crses`.`SchlDept_ID` = `schl_dept`.`SchlDeptSms_ID` 
+                LEFT JOIN `schoolacademicyearperiod` AS `schl_acad_yr_prd` 
+                    ON `schl_enr_subj_off`.`SchlAcadYr_ID` = `schl_acad_yr_prd`.`SchlAcadYr_ID` 
+                LEFT JOIN `schoolacademicyear` AS `schl_yr` 
+                    ON `schl_acad_yr_prd`.`SchlAcadYr_ID` = `schl_yr`.`SchlAcadYrSms_ID` 
+                WHERE `schl_enr_subj_off`.`SchlAcadLvl_ID` = ? 
+                AND `schl_acad_yr_prd`.`SchlAcadYr_ID` = ?
+                AND `schl_enr_subj_off`.`SchlAcadPrd_ID` = ? 
+                AND `schl_enr_subj_off`.`SchlProf_ID` = ?
+                AND `schl_enr_subj_off`.`SchlEnrollSubjOff_ISACTIVE` = 1 
+                ORDER BY total_count DESC";
+
+
+        $stmt = $dbConn->prepare($qry);
+        $stmt->bind_param("iiii", $lvlid, $yrid, $prdid, $USERID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $fetch = $result->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+        $dbConn->close();
+    }
+
+    if($type == 'GET_TOTAL_COUNT_SUMMARY'){
+
+        $user = $_SESSION['USERID'];
+
+        $qry = "WITH counts AS (
+                    SELECT 
+                        SUM(CASE WHEN schltadi_status = 1 THEN 1 ELSE 0 END) AS verified_count,
+                        SUM(CASE WHEN schltadi_status = 0 THEN 1 ELSE 0 END) AS total_unverified,
+                        COUNT(*) AS total_count
+                    FROM schooltadi 
+                    WHERE schlprof_id = ?
+                )
+                SELECT 
+                    verified_count,
+                    total_unverified,
+                    total_count,
+                    ROUND((verified_count / total_count) * 100) AS verification_rate
+                FROM counts";
+
+        $stmt = $dbConn->prepare($qry);
+        $stmt->bind_param("i",$user);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $fetch = $result->fetch_assoc();
+        $stmt->close();
+        $dbConn->close();
+    }
+
+    if($type == 'UPDATE_SUBJECT_COUNT'){
+
+        $subj_off = $_POST['sub_off_id'];
+
+        $qry = "WITH counts AS 
+                (SELECT 
+                SUM(
+                    CASE
+                    WHEN schltadi_status = 1 
+                    THEN 1 
+                    ELSE 0 
+                    END
+                ) AS verified_count,
+                SUM(
+                    CASE
+                    WHEN schltadi_status = 0 
+                    THEN 1 
+                    ELSE 0 
+                    END
+                ) AS total_unverified,
+                COUNT(*) AS total_count 
+                FROM
+                schooltadi 
+                WHERE `schlenrollsubjoff_id` = ?) 
+                SELECT 
+                verified_count,
+                total_unverified,
+                total_count
+                FROM
+                counts ";
+
+        $stmt = $dbConn->prepare($qry);
+        $stmt->bind_param("i",$subj_off);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $fetch = $result->fetch_assoc();
+        $stmt->close();
+        $dbConn->close();
+    }
+
     echo json_encode($fetch);
 
 ?>
