@@ -1,25 +1,39 @@
 function GET_ACADEMICLEVEL() {
-  fetch("tadi/prof/controller/index-info.php", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded"
-    },
-    body: new URLSearchParams({
-      type: "GET_ACADEMIC_LEVEL"
-    })
-  })
-  .then(res => res.json())
-  .then(result => {
-    let optLevel = result.length
-      ? result.map(value => `<option value="${value.AcadLvl_ID}">${value.AcadLvl_Name}</option>`).join("")
-      : "<option>No Academic Level Found.</option>";
-    document.querySelector("#academiclevel").insertAdjacentHTML('beforeend', optLevel);
+    let isFirstLoad = true;  // Flag to track initial load
 
-    const lvlid = document.getElementById("academiclevel").value;
-    getAcademicYearLevels(lvlid);
-    getAcademicPeriods(lvlid);
-  })
-  .catch(err => console.error("Error fetching academic levels:", err));
+    fetch("tadi/prof/controller/index-info.php", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: new URLSearchParams({
+            type: "GET_ACADEMIC_LEVEL"
+        })
+    })
+    .then(res => res.json())
+    .then(result => {
+        let optLevel = result.length
+            ? result.map(value => `<option value="${value.AcadLvl_ID}">${value.AcadLvl_Name}</option>`).join("")
+            : "<option>No Academic Level Found.</option>";
+        document.querySelector("#academiclevel").insertAdjacentHTML('beforeend', optLevel);
+
+        const lvlid = document.getElementById('academiclevel');
+        
+        // Only trigger on first load
+        if (isFirstLoad) {
+            getAcademicYearLevels(lvlid.value);
+            getAcademicPeriods(lvlid.value);
+            isFirstLoad = false;
+        }
+
+        // Event listener for subsequent changes
+        lvlid.addEventListener("change", function() {
+            const lvlid = this.value;
+            getAcademicYearLevels(lvlid);
+            getAcademicPeriods(lvlid);
+        });
+    })
+    .catch(err => console.error("Error fetching academic levels:", err));
 }
 
 function getAcademicYearLevels(lvlid) {
@@ -44,34 +58,54 @@ function getAcademicYearLevels(lvlid) {
 }
 
 function getAcademicPeriods(lvlid) {
-  fetch("tadi/prof/controller/index-info.php", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded"
-    },
-    body: new URLSearchParams({
-      type: "GET_ACADEMIC_PERIOD",
-      lvl_id: lvlid
-    })
-  })
-  .then(res => res.json())
-  .then(result => {
-    const select = document.querySelector("#period");
-    select.innerHTML = result.length
-      ? result.map(value => `<option value="${value.acad_prd_id}">${value.acad_prd_name}</option>`).join("")
-      : "<option>No Period Found.</option>";
-    select.dispatchEvent(new Event("change"));
-  })
-  .catch(err => console.error("Error fetching periods:", err));
+    // Remove existing event listener first
+    const periodSelect = document.querySelector("#period");
+    const existingHandler = periodSelect._changeHandler;
+    if (existingHandler) {
+        periodSelect.removeEventListener("change", existingHandler);
+    }
 
-  document.querySelector("#period").addEventListener("change", function () {
-    const lvlid = document.querySelector("#academiclevel").value;
-    const prdid = this.value;
-    getAcademicYears(lvlid, prdid);
-  });
+    fetch("tadi/prof/controller/index-info.php", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: new URLSearchParams({
+            type: "GET_ACADEMIC_PERIOD",
+            lvl_id: lvlid
+        })
+    })
+    .then(res => res.json())
+    .then(result => {
+        periodSelect.innerHTML = result.length
+            ? result.map(value => `<option value="${value.acad_prd_id}">${value.acad_prd_name}</option>`).join("")
+            : "<option>No Period Found.</option>";
+
+        // Create new handler
+        const changeHandler = function() {
+            const lvlid = document.querySelector("#academiclevel").value;
+            const prdid = this.value;
+            getAcademicYears(lvlid, prdid, true);
+        };
+
+        // Store handler reference
+        periodSelect._changeHandler = changeHandler;
+
+        // Add new event listener
+        periodSelect.addEventListener("change", changeHandler);
+
+        // Only dispatch change event on first load
+        if (!periodSelect._initialized) {
+            periodSelect.dispatchEvent(new Event("change"));
+            periodSelect._initialized = true;
+        }
+    })
+    .catch(err => console.error("Error fetching periods:", err));
 }
 
 function getAcademicYears(lvlid, prdid) {
+  let shouldLoadSummary = true;
+  const searchButton = document.getElementById("searchButton");
   fetch("tadi/prof/controller/index-info.php", {
     method: "POST",
     headers: {
@@ -89,6 +123,12 @@ function getAcademicYears(lvlid, prdid) {
     select.innerHTML = result.length
       ? result.map(value => `<option value="${value.Period_id}">${value.YEAR_NAME}</option>`).join("")
       : "<option>No Year Found.</option>";
+
+    if (shouldLoadSummary) {
+      tadiSummary();
+      shouldLoadSummary = false;
+    }
+    searchButton.disabled = false;
   })
   .catch(err => console.error("Error fetching academic years:", err));
 }
@@ -136,7 +176,9 @@ function DISPLAY_PROFESSOR_SUBJECT(result) {
       }, "")
     : "<tr><td colspan='4'>No subjects available</td></tr>";
 
-  document.querySelector('.prof_dashboard_table').innerHTML = tableRows;
+  const profTable = document.querySelector('.prof_dashboard_table');
+  profTable.innerHTML = "";
+  profTable.innerHTML = tableRows;
 
   document.querySelectorAll('.btn_tadi').forEach(button => {
     button.addEventListener('click', function() {
@@ -301,7 +343,8 @@ function UPLOAD_IMAGE_PROF_MODAL() {
 }
 
 
-function DISPLAY_TADI_LOG(subj_off_id) {
+function DISPLAY_TADI_LOG(subj_off_id, summary = false) {
+  console.log("Displaying TADI log for subj_off_id:", subj_off_id, "with summary:", summary);
   const strtDateSearch = document.getElementById('strtDateSearch').value;
   const endDateSearch = document.getElementById('endDateSearch').value;
 
@@ -370,10 +413,9 @@ function DISPLAY_TADI_LOG(subj_off_id) {
             <input type="hidden" class="pass" id="pass${record.sub_off_id}" value="${record.sub_off_id}">
           </td>
           <td>
-            <button class="btn acknw btn-success" value="${record.schltadi_ID}" name="${record.tadi_status}">Verify</button>
+            <button class="btn acknw btn-success" value="${record.schltadi_ID}" name="${record.tadi_status}" data-subj-off="${record.sub_off_id}" data-from-summary="${summary}">Verify</button>
           </td>
         `;
-
         tbody.appendChild(row);
       });
 
@@ -390,10 +432,16 @@ function DISPLAY_TADI_LOG(subj_off_id) {
     .catch(error => console.error('Error fetching data:', error));
 }
 
-function DISPLAYALL_TADI_RECORDS(subj_off_id) {
+function DISPLAYALL_TADI_RECORDS(subj_off_id,subjDesc = null,subjSec = null, summary = false) {
   const formData = new FormData();
   formData.append('type', 'GETALL_TADI_RECORD');
   formData.append('subj_off_id', subj_off_id);
+
+  if(subjDesc && subjSec){
+    document.getElementById('subj_name').textContent = subjDesc;
+    document.getElementById('subj_code').textContent = subjSec;
+    document.getElementById('date_srch').value = subj_off_id;
+  }
 	
   let tbody = document.getElementById('rcrd_tbl_body');
   tbody.innerHTML = `<tr class="loading-spinner hide">
@@ -437,13 +485,12 @@ function DISPLAYALL_TADI_RECORDS(subj_off_id) {
           ${viewUploadCell}
           <input type="hidden" class="pass" id="pass${record.sub_off_id}" value="${record.sub_off_id}">
         </td>
-        <td><button class="btn acknw btn-success" value="${record.schltadi_ID}" name="${record.tadi_status}">Verify</button></td>
+        <td><button class="btn acknw btn-success" value="${record.schltadi_ID}" name="${record.tadi_status}" data-subj-off="${record.sub_off_id}" data-from-summary="${summary ? 'true' : 'false'}">Verify</button></td>
       `;
-
-      
       tbody.appendChild(row);
     }
 
+    document.getElementById('date_srch').dataset.summary = summary ? "true" : "false";
     disable_acknw_bttn();
 
     document.querySelectorAll('.viewAttch').forEach(button => {
@@ -476,20 +523,14 @@ function attachSubjectClickHandlers(results) {
 }
 
 function UPDATE_TADI_STATUS() {
-    // Use a closure to maintain initialization state
-    if (typeof UPDATE_TADI_STATUS.initialized === 'undefined') {
-        UPDATE_TADI_STATUS.initialized = false;
-    }
-    
-    if (UPDATE_TADI_STATUS.initialized) return;
+    if (window.UPDATE_TADI_STATUS_initialized) return;
+    window.UPDATE_TADI_STATUS_initialized = true;
 
     document.addEventListener('click', async function(e) {
         if (!e.target.classList.contains('acknw')) return;
 
         const button = e.target;
-        if (!confirm('Are you sure you want to verify this record?')) {
-            return;
-        }
+        if (!confirm('Are you sure you want to verify this record?')) return;
 
         try {
             button.disabled = true;
@@ -499,8 +540,8 @@ function UPDATE_TADI_STATUS() {
             const row = button.closest('tr');
             const hiddenInput = row.querySelector('.pass');
             const subOffId = hiddenInput ? hiddenInput.value : null;
+            const summary = button.getAttribute('data-from-summary');
 
-            // Update TADI status
             const response = await fetch('tadi/prof/controller/index-post.php', {
                 method: "POST",
                 headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -550,13 +591,168 @@ function UPDATE_TADI_STATUS() {
                     }
                 }
             }
+
+            if (summary === "true") {
+                TOTAL_COUNT_SUMMARY();
+                UPDATE_TADI_COUNT(subOffId);
+            }
+
         } catch (error) {
             console.error("Error:", error);
             button.disabled = false;
             alert("Failed to verify: " + (error.message || "Session expired please log in again"));
         }
     });
+}
 
-    UPDATE_TADI_STATUS.initialized = true;
+
+async function tadiSummary(){
+  const lvlid = document.getElementById("academiclevel").value;
+  const prdid = document.getElementById("period").value;
+  const yrid = document.getElementById("acadyear").value;
+
+  if (!lvlid || !prdid ) {
+      showAlertModal("Please select all the filters or enter a Subject Code before searching.");
+        emptyCriteriaReport();
+      return;
+  }else{
+      resetCriteriaReport();
+  }
+
+  const formData = new FormData();
+  formData.append('type', 'GET_ALL_TADI_SUMMARY');
+  formData.append('lvl_id', lvlid);
+  formData.append('prd_id', prdid);
+  formData.append('yr_id', yrid);
+
+
+  const tbodySpinner = document.querySelector('.prof_dashboard_table');
+  tbodySpinner.innerHTML =`<tr class="loading-spinner hide">
+                                  <td colspan="4">
+                                      <div class="text-center">
+                                          <div class="spinner-border " role="status">
+                                              <span class="sr-only">Loading...</span>
+                                          </div>
+                                      </div>
+                                  </td>
+                              </tr>`;
+  
+  TOTAL_COUNT_SUMMARY();
+  
+  try{
+    const response = await fetch('tadi/prof/controller/index-info.php',{
+                method: "POST",
+                body: formData
+    });
+
+    const result = await response.json();
+    const dashTable = document.querySelector('.prof_dashboard_table');
+    dashTable.innerHTML = result.length ? "" : "<tr><td colspan='4' class='text-center'>No subjects available</td></tr>";
+
+    result.forEach(value=> {
+      const row = document.createElement('tr');
+
+      row.innerHTML = `<td style="font-weight: bold;">
+                        ${value.schl_sec == null ? 'No Section': value.schl_sec}
+                      </td>
+                      <td style="font-weight: bold;" class="${value.schl_sec == null ? 'text-muted': ''}">
+                        ${value.subj_desc}
+                      </td>
+                      <td>
+                        <span id="total-${value.sub_off_id}" class="badge ${value.schl_sec == null ? 'bg-dark' : 'bg-success' }" style="width: 70px; font-size: 1rem;">
+                          ${value.total_count}
+                        </span>
+                      </td>
+                      <td>
+                        <span id="unverified-${value.sub_off_id}" class="badge ${value.schl_sec == null ? 'bg-dark' : 'bg-danger' }" style="width: 70px; font-size: 1rem;">
+                          ${value.unverified_count}
+                        </span>
+                      </td>
+                      <td>
+                        <button class="btn btn-sm view-tadi-summary bg-dark text-white" 
+                        data-bs-toggle="modal" 
+                        data-bs-target="#sectionList" 
+                        data-subj-off= "${value.sub_off_id}"
+                        data-subj-desc= "${value.subj_desc}"
+                        data-section= "${value.schl_sec}"
+                        data-summary= "true">
+                        VIEW
+                        </button>
+                      </td>`;
+
+      dashTable.appendChild(row);
+      });
+
+      document.getElementById('date_srch').dataset.summary = "true";
+      document.querySelectorAll('.view-tadi-summary').forEach(button =>{
+        button.addEventListener("click", e => {
+          const subjOffId = e.target.getAttribute('data-subj-off');
+          const subjDesc = e.target.getAttribute('data-subj-desc');
+          const subjSec = e.target.getAttribute('data-section');
+          const summary = e.target.getAttribute('data-summary');
+
+          console.log("Subjoff: ", subjOffId);
+          DISPLAYALL_TADI_RECORDS(subjOffId,subjDesc,subjSec,summary);
+        })
+      });
+      
+  }catch(error){
+     console.error("Error:", error);
+  };
+}
+
+async function TOTAL_COUNT_SUMMARY(){
+
+  try{
+    const total_summary = await fetch('tadi/prof/controller/index-info.php',{
+      method: "POST",
+      headers: {"Content-Type": "application/x-www-form-urlencoded"},
+      body: new URLSearchParams({
+        type: 'GET_TOTAL_COUNT_SUMMARY'
+      })
+    });
+
+    const totalResult = await total_summary.json();
+
+    const totalCount = document.getElementById('totalCount');
+    const totalUnverified = document.getElementById('totalUnverified');
+    const totalVerified = document.getElementById('totalVerified');
+
+    totalCount.textContent = totalResult.total_count;
+    totalUnverified.textContent = totalResult.total_unverified;
+    totalVerified.textContent = totalResult.verified_count;
+  }catch(error){
+    console.error("Error:", error);
+  }
+}
+
+
+async function UPDATE_TADI_COUNT(subjOff){
+
+  console.log("subjOff to update: ", subjOff);
+
+  try{
+    const count = await fetch(`tadi/prof/controller/index-info.php`,{
+      method: "POSt",
+      headers: {"Content-Type": "application/x-www-form-urlencoded"},
+      body: new URLSearchParams({
+        type: 'UPDATE_SUBJECT_COUNT',
+        sub_off_id: subjOff
+      })
+    });
+
+    const result = await count.json();
+
+    const total = document.getElementById('total-'+subjOff);
+    const unverified = document.getElementById('unverified-'+subjOff);
+
+    console.log("Result to update: ", result);
+
+    total.textContent = result.total_count;
+    unverified.textContent = result.total_unverified;
+  }
+  catch(error){
+    console.error("Error:", error);
+  }
 }
 
