@@ -34,6 +34,22 @@ document.getElementById("searchButton").addEventListener("click", function () {
                                     </td>
                                 </tr>`;
 
+    const thead = document.getElementById('theadTable');
+    thead.innerHTML = '';
+    thead.innerHTML = `<tr id="searchResultHeader" >
+                        <th scope="col" style="background-color: #181a46; color: white;">Section</th>
+                        <th scope="col" style="background-color: #181a46; color: white;">Subject Code</th>
+                        <th scope="col" style="background-color: #181a46; color: white;">Description</th>
+                        <th scope="col" style="background-color: #181a46; color: white;"></th>
+                    </tr>`;
+document.querySelector('.legend').style.display = 'block';
+
+        const summary = document.querySelector('.summary');
+        const tableWrapper = document.querySelector('.inst_list_tbl_wrapper');
+        tableWrapper.classList.remove('dashboard');
+        summary.style.display = 'none';
+        document.getElementById('summaryId').style.display = 'none';
+
     fetch('tadi/prof/controller/index-info.php', {
         method: 'POST',
         body: formData
@@ -56,15 +72,12 @@ document.querySelectorAll('.button-bg-change').forEach(btn => {
 });
 
 document.getElementById('date_srch').addEventListener("click", function(){
-    DISPLAY_TADI_LOG(this.value);
+    const summary = this.getAttribute('data-summary');
+    console.log("data summary status:", summary);
+    DISPLAY_TADI_LOG(this.value, summary);
 });
 
-
-// document.addEventListener('DOMContentLoaded', () => {
 UPDATE_TADI_STATUS();
-// });
-
-
 
 document.addEventListener("show.bs.modal", function (e) {
     const openModals = document.querySelectorAll(".modal.show").length;
@@ -178,5 +191,4 @@ function resetStartEndDateInput(){
       endDate.classList.add("border-dark");
       endDate.classList.remove("border-danger");
       endDate.classList.remove("is-invalid");
-
 }
