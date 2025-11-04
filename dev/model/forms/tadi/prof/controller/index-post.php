@@ -17,9 +17,12 @@ if ($_POST['type'] == 'UPDATE_TADI_STATUS') {
         exit;
     }
 
-    if (!$_SESSION['USERID']) {
-        $fetch['message'] = "Invalid session. Please log in again.";
-        echo json_encode($fetch);
+    if (empty($_SESSION['USERID'])) {
+        echo json_encode([
+            'success' => false, 
+            'error' => 'Your session has expired. Please log in again',
+            'message' => 'Your session has expired. Please log in again.'
+        ]);
         exit;
     }
 
