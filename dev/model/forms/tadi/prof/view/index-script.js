@@ -7,6 +7,9 @@ document.getElementById("searchButton").addEventListener("click", function () {
     const yrid = document.getElementById("acadyear").value;
     const searchQuery = document.getElementById("subjectSearch").value;
 
+    const dashBoardReturn = document.getElementById('summaryTadiBtn');
+    dashBoardReturn.style.display = 'block';
+    
     if ((!lvlid || !yrlvlid || !prdid || !yrid) && !searchQuery) {
         showAlertModal("Please select all the filters or enter a Subject Code before searching.");
          emptyCriteriaReport();
@@ -47,7 +50,7 @@ document.querySelector('.legend').style.display = 'block';
         const summary = document.querySelector('.summary');
         const tableWrapper = document.querySelector('.inst_list_tbl_wrapper');
         tableWrapper.classList.remove('dashboard');
-        summary.style.display = 'none';
+        summary.classList.add("summary-hide");
         document.getElementById('summaryId').style.display = 'none';
 
     fetch('tadi/prof/controller/index-info.php', {
@@ -191,4 +194,22 @@ function resetStartEndDateInput(){
       endDate.classList.add("border-dark");
       endDate.classList.remove("border-danger");
       endDate.classList.remove("is-invalid");
+}
+
+function displaySummary(){
+    const thead = document.getElementById('theadTable');
+    const summaryCard = document.querySelector('.summary');
+
+    summaryCard.classList.remove("summary-hide");
+    document.querySelector('.inst_list_tbl_wrapper').classList.add("dashboard");
+    thead.innerHTML = '';
+    thead.innerHTML = `<tr id="defaultHeader">
+                            <th scope="col" style="background-color: #181a46; color: white;">Section</th>
+                            <th scope="col" style="background-color: #181a46; color: white;">Subject</th>
+                            <th scope="col" style="background-color: #181a46; color: white;">Total Records</th>
+                            <th scope="col" style="background-color: #181a46; color: white;">Unverified Records</th>
+                            <th scope="col" style="background-color: #181a46; color: white;"></th>
+                        </tr>`;
+    document.querySelector('.legend').style.display = 'none';
+    tadiSummary();
 }
