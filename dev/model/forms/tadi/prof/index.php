@@ -121,14 +121,18 @@
         background: rgb(75, 75, 75); 
         border-radius: 10px;
     }
+    .summary-hide{
+        display: none;
+    }
 
 </style>
 
 <section>
     <div class="card ms-3 me-3 mt-5">
         <div class="container-fluid mt-4">
-            <div class="m-2">
+            <div class="m-2 d-flex justify-content-between align-items-center">
                 <h3>TADI - Professor</h3>
+                <button class="btn btn-outline-dark" id="summaryTadiBtn" style="display:none">Back to Dashboard</button>
             </div>
             <div class="row justify-content-center align-items-center g-3 mt-4">
                 <div class="col-md">
