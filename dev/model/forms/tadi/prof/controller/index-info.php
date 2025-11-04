@@ -489,7 +489,7 @@
                 AND `schl_enr_subj_off`.`SchlAcadPrd_ID` = ? 
                 AND `schl_enr_subj_off`.`SchlProf_ID` = ?
                 AND `schl_enr_subj_off`.`SchlEnrollSubjOff_ISACTIVE` = 1 
-                ORDER BY total_count DESC";
+                ORDER BY unverified_count DESC, total_count DESC ";
 
 
         $stmt = $dbConn->prepare($qry);
