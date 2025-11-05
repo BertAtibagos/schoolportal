@@ -344,7 +344,6 @@ function UPLOAD_IMAGE_PROF_MODAL() {
 
 
 function DISPLAY_TADI_LOG(subj_off_id, summary = false) {
-  console.log("Displaying TADI log for subj_off_id:", subj_off_id, "with summary:", summary);
   const strtDateSearch = document.getElementById('strtDateSearch').value;
   const endDateSearch = document.getElementById('endDateSearch').value;
 
@@ -727,7 +726,6 @@ async function tadiSummary(){
           const subjSec = e.target.getAttribute('data-section');
           const summary = e.target.getAttribute('data-summary');
 
-          console.log("Subjoff: ", subjOffId);
           DISPLAYALL_TADI_RECORDS(subjOffId,subjDesc,subjSec,summary);
         })
       });
@@ -765,8 +763,6 @@ async function TOTAL_COUNT_SUMMARY(){
 
 async function UPDATE_TADI_COUNT(subjOff){
 
-  console.log("subjOff to update: ", subjOff);
-
   try{
     const count = await fetch(`tadi/prof/controller/index-info.php`,{
       method: "POSt",
@@ -781,8 +777,6 @@ async function UPDATE_TADI_COUNT(subjOff){
 
     const total = document.getElementById('total-'+subjOff);
     const unverified = document.getElementById('unverified-'+subjOff);
-
-    console.log("Result to update: ", result);
 
     total.textContent = result.total_count;
     unverified.textContent = result.total_unverified;

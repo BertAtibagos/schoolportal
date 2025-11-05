@@ -76,7 +76,6 @@ document.querySelectorAll('.button-bg-change').forEach(btn => {
 
 document.getElementById('date_srch').addEventListener("click", function(){
     const summary = this.getAttribute('data-summary');
-    console.log("data summary status:", summary);
     DISPLAY_TADI_LOG(this.value, summary);
 });
 

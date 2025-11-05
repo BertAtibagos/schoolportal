@@ -624,7 +624,7 @@ if ($type == 'GET_TEACHER_TADI_REPORT') {
 		echo json_encode($fetch);
 		exit;
 	}
-
+	
     $qry = "SELECT  
 				CONCAT(emp.`SchlEmp_LNAME`, ', ', emp.`SchlEmp_FNAME`) AS prof_name,
 				subj.`SchlAcadSubj_CODE` AS subject_code,
@@ -667,7 +667,7 @@ if ($type == 'GET_TEACHER_TADI_REPORT') {
 			AND dept.`SchlDeptHead_ID` = ?";
 
     if ($startDate && $endDate) {
-        $qry .= " WHERE tadi.schltadi_date BETWEEN ? AND ?";
+        $qry .= " AND tadi.schltadi_date BETWEEN ? AND ?";
     }
 
     $qry .= " ORDER BY 
