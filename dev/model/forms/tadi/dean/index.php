@@ -209,7 +209,8 @@
                 <div class="col-md">
                     <button type="button" id="search_button" class="btn w-100 button-search-bg-change tadi-search">
                         Search
-                    </button><button type="button" id="reportSearch" class="btn w-100 button-gen-rep-bg-change tadi-search" style="display:none">
+                    </button>
+                    <button type="button" id="reportSearch" class="btn w-100 button-gen-rep-bg-change tadi-search" style="display:none">
                         Generate Report
                     </button>
                 </div>
