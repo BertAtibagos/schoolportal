@@ -259,6 +259,7 @@ function displaySubjectTable(result) {
                                     <span class="acknw" value="${record.schltadi_ID}" name="${record.tadi_status}" 
                                     style="color:${statusConfig.color}; font-weight:bold;">${statusConfig.text}</span>
                                 </div>
+                                ${record.tadi_status == 0 ? `<div style="margin-bottom:2%" class="tadi-edit"><button class="btn btn-sm btn-secondary text-white w-70 edit-tadi" value="${record.schltadi_ID}">EDIT</button>` : ``}
                             </div>
                         `;
 
@@ -271,6 +272,7 @@ function displaySubjectTable(result) {
                     document.querySelectorAll('.viewAttch').forEach(button =>
                         button.addEventListener('click', GET_IMAGE)
                     );
+                    editTadiHandler();
                 })
                 .catch(err => {
                     console.error("Error loading records:", err);

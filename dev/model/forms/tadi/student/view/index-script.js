@@ -1,4 +1,3 @@
-
 GET_SUBJECTLIST();
 
 document.getElementById("close_modal").addEventListener("click", function () {
@@ -92,3 +91,25 @@ button.addEventListener("click", function (e) {
         }
     }
 });
+
+function editTadiHandler(){
+    document.querySelectorAll('.edit-tadi').forEach(button =>{
+        button.addEventListener('click', ()=>{
+            console.log("working!!");
+            
+            const buttonCont = document.querySelector('.tadi-edit');
+            buttonCont.innerHTML = `<button class="btn btn-sm btn-success text-white w-70 id="submit">
+                                        Submit
+                                    </button>
+                                    <button class="btn btn-sm btn-warning text-white w-70" id="cancel">
+                                        Cancel
+                                    </button>
+                                    `;
+
+            // document.getElementById('cancel').addEventListener('click', ()=>{
+
+            // })
+        })
+    });
+}
+
