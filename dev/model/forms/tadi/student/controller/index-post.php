@@ -167,7 +167,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['type']) && $_POST['ty
                 schltadi_activity, 
                 schltadi_isactive, 
                 schltadi_status,
-                schltadi_isconfirm, 
+                schltadi_isupdated, 
                 schlstud_id, 
                 schlacadlvl_id, 
                 schlacadyr_id,
@@ -181,7 +181,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['type']) && $_POST['ty
 
         $isactive = 1;
         $status = 0;
-        $isconfirm = 0;
+        $isupdated = 0;
 
         $stmt->bind_param(
             "ssssssiiiiiiiiisss",
@@ -193,7 +193,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['type']) && $_POST['ty
             $schltadi_activity,
             $isactive,
             $status,
-            $isconfirm,
+            $isupdated,
             $STUDID,
             $LVLID,
             $YRID,
