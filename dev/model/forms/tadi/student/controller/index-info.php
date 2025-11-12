@@ -188,5 +188,32 @@ if($type == 'GET_IMAGE'){
 	$stmt->close();
 }
 
+if($type == 'GET_SPECI_TADI_RECORD'){
+    
+    $tadi_id = $_POST['tadi_id'];
+
+    $qry = "SELECT 
+                `schltadi_id` tadi_id,
+                `schltadi_mode` class_mode,
+                `schltadi_type` class_type,
+                `schltadi_date` tadi_date,
+                `schltadi_timein` timein,
+                `schltadi_timeout` timeout,
+                `schltadi_activity` activity,
+                `schlstud_id` stud_id,
+                `schlenrollsubjoff_id` subj_off,
+                `schlprof_id` prof_id,
+                `schltadi_filepath` filepath
+            FROM `schooltadi`
+            WHERE `schltadi_id` = ?";
+
+    $stmt = $dbConn->prepare($qry);
+	$stmt->bind_param("i", $tadi_id);
+	$stmt->execute();
+	$result = $stmt->get_result();
+	$fetch = $result->fetch_assoc();
+	$stmt->close();
+}
+
 $dbConn->close();
 echo json_encode($fetch);
