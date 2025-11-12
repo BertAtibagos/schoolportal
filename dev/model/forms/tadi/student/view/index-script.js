@@ -93,23 +93,27 @@ button.addEventListener("click", function (e) {
 });
 
 function editTadiHandler(){
-    document.querySelectorAll('.edit-tadi').forEach(button =>{
-        button.addEventListener('click', ()=>{
-            console.log("working!!");
-            
-            const buttonCont = document.querySelector('.tadi-edit');
-            buttonCont.innerHTML = `<button class="btn btn-sm btn-success text-white w-70 id="submit">
-                                        Submit
-                                    </button>
-                                    <button class="btn btn-sm btn-warning text-white w-70" id="cancel">
-                                        Cancel
-                                    </button>
-                                    `;
-
-            // document.getElementById('cancel').addEventListener('click', ()=>{
-
-            // })
+    document.querySelectorAll('.edit-tadi').forEach(button=>{
+        button.addEventListener('click', function(){
+            const tadiId = this.getAttribute("data-id");
+            document.getElementById('submit' + tadiId).classList.remove('edit-btn-hide');
+            document.getElementById('cancel' + tadiId).classList.remove('edit-btn-hide');
+            this.classList.add('edit-btn-hide');
+            editChangeDisplay(tadiId);
         })
-    });
+    })
+}
+
+function editCancelTadiHandler(){
+    document.querySelectorAll('.tadi-cancel').forEach(button=>{
+        button.addEventListener('click', function(){
+            const tadiId = this.getAttribute("data-id");
+            this.classList.add('edit-btn-hide');
+            document.getElementById('submit' + tadiId).classList.add('edit-btn-hide');
+            document.getElementById('edit' + tadiId).classList.remove('edit-btn-hide');
+            document.getElementById('status' + tadiId).classList.remove("stats-hide");
+            console.log('Cancel: ', tadiId);
+        })
+    })
 }
 
