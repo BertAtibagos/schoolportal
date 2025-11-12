@@ -236,32 +236,45 @@ function displaySubjectTable(result) {
                         tabPane.setAttribute("aria-labelledby", `nav-tab-${record.schltadi_ID}`);
 
                         tabPane.innerHTML = `
-                            <div class="p-3">
-                                <div style="margin-bottom:2%">
+                            <div class="p-3" id="preview-${record.schltadi_ID}">
+                                <div style="margin-bottom:2%" id="dateLabel${record.schltadi_ID}">
                                     <span><span class="label">Date:</span> ${record.tadi_date}</span>
                                 </div>
-                                <div style="margin-bottom:2%">
+                                <div style="margin-bottom:2%" id="timeLabel${record.schltadi_ID}">
                                     <span><span class="label">Time:</span> ${formatTimeToAmPm(record.tadi_timeIn)} - ${formatTimeToAmPm(record.tadi_timeOut)}</span>
                                 </div>
-                                <div style="margin-bottom:2%">
+                                <div style="margin-bottom:2%" id="classTypeLabel${record.schltadi_ID}">
                                     <span><span class="label">Class Type:</span> ${modeTypeMap[record.tadi_modeType] || record.tadi_modeType}</span>
                                 </div>
-                                <div style="margin-bottom:2%">
+                                <div style="margin-bottom:2%"  id="actLabel${record.schltadi_ID}">
                                     <span class="label">Activity:</span>
                                     <span class="activity-text" style="cursor: pointer;">${activity}</span>
                                 </div>
-                                <div style="margin-bottom:2%">
+                                <div style="margin-bottom:2%" id="attchLabel${record.schltadi_ID}">
                                     <span><span class="label">Attachment:</span> ${viewUploadCell}</span>
                                     <input type="hidden" id="imgProf_id" value="${record.SchlProf_ID}">
                                 </div>
-                                <div style="margin-bottom:2%">
+                                <div style="margin-bottom:2%" class="fuck" id="status${record.schltadi_ID}">
                                     <span class="label">Status:</span>
                                     <span class="acknw" value="${record.schltadi_ID}" name="${record.tadi_status}" 
                                     style="color:${statusConfig.color}; font-weight:bold;">${statusConfig.text}</span>
                                 </div>
-                                ${record.tadi_status == 0 ? `<div style="margin-bottom:2%" class="tadi-edit"><button class="btn btn-sm btn-secondary text-white w-70 edit-tadi" value="${record.schltadi_ID}">EDIT</button>` : ``}
-                            </div>
-                        `;
+                                ${record.tadi_status == 0 ? `<div style="margin-bottom:2%" class="tadi-edit">
+                                                                <button class="btn btn-sm btn-secondary text-white w-70 edit-tadi" id="edit${record.schltadi_ID}" data-id="${record.schltadi_ID}">
+                                                                    EDIT
+                                                                </button>
+                                                                <button class="btn btn-sm btn-success text-white w-70 tadi-submit edit-btn-hide" id="submit${record.schltadi_ID}" data-id="${record.schltadi_ID}">
+                                                                    Submit
+                                                                </button>
+                                                                <button class="btn btn-sm btn-warning text-white w-70 tadi-cancel edit-btn-hide" 
+                                                                    id="cancel${record.schltadi_ID}" 
+                                                                    data-id="${record.schltadi_ID}" 
+                                                                    data-prof-id="${record.SchlProf_ID}"
+                                                                    data-subj-off="${record.sub_off_id}">
+                                                                    Cancel
+                                                                </button>
+                                                            </div>` : ``}
+                            </div>`;
 
                         navTabContent.appendChild(tabPane);
 
@@ -273,6 +286,7 @@ function displaySubjectTable(result) {
                         button.addEventListener('click', GET_IMAGE)
                     );
                     editTadiHandler();
+                    editCancelTadiHandler();
                 })
                 .catch(err => {
                     console.error("Error loading records:", err);
@@ -396,3 +410,73 @@ function setupActivityText(element) {
     this.style.webkitLineClamp = isCollapsed ? 'none' : '2';
   });
 }
+
+
+async function editChangeDisplay(tadiId){
+    console.log('This ID: ', tadiId);
+
+    const params = new URLSearchParams();
+    params.append("type", "GET_SPECI_TADI_RECORD");
+    params.append("tadi_id", tadiId);
+
+     try{
+        const request = await fetch(`tadi/student/controller/index-info.php`, {
+            method: "POST",
+            headers: {"Content-Type": "application/x-www-form-urlencoded"},
+            body: params
+        })
+
+        const entry = await request.json();
+
+        console.log("Date: ", entry);
+
+        const viewUploadCell = entry.filepath
+                            ? `<button class="btn btn-sm w-70 viewAttch" style="background-color: #2980B9; color: white" value="${entry.tadi_id}">VIEW</button>`
+                            : `<span class="btn btn-sm w-70" style="background-color: #95A5A6; color: white; pointer-events: none;">No Attachment</span>`;
+
+        document.getElementById('dateLabel' + tadiId).innerHTML = `<span><span class="label">Date:</span><input type="date" value="${entry.tadi_date}"></span>`;
+        document.getElementById('timeLabel' + tadiId).innerHTML = `<span>
+                                                                        <span class="label">
+                                                                            Time in:
+                                                                        </span> 
+                                                                            <input type="time" value="${entry.timein}">
+                                                                        <span class="label">
+                                                                            Time out:
+                                                                        </span> 
+                                                                            <input type="time" value="${entry.timeout}">
+                                                                    </span>`;
+        document.getElementById('classTypeLabel' + tadiId).innerHTML = `<span>
+                                                                            <span class="label">
+                                                                                Class Mode:
+                                                                            </span>
+                                                                            <select>
+                                                                                <option value="online_learning">Online</option>
+                                                                                <option value="onsite_learning">Onsite</option>
+                                                                            </select>
+                                                                            <span class="label">
+                                                                                Class type:
+                                                                            </span>
+                                                                            <select>
+                                                                                <option value="regular">Regular</option>
+                                                                                <option value="make_up">Make Up</option>
+                                                                            </select>
+                                                                        </span>`;
+        document.getElementById('actLabel' + tadiId).innerHTML = `<span class="label">
+                                                                    Activity:
+                                                                  </span>
+                                                                  <textarea>${entry.activity}</textarea>`;
+        document.getElementById('attchLabel' + tadiId).innerHTML = `<span class="label">
+                                                                            Attachment:
+                                                                    </span> 
+                                                                    <input type="hidden" id="imgProf_id" value="${entry.prof_id}">
+                                                                    <input type="file">`;
+        document.getElementById('status' + tadiId).classList.add("stats-hide");
+    }
+    catch(error){
+        console.log("Error Fetching: ", error);
+    }
+}
+
+// async function submithandler(tadiId){
+//    
+// }
