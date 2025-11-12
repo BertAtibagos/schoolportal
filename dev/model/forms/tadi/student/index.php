@@ -93,6 +93,12 @@
     #student_tadi_section .thlabel{
         color:white;
     }
+    .edit-btn-hide{
+        display:none;
+    }
+    .stats-hide{
+         display:none;
+    }
 </style>
 <section id="student_tadi_section">
     <!-- <div class="modal fade" id="loadingModal" tabindex="-1" aria-hidden="true">
