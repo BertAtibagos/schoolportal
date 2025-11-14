@@ -105,7 +105,7 @@ function editTadiHandler(){
 }
 
 function editCancelTadiHandler(){
-    document.querySelectorAll('.tadi-cancel').forEach(button=>{
+    document.querySelectorAll('.tadi-edit-cancel').forEach(button=>{
         button.addEventListener('click', function(){
             const tadiId = this.getAttribute("data-id");
             this.classList.add('edit-btn-hide');
@@ -113,6 +113,11 @@ function editCancelTadiHandler(){
             document.getElementById('edit' + tadiId).classList.remove('edit-btn-hide');
             document.getElementById('status' + tadiId).classList.remove("stats-hide");
             console.log('Cancel: ', tadiId);
+
+            const subj_Id = this.dataset.subjId;
+            const prof_Id = this.dataset.profId;
+
+            viewSubmitted(subj_Id, prof_Id);
         })
     })
 }
