@@ -215,5 +215,38 @@ if($type == 'GET_SPECI_TADI_RECORD'){
 	$stmt->close();
 }
 
+// if($type == 'EDIT_TADI_RECORD'){
+
+//     $mode = $_POST['classMode'];
+//     $tadi_type = $_POST['classType'];
+//     $timein = $_POST['timeIn'];
+//     $timeout = $_POST['timeOut'];
+//     $activity = $_POST['activity'];
+//     $filepath = $_POST['currImgPath'];
+//     $tadi_id = $_POST['tadiId'];
+
+//     $qry = "UPDATE `schooltadi`
+//             SET  
+//                 `schltadi_mode` = ?,
+//                 `schltadi_type` = ?,
+//                 `schltadi_timein` = ?,
+//                 `schltadi_timeout` = ?,
+//                 `schltadi_activity` = ?,
+//                 `schltadi_filepath` = ?
+//             WHERE `schltadi_id` = ?";
+
+//     $stmt = $dbConn->prepare($qry);
+//     $stmt->bind_param("ssssssi", $mode, $tadi_type, $timein, $timeout, $activity, $filepath, $tadi_id);
+
+//     $success = $stmt->execute();
+
+//     if ($success && $stmt->affected_rows > 0) {
+//         echo json_encode(["status" => "success", "message" => "TADI record updated successfully."]);
+//     } else {
+//         echo json_encode(["status" => "error", "message" => "No changes made or update failed."]);
+//     }
+// 	$stmt->close();
+// }
+
 $dbConn->close();
 echo json_encode($fetch);
