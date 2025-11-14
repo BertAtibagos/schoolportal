@@ -172,125 +172,7 @@ function displaySubjectTable(result) {
             const subj_Id = this.dataset.subjId;
             const prof_Id = this.dataset.profId;
 
-            const params = new URLSearchParams({
-                type: 'GET_SUBMITTED_REC',
-                subj_Id: subj_Id,
-                prof_Id: prof_Id
-            });
-
-            fetch(`tadi/student/controller/index-info.php`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded"
-                },
-                body: params
-            })
-                .then(res => res.json())
-                .then(data => {
-                    const navTabs = document.getElementById('nav-tab');          
-                    const navTabContent = document.getElementById('nav-tabContent'); 
-
-                    navTabs.innerHTML = '';
-                    navTabContent.innerHTML = '';
-
-                    if (!data.length) {
-                        navTabContent.innerHTML = "<div class='p-3 text-center'>No records found</div>";
-                        return;
-                    }
-
-                    data.forEach((record, index) => {
-                        const isActive = index === 0 ? "active" : "";
-
-                        
-                        const tabBtn = document.createElement('button');
-                        tabBtn.className = `nav-link ${isActive}`;
-                        tabBtn.id = `nav-tab-${record.schltadi_ID}`;
-                        tabBtn.setAttribute('data-bs-toggle', 'tab');
-                        tabBtn.setAttribute('data-bs-target', `#tab-pane-${record.schltadi_ID}`);
-                        tabBtn.type = 'button';
-                        tabBtn.role = 'tab';
-                        tabBtn.innerText = `Record ${index + 1}`;
-                        navTabs.appendChild(tabBtn);
-
-                        
-                        const viewUploadCell = record.tadi_filepath
-                            ? `<button class="btn btn-sm w-70 viewAttch" style="background-color: #2980B9; color: white" value="${record.schltadi_ID}">VIEW</button>`
-                            : `<span class="btn btn-sm w-70" style="background-color: #95A5A6; color: white; pointer-events: none;">No Attachment</span>`;
-
-                        const modeTypeMap = {
-                            'online_learning regular': 'Online Regular',
-                            'online_learning makeup': 'Online Make-Up',
-                            'onsite_learning regular': 'Onsite Regular',
-                            'onsite_learning makeup': 'Onsite Make-Up'
-                        };
-
-                        let activity = record.tadi_act.replace(/\\r\\n/g, "<br>");
-                        const statusConfig = record.tadi_status == 1
-                            ? { text: "Verified", color: "green" }
-                            : { text: "Unverified", color: "red" };
-
-                        const tabPane = document.createElement('div');
-                        tabPane.className = `tab-pane fade show ${isActive}`;
-                        tabPane.id = `tab-pane-${record.schltadi_ID}`;
-                        tabPane.role = "tabpanel";
-                        tabPane.setAttribute("aria-labelledby", `nav-tab-${record.schltadi_ID}`);
-
-                        tabPane.innerHTML = `
-                            <div class="p-3" id="preview-${record.schltadi_ID}">
-                                <div style="margin-bottom:2%" id="dateLabel${record.schltadi_ID}">
-                                    <span><span class="label">Date:</span> ${record.tadi_date}</span>
-                                </div>
-                                <div style="margin-bottom:2%" id="timeLabel${record.schltadi_ID}">
-                                    <span><span class="label">Time:</span> ${formatTimeToAmPm(record.tadi_timeIn)} - ${formatTimeToAmPm(record.tadi_timeOut)}</span>
-                                </div>
-                                <div style="margin-bottom:2%" id="classTypeLabel${record.schltadi_ID}">
-                                    <span><span class="label">Class Type:</span> ${modeTypeMap[record.tadi_modeType] || record.tadi_modeType}</span>
-                                </div>
-                                <div style="margin-bottom:2%"  id="actLabel${record.schltadi_ID}">
-                                    <span class="label">Activity:</span>
-                                    <span class="activity-text" style="cursor: pointer;">${activity}</span>
-                                </div>
-                                <div style="margin-bottom:2%" id="attchLabel${record.schltadi_ID}">
-                                    <span><span class="label">Attachment:</span> ${viewUploadCell}</span>
-                                    <input type="hidden" id="imgProf_id" value="${record.SchlProf_ID}">
-                                </div>
-                                <div style="margin-bottom:2%" class="fuck" id="status${record.schltadi_ID}">
-                                    <span class="label">Status:</span>
-                                    <span class="acknw" value="${record.schltadi_ID}" name="${record.tadi_status}" 
-                                    style="color:${statusConfig.color}; font-weight:bold;">${statusConfig.text}</span>
-                                </div>
-                                ${record.tadi_status == 0 ? `<div style="margin-bottom:2%" class="tadi-edit">
-                                                                <button class="btn btn-sm btn-secondary text-white w-70 edit-tadi" id="edit${record.schltadi_ID}" data-id="${record.schltadi_ID}">
-                                                                    EDIT
-                                                                </button>
-                                                                <button class="btn btn-sm btn-success text-white w-70 tadi-submit edit-btn-hide" id="submit${record.schltadi_ID}" data-id="${record.schltadi_ID}">
-                                                                    Submit
-                                                                </button>
-                                                                <button class="btn btn-sm btn-warning text-white w-70 tadi-cancel edit-btn-hide" 
-                                                                    id="cancel${record.schltadi_ID}" 
-                                                                    data-id="${record.schltadi_ID}" 
-                                                                    data-prof-id="${record.SchlProf_ID}"
-                                                                    data-subj-off="${record.sub_off_id}">
-                                                                    Cancel
-                                                                </button>
-                                                            </div>` : ``}
-                            </div>`;
-
-                        navTabContent.appendChild(tabPane);
-
-                        const text = tabPane.querySelector('.activity-text');
-                        setupActivityText(text);
-                    });
-
-                    document.querySelectorAll('.viewAttch').forEach(button =>
-                        button.addEventListener('click', GET_IMAGE)
-                    );
-                    editTadiHandler();
-                    editCancelTadiHandler();
-                })
-                .catch(err => {
-                    console.error("Error loading records:", err);
-                });
+            viewSubmitted(subj_Id, prof_Id);
         });
     });
 
@@ -439,24 +321,24 @@ async function editChangeDisplay(tadiId){
                                                                         <span class="label">
                                                                             Time in:
                                                                         </span> 
-                                                                            <input type="time" value="${entry.timein}">
+                                                                            <input type="time" value="${entry.timein}" name="timeIn" id="timeIn">
                                                                         <span class="label">
                                                                             Time out:
                                                                         </span> 
-                                                                            <input type="time" value="${entry.timeout}">
+                                                                            <input type="time" value="${entry.timeout}" name="timeOut" id="timeOut">
                                                                     </span>`;
         document.getElementById('classTypeLabel' + tadiId).innerHTML = `<span>
                                                                             <span class="label">
                                                                                 Class Mode:
                                                                             </span>
-                                                                            <select>
+                                                                            <select name="classMode" id="classMode">
                                                                                 <option value="online_learning">Online</option>
                                                                                 <option value="onsite_learning">Onsite</option>
                                                                             </select>
                                                                             <span class="label">
                                                                                 Class type:
                                                                             </span>
-                                                                            <select>
+                                                                            <select name="classType" id="classType">
                                                                                 <option value="regular">Regular</option>
                                                                                 <option value="make_up">Make Up</option>
                                                                             </select>
@@ -464,12 +346,13 @@ async function editChangeDisplay(tadiId){
         document.getElementById('actLabel' + tadiId).innerHTML = `<span class="label">
                                                                     Activity:
                                                                   </span>
-                                                                  <textarea>${entry.activity}</textarea>`;
+                                                                  <textarea name="activity" id="activity">${entry.activity}</textarea>`;
         document.getElementById('attchLabel' + tadiId).innerHTML = `<span class="label">
                                                                             Attachment:
                                                                     </span> 
                                                                     <input type="hidden" id="imgProf_id" value="${entry.prof_id}">
-                                                                    <input type="file">`;
+                                                                    <input type="hidden" id="currImgPath" name="currImgPath" data-img-path="${entry.filepath}">
+                                                                    <input type="file" name="attach" id="attach">`;
         document.getElementById('status' + tadiId).classList.add("stats-hide");
     }
     catch(error){
@@ -477,6 +360,155 @@ async function editChangeDisplay(tadiId){
     }
 }
 
+function viewSubmitted(subj_Id, prof_Id){
+
+    const params = new URLSearchParams({
+        type: 'GET_SUBMITTED_REC',
+        subj_Id: subj_Id,
+        prof_Id: prof_Id
+    });
+
+    fetch(`tadi/student/controller/index-info.php`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: params
+    })
+        .then(res => res.json())
+        .then(data => {
+            const navTabs = document.getElementById('nav-tab');          
+            const navTabContent = document.getElementById('nav-tabContent'); 
+
+            navTabs.innerHTML = '';
+            navTabContent.innerHTML = '';
+
+            if (!data.length) {
+                navTabContent.innerHTML = "<div class='p-3 text-center'>No records found</div>";
+                return;
+            }
+
+            data.forEach((record, index) => {
+                const isActive = index === 0 ? "active" : "";
+
+                
+                const tabBtn = document.createElement('button');
+                tabBtn.className = `nav-link ${isActive}`;
+                tabBtn.id = `nav-tab-${record.schltadi_ID}`;
+                tabBtn.setAttribute('data-bs-toggle', 'tab');
+                tabBtn.setAttribute('data-bs-target', `#tab-pane-${record.schltadi_ID}`);
+                tabBtn.type = 'button';
+                tabBtn.role = 'tab';
+                tabBtn.innerText = `Record ${index + 1}`;
+                navTabs.appendChild(tabBtn);
+
+                
+                const viewUploadCell = record.tadi_filepath
+                    ? `<button class="btn btn-sm w-70 viewAttch" style="background-color: #2980B9; color: white" value="${record.schltadi_ID}">VIEW</button>`
+                    : `<span class="btn btn-sm w-70" style="background-color: #95A5A6; color: white; pointer-events: none;">No Attachment</span>`;
+
+                const modeTypeMap = {
+                    'online_learning regular': 'Online Regular',
+                    'online_learning makeup': 'Online Make-Up',
+                    'onsite_learning regular': 'Onsite Regular',
+                    'onsite_learning makeup': 'Onsite Make-Up'
+                };
+
+                let activity = record.tadi_act.replace(/\\r\\n/g, "<br>");
+                const statusConfig = record.tadi_status == 1
+                    ? { text: "Verified", color: "green" }
+                    : { text: "Unverified", color: "red" };
+
+                const tabPane = document.createElement('div');
+                tabPane.className = `tab-pane fade show ${isActive}`;
+                tabPane.id = `tab-pane-${record.schltadi_ID}`;
+                tabPane.role = "tabpanel";
+                tabPane.setAttribute("aria-labelledby", `nav-tab-${record.schltadi_ID}`);
+
+                tabPane.innerHTML = `
+                    <div class="p-3" id="preview-${record.schltadi_ID}">
+                        <div style="margin-bottom:2%" id="dateLabel${record.schltadi_ID}">
+                            <span><span class="label">Date:</span> ${record.tadi_date}</span>
+                        </div>
+                        <div style="margin-bottom:2%" id="timeLabel${record.schltadi_ID}">
+                            <span><span class="label">Time:</span> ${formatTimeToAmPm(record.tadi_timeIn)} - ${formatTimeToAmPm(record.tadi_timeOut)}</span>
+                        </div>
+                        <div style="margin-bottom:2%" id="classTypeLabel${record.schltadi_ID}">
+                            <span><span class="label">Class Type:</span> ${modeTypeMap[record.tadi_modeType] || record.tadi_modeType}</span>
+                        </div>
+                        <div style="margin-bottom:2%"  id="actLabel${record.schltadi_ID}">
+                            <span class="label">Activity:</span>
+                            <span class="activity-text" style="cursor: pointer;">${activity}</span>
+                        </div>
+                        <div style="margin-bottom:2%" id="attchLabel${record.schltadi_ID}">
+                            <span><span class="label">Attachment:</span> ${viewUploadCell}</span>
+                            <input type="hidden" id="imgProf_id" value="${record.SchlProf_ID}">
+                        </div>
+                        <div style="margin-bottom:2%" class="fuck" id="status${record.schltadi_ID}">
+                            <span class="label">Status:</span>
+                            <span class="acknw" value="${record.schltadi_ID}" name="${record.tadi_status}" 
+                            style="color:${statusConfig.color}; font-weight:bold;">${statusConfig.text}</span>
+                        </div>
+                        ${record.tadi_status == 0 ? `<div style="margin-bottom:2%" class="tadi-edit">
+                                                        <button class="btn btn-sm btn-secondary text-white w-70 edit-tadi" id="edit${record.schltadi_ID}" data-id="${record.schltadi_ID}">
+                                                            EDIT
+                                                        </button>
+                                                        <button type="submit" class="btn btn-sm btn-success text-white w-70 tadi-submit edit-btn-hide" id="submit${record.schltadi_ID}" data-id="${record.schltadi_ID}">
+                                                            Submit
+                                                        </button>
+                                                        <button class="btn btn-sm btn-warning text-white w-70 tadi-edit-cancel edit-btn-hide" 
+                                                            id="cancel${record.schltadi_ID}"
+                                                            data-id="${record.schltadi_ID}"
+                                                            data-prof-id="${record.SchlProf_ID}"
+                                                            data-subj-id="${record.sub_off_id}">
+                                                            Cancel
+                                                        </button>
+                                                    </div>` : ``}
+                    </div>`;
+
+                navTabContent.appendChild(tabPane);
+
+                const text = tabPane.querySelector('.activity-text');
+                setupActivityText(text);
+            });
+
+            document.querySelectorAll('.viewAttch').forEach(button =>
+                button.addEventListener('click', GET_IMAGE)
+            );
+            editTadiHandler();
+            editCancelTadiHandler();
+
+            // document.querySelectorAll('.tadi-submit').forEach(button=>{
+            //     button.addEventListener("click", function (){
+            //         const tadiId = this.getAttribute('data-id');
+            //         console.log("submit ID: ", tadiId);
+            //         submithandler(tadiId);
+            //     })
+            // })
+        })
+        .catch(err => {
+            console.error("Error loading records:", err);
+        });
+}
+
 // async function submithandler(tadiId){
-//    
+
+//     const formData = new FormData();
+//     formData.append("type", "EDIT_TADI_RECORD");
+//     formData.append("tadiId", tadiId);
+
+   
+//     try{
+//         const update = await fetch(`tadi/student/controller/index-info.php`, {
+//             method: "POST",
+//             body: formData
+//         })
+
+//         const result = await update.json();
+
+//         console.log("message: ", result);
+//     }
+//     catch(error){
+//         console.log(error);
+//     }
 // }
