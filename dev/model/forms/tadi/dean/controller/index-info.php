@@ -10,10 +10,19 @@
 
     session_start();
     include('../../../../configuration/connection-config.php');
+
 $type = $_POST['type'];
 
 if ($type == 'GET_ACADEMIC_LEVEL') {
 	$user = $_SESSION['USERID'];
+
+	$forHead = " AND `subj_off`.`SchlProf_ID` = ?";
+	$prep = $user;
+	
+	if($user == 11){
+		$prep = 2;
+		$forHead = " AND acad_lvl.`SchlAcadLvl_ID` = ?";
+	}
 
 	$qry = "SELECT DISTINCT
 				acad_lvl.`SchlAcadLvl_ID`,
@@ -26,10 +35,10 @@ if ($type == 'GET_ACADEMIC_LEVEL') {
 			LEFT JOIN `schooldepartment` `schl_dept` 
 				ON acad_lvl.`SchlAcadLvlSms_ID` = `schl_dept`.`SchlAcadLvl_ID`
 			WHERE `SchlAcadLvl_ISACTIVE` = 1
-			AND  `subj_off`.`SchlProf_ID` = ?";
+			$forHead";
 
 	$stmt = $dbConn->prepare($qry);
-	$stmt->bind_param("i",$user);
+	$stmt->bind_param("i",$prep);
 	$stmt->execute();
 	$result = $stmt->get_result();
 	$fetch = $result->fetch_all(MYSQLI_ASSOC);
@@ -164,6 +173,12 @@ if ($type == 'GET_INSTRUCTOR_LIST') {
 	$yrid = $_POST['yr_id'];
 	$yrlvlid = $_POST['yrlvl_id'];
 
+	$forHead = " AND `schl_dept`.`SchlDeptHead_ID` = ?";
+
+	if($user == 11){
+		$forHead = "";
+	}
+
 	$qry = "SELECT DISTINCT 
 			`schl_enr_subj_off`.`SchlProf_ID`,
 			CONCAT(
@@ -189,7 +204,7 @@ if ($type == 'GET_INSTRUCTOR_LIST') {
 				AND seso.SchlAcadYr_ID = ?
 				AND seso.SchlAcadPrd_ID = ? 
 				AND `seso`.`SchlAcadYrLvl_ID` = ?
-    			AND `schl_dept`.`SchlDeptHead_ID` = ?) AS unverified_count 
+    			$forHead) AS unverified_count 
 			FROM
 			`schoolenrollmentsubjectoffered` `schl_enr_subj_off` 
 			LEFT JOIN `schoolacademiccourses` `schl_acad_crses` 
@@ -202,7 +217,7 @@ if ($type == 'GET_INSTRUCTOR_LIST') {
 			AND `schl_enr_subj_off`.`SchlAcadYr_ID` = ?
 			AND `schl_enr_subj_off`.`SchlAcadPrd_ID` = ?
 			AND `schl_enr_subj_off`.`SchlAcadYrLvl_ID` = ? 
-			AND `schl_dept`.`SchlDeptHead_ID` = ?
+			$forHead
 			AND `schl_enr_subj_off`.`SchlEnrollSubjOff_ISACTIVE` = 1 
 			AND emp.`SchlEmp_ID` IS NOT NULL 
 			GROUP BY `schl_enr_subj_off`.`SchlProf_ID`,
@@ -212,7 +227,13 @@ if ($type == 'GET_INSTRUCTOR_LIST') {
 			ORDER BY prof_name ASC ";
 
 	$stmt = $dbConn->prepare($qry);
-	$stmt->bind_param("iiiiiiiiii", $lvlid, $yrid, $prdid, $yrlvlid, $user, $lvlid, $yrid, $prdid, $yrlvlid, $user);
+
+	if($user == 11){
+		$stmt->bind_param("iiiiiiii", $lvlid, $yrid, $prdid, $yrlvlid, $lvlid, $yrid, $prdid, $yrlvlid);
+	}else{
+		$stmt->bind_param("iiiiiiiiii", $lvlid, $yrid, $prdid, $yrlvlid, $user, $lvlid, $yrid, $prdid, $yrlvlid, $user);
+	}
+
 	$stmt->execute();
 	$result = $stmt->get_result();
 	$fetch = $result->fetch_all(MYSQLI_ASSOC);
@@ -228,6 +249,12 @@ if ($type == 'GET_SECTION_LIST') {
 	$yrid = $_POST['yrid'];
 	$yrlvlid = $_POST['yrlvlid'];
 	$user = $_SESSION['USERID'];
+
+	$forHead = "AND schl_dept.`SchlDeptHead_ID` = ?";
+
+	if($user == 11){
+		$forHead = "";
+	}
 
     $qry = "SELECT DISTINCT
 				`schl_enr_subj_off`.`SchlProf_ID` AS `prof_id`,
@@ -256,10 +283,16 @@ if ($type == 'GET_SECTION_LIST') {
 			AND `schl_enr_subj_off`.`SchlAcadPrd_ID` = ?
 			AND `schl_enr_subj_off`.`SchlAcadYr_ID` = ?
 			AND `schl_enr_subj_off`.`SchlAcadYrLvl_ID` = ?
-			AND schl_dept.`SchlDeptHead_ID` = ?";
+			$forHead";
 
 	$stmt = $dbConn->prepare($qry);
-	$stmt->bind_param("iiiiii",$profId ,$lvlid, $prdid, $yrid, $yrlvlid, $user);
+
+	if($user == 11){
+		$stmt->bind_param("iiiii",$profId ,$lvlid, $prdid, $yrid, $yrlvlid);
+	}else{
+		$stmt->bind_param("iiiiii",$profId ,$lvlid, $prdid, $yrid, $yrlvlid, $user);
+	}
+	
 	$stmt->execute();
 	$result = $stmt->get_result();
 	$fetch = $result->fetch_all(MYSQLI_ASSOC);
@@ -363,6 +396,12 @@ if ($type == 'GET_SUBJECT_BY_INSTRUCTOR') {
 	$yrlvlid = $_POST['yrlvl_id'];
 	$user = $_SESSION['USERID'];
 
+	$forHead = "AND schl_dept.`SchlDeptHead_ID` = ?";
+
+	if($user == 11){
+		$forHead = "";
+	}
+
 	$qry = "SELECT DISTINCT
 				CONCAT(emp.SchlEmp_LNAME, ',', emp.SchlEmp_FNAME, ' ', emp.SchlEmp_MNAME) AS prof_name,
 				schl_enr_subj_off.`SchlEnrollSubjOffSms_ID` AS sub_off_id,
@@ -412,10 +451,15 @@ if ($type == 'GET_SUBJECT_BY_INSTRUCTOR') {
 			AND `schl_enr_subj_off`.`SchlAcadYr_ID` = ?
 			AND `schl_enr_subj_off`.`SchlAcadPrd_ID` = ?
 			AND `schl_enr_subj_off`.`SchlAcadYrLvl_ID` = ?
-			AND schl_dept.`SchlDeptHead_ID` = ?";
+			$forHead";
 
 	$stmt = $dbConn->prepare($qry);
-	$stmt->bind_param("iiiiii",$profId, $lvlid, $yrid, $prdid, $yrlvlid, $user);
+	if($user == 11){
+		$stmt->bind_param("iiiii",$profId, $lvlid, $yrid, $prdid, $yrlvlid);
+	}else{
+		$stmt->bind_param("iiiiii",$profId, $lvlid, $yrid, $prdid, $yrlvlid, $user);
+	}
+	
 	$stmt->execute();
 	$result = $stmt->get_result();
 	$fetch = $result->fetch_all(MYSQLI_ASSOC);
@@ -434,6 +478,12 @@ if($type == 'SEARCH_SUBJECT_BY_INSTRUCTOR'){
 	$subjCode = $_POST['subjCode'];
 	$section = $_POST['section'];
 	$user = $_SESSION['USERID'];
+
+	$forHead = " AND schl_dept.`SchlDeptHead_ID` = ?";
+
+	if($user == 11){
+		$forHead = "";
+	}
 
 	$qry = "SELECT DISTINCT 
 				CONCAT(emp.SchlEmp_LNAME,',',emp.SchlEmp_FNAME,' ',emp.SchlEmp_MNAME) AS prof_name,
@@ -485,8 +535,7 @@ if($type == 'SEARCH_SUBJECT_BY_INSTRUCTOR'){
 				`schl_enr_subj_off`.`SchlAcadYr_ID` = ? 
 			AND
 				`schl_enr_subj_off`.`SchlAcadPrd_ID` = ?
-			AND
-			 	schl_dept.`SchlDeptHead_ID` = ?
+			$forHead
 			AND
 				`schl_enr_subj_off`.`SchlAcadYrLvl_ID` = ?
 			AND `schl_acad_subj`.`SchlAcadSubj_CODE` LIKE ?
@@ -502,7 +551,12 @@ if($type == 'SEARCH_SUBJECT_BY_INSTRUCTOR'){
 		$srchSubDesc = "%" . $subjDesc . "%";
 		$srchSection = "%" . $section . "%";
 
-        $stmt->bind_param("iiiiiisss",$prof_id, $lvlid, $yrid, $prdid, $user, $yrlvlid, $srchSubCode, $srchSubDesc, $srchSection);
+		if($user == 11){
+			 $stmt->bind_param("iiiiisss",$prof_id, $lvlid, $yrid, $prdid, $yrlvlid, $srchSubCode, $srchSubDesc, $srchSection);
+		}else{
+			$stmt->bind_param("iiiiiisss",$prof_id, $lvlid, $yrid, $prdid, $user, $yrlvlid, $srchSubCode, $srchSubDesc, $srchSection);
+		}
+        
 		$stmt->execute();
 		$result = $stmt->get_result();
 		$fetch = $result->fetch_all(MYSQLI_ASSOC);
@@ -619,6 +673,12 @@ if ($type == 'GET_TEACHER_TADI_REPORT') {
     $startDate = $_POST['startDate'] ?? null;
     $endDate = $_POST['endDate'] ?? null;
 
+	$forHead = "AND dept.`SchlDeptHead_ID` = ?";
+
+	if($user == 11){
+		$forHead = "";
+	}
+
 	if(!$user){
 		$fetch = "Failed to generate report. Please login again.";
 		echo json_encode($fetch);
@@ -664,7 +724,7 @@ if ($type == 'GET_TEACHER_TADI_REPORT') {
 			AND off.`SchlAcadYr_ID` = ?
 			AND off.`SchlAcadPrd_ID` = ?
 			AND off.`SchlAcadYrLvl_ID` = ?
-			AND dept.`SchlDeptHead_ID` = ?";
+			$forHead";
 
     if ($startDate && $endDate) {
         $qry .= " AND tadi.schltadi_date BETWEEN ? AND ?";
@@ -679,9 +739,17 @@ if ($type == 'GET_TEACHER_TADI_REPORT') {
     $stmt = $dbConn->prepare($qry);
     
     if ($startDate && $endDate) {
-        $stmt->bind_param("iiiiiss", $lvlid, $yrid, $prdid, $yrlvlid, $user, $startDate, $endDate);
+		if($user == 11){
+			$stmt->bind_param("iiiiss", $lvlid, $yrid, $prdid, $yrlvlid, $startDate, $endDate);
+		}else{
+			$stmt->bind_param("iiiiiss", $lvlid, $yrid, $prdid, $yrlvlid, $user, $startDate, $endDate);
+		}     
     } else {
-        $stmt->bind_param("iiiii", $lvlid, $yrid, $prdid, $yrlvlid, $user);
+		if($user == 11){
+			$stmt->bind_param("iiii", $lvlid, $yrid, $prdid, $yrlvlid);
+		}else{
+			$stmt->bind_param("iiiii", $lvlid, $yrid, $prdid, $yrlvlid, $user);
+		} 
     }
     
     $stmt->execute();
