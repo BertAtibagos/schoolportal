@@ -351,7 +351,7 @@
                             <div>
                                 <div class="card shadow-sm">
                                     <div class="card-body">
-                                        <div class="row" style="margin-bottom: 10px; width:60%">
+                                        <!-- <div class="row" style="margin-bottom: 10px; width:60%">
                                             <div class="col-4">
                                                 <label for="strtDateSearch">BETWEEN</label>
                                                 <input type="date" class="form-control dte_srch" id="strtDateSearch">
@@ -371,7 +371,7 @@
                                             <div class="col-1" style="padding-top: 24px">
                                                 <button class="btn btn-primary srchdte" id="deanDate_srch">Search</button>
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <div class="table-responsive table_tadi_responsive">
                                             <table class="table table-hover table-bordered tadi_tbl" id="tadi_tbl" style="border-color: rgb(157, 157, 157);">
                                                 <thead style="background-color: #181a46; color: white; position: sticky; top:0; z-index:2">
