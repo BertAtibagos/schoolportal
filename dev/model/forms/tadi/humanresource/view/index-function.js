@@ -52,11 +52,13 @@ async function dashBoardContent(){
 
     }
     catch(error){
+        const srchBtn = document.getElementById('generateBtn');
         document.getElementById('reportView').innerHTML = '<div class="alert alert-danger" style="text-align: center">Error loading Dashboard. Please log in again.</div>';
         srchBtn.disabled = false;
         console.log("ERROR: ", error);
     }
 }
+dashBoardContent();
 
 document.getElementById('generateBtn').addEventListener("click", (e)=>{
     const filterMode = document.getElementById('filterMode').value;
