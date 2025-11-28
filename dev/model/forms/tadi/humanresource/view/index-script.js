@@ -41,4 +41,3 @@ document.getElementById('filterMode').addEventListener('change', (e)=>{
         document.querySelector('.dept-select').classList.add('hide');
     }
 });
-dashBoardContent();
