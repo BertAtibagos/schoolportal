@@ -10,7 +10,7 @@
 .report-view{
     width: 197vh;
     overflow-y: auto;
-    max-height: 90vh;
+    max-height: 80vh;
 }
 .stats{
     text-align:center;
