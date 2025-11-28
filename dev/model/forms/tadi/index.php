@@ -8,7 +8,11 @@
     }
 
     if($_SESSION['USERTYPE'] == 'EMPLOYEE'){
-        include_once 'prof/index.php';
+        if(str_contains($_SESSION['USERINFO'], 'HR STAFF') || str_contains($_SESSION['USERINFO'], 'HUMAN RESOURCE STAFF')){
+            include_once 'humanresource/index.php';
+        }else{
+            include_once 'prof/index.php';
+        }
         // $priv = $_SESSION['PRIVILEGES'] ?? '';
     
         // if(str_contains($priv, 'GRADING SCALE') || str_contains($_SESSION['USERACCESSRIGHTS'], 'mnu-grading-scale')){
@@ -17,8 +21,6 @@
             
         // }
     }
-
-
 ?>
 
 
