@@ -9,7 +9,6 @@ ini_set('log_errors', 1);
 
 session_start();
 include('../../../../configuration/connection-config.php');
-session_start();
 
 $type = $_POST['type'];
 
@@ -24,12 +23,12 @@ if($type == 'GET_ALL_TOTAL'){
         WHERE `schltadi_status` = 0) unverified
         FROM schooltadi";
 
-    $stmt = $dbPortal->prepare($qry);
+    $stmt = $dbConn->prepare($qry);
     $stmt->execute();
     $result = $stmt->get_result();
     $fetch = $result->fetch_assoc();
     $stmt->close();
-    $dbPortal->close();
+    $dbConn->close();
 }
 
 if($type == 'GET_TOTAL_PER_MONTH'){
@@ -43,12 +42,12 @@ if($type == 'GET_TOTAL_PER_MONTH'){
             GROUP BY MONTH(`schltadi_date`)
             ORDER BY MONTH(`schltadi_date`)";
     
-    $stmt = $dbPortal->prepare($qry);
+    $stmt = $dbConn->prepare($qry);
     $stmt->execute();
     $result = $stmt->get_result();
     $fetch = $result->fetch_all(MYSQLI_ASSOC);
     $stmt->close();
-    $dbPortal->close();
+    $dbConn->close();
 }
 
 if($type == 'GET_TOTAL_PER_CUTOFF'){
@@ -74,12 +73,12 @@ if($type == 'GET_TOTAL_PER_CUTOFF'){
                         ELSE 2
                     END";
     
-    $stmt = $dbPortal->prepare($qry);
+    $stmt = $dbConn->prepare($qry);
     $stmt->execute();
     $result = $stmt->get_result();
     $fetch = $result->fetch_all(MYSQLI_ASSOC);
     $stmt->close();
-    $dbPortal->close();
+    $dbConn->close();
 }
 
 if($type == 'GET_ALL_PROG_TOTAL'){
@@ -135,12 +134,12 @@ if($type == 'GET_ALL_PROG_TOTAL'){
             GROUP BY dept.`SchlDept_NAME` 
             ORDER BY unverified_count DESC ";
 
-    $stmt = $dbPortal->prepare($qry);
+    $stmt = $dbConn->prepare($qry);
     $stmt->execute();
     $result = $stmt->get_result();
     $fetch = $result->fetch_all(MYSQLI_ASSOC);
     $stmt->close();
-    $dbPortal->close();
+    $dbConn->close();
 
 }
 
@@ -312,13 +311,13 @@ if($type == 'GET_TADI_DETAILS_BY_CUTOFF'){
                 tadi.schltadi_date,
                 tadi.schltadi_timein";
 
-    $stmt = $dbPortal->prepare($qry);
+    $stmt = $dbConn->prepare($qry);
     $stmt->bind_param($bind, ...$values);
     $stmt->execute();
     $result = $stmt->get_result();
     $fetch = $result->fetch_all(MYSQLI_ASSOC);
     $stmt->close();
-    $dbPortal->close();
+    $dbConn->close();
 }
 
 if($type == 'GET_INSTRUCTOR_LIST_DEPT_SUMMARY'){
@@ -468,13 +467,13 @@ if($type == 'GET_INSTRUCTOR_LIST_DEPT_SUMMARY'){
             ORDER BY prof_name ASC 
             ";
 
-    $stmt = $dbPortal->prepare($qry);
+    $stmt = $dbConn->prepare($qry);
     $stmt->bind_param($bind, ...$values);
     $stmt->execute();
     $result = $stmt->get_result();
     $fetch = $result->fetch_all(MYSQLI_ASSOC);
     $stmt->close();
-    $dbPortal->close();
+    $dbConn->close();
 }
 
 
