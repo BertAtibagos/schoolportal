@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href="css/hr.css">
+<link rel="stylesheet" type="text/css" href="tadi/humanresource/css/hr.css">
 <section>
 
     <div class="card-filter mb-3 p-3">
@@ -97,6 +97,6 @@
 
 </section>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js"></script>
-<script src="tadi/humanresource/view/index-function.js?t=<?php echo time(); ?>" defer></script>
-<script src="tadi/humanresource/view/index-script.js?t=<?php echo time(); ?>" defer></script>
 <script src="tadi/humanresource/view/index-component.js?t=<?php echo time(); ?>" defer></script>
+<script src="tadi/humanresource/view/index-script.js?t=<?php echo time(); ?>" defer></script>
+<script src="tadi/humanresource/view/index-function.js?t=<?php echo time(); ?>" defer></script>
