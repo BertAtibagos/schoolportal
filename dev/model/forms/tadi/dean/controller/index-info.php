@@ -19,7 +19,7 @@ if ($type == 'GET_ACADEMIC_LEVEL') {
 	$forHead = " AND `subj_off`.`SchlProf_ID` = ?";
 	$prep = $user;
 	
-	if($user == 11){
+	if($user == 11 || $user == 430){
 		$prep = 2;
 		$forHead = " AND acad_lvl.`SchlAcadLvl_ID` = ?";
 	}
@@ -175,7 +175,7 @@ if ($type == 'GET_INSTRUCTOR_LIST') {
 
 	$forHead = " AND `schl_dept`.`SchlDeptHead_ID` = ?";
 
-	if($user == 11){
+	if($user == 11 || $user == 430){
 		$forHead = "";
 	}
 
@@ -228,7 +228,7 @@ if ($type == 'GET_INSTRUCTOR_LIST') {
 
 	$stmt = $dbConn->prepare($qry);
 
-	if($user == 11){
+	if($user == 11 || $user == 430){
 		$stmt->bind_param("iiiiiiii", $lvlid, $yrid, $prdid, $yrlvlid, $lvlid, $yrid, $prdid, $yrlvlid);
 	}else{
 		$stmt->bind_param("iiiiiiiiii", $lvlid, $yrid, $prdid, $yrlvlid, $user, $lvlid, $yrid, $prdid, $yrlvlid, $user);
@@ -252,7 +252,7 @@ if ($type == 'GET_SECTION_LIST') {
 
 	$forHead = "AND schl_dept.`SchlDeptHead_ID` = ?";
 
-	if($user == 11){
+	if($user == 11 || $user == 430){
 		$forHead = "";
 	}
 
@@ -287,7 +287,7 @@ if ($type == 'GET_SECTION_LIST') {
 
 	$stmt = $dbConn->prepare($qry);
 
-	if($user == 11){
+	if($user == 11 || $user == 430){
 		$stmt->bind_param("iiiii",$profId ,$lvlid, $prdid, $yrid, $yrlvlid);
 	}else{
 		$stmt->bind_param("iiiiii",$profId ,$lvlid, $prdid, $yrid, $yrlvlid, $user);
@@ -398,7 +398,7 @@ if ($type == 'GET_SUBJECT_BY_INSTRUCTOR') {
 
 	$forHead = "AND schl_dept.`SchlDeptHead_ID` = ?";
 
-	if($user == 11){
+	if($user == 11 || $user == 430){
 		$forHead = "";
 	}
 
@@ -454,7 +454,7 @@ if ($type == 'GET_SUBJECT_BY_INSTRUCTOR') {
 			$forHead";
 
 	$stmt = $dbConn->prepare($qry);
-	if($user == 11){
+	if($user == 11 || $user == 430){
 		$stmt->bind_param("iiiii",$profId, $lvlid, $yrid, $prdid, $yrlvlid);
 	}else{
 		$stmt->bind_param("iiiiii",$profId, $lvlid, $yrid, $prdid, $yrlvlid, $user);
@@ -481,7 +481,7 @@ if($type == 'SEARCH_SUBJECT_BY_INSTRUCTOR'){
 
 	$forHead = " AND schl_dept.`SchlDeptHead_ID` = ?";
 
-	if($user == 11){
+	if($user == 11 || $user == 430){
 		$forHead = "";
 	}
 
@@ -551,7 +551,7 @@ if($type == 'SEARCH_SUBJECT_BY_INSTRUCTOR'){
 		$srchSubDesc = "%" . $subjDesc . "%";
 		$srchSection = "%" . $section . "%";
 
-		if($user == 11){
+		if($user == 11 || $user == 430){
 			 $stmt->bind_param("iiiiisss",$prof_id, $lvlid, $yrid, $prdid, $yrlvlid, $srchSubCode, $srchSubDesc, $srchSection);
 		}else{
 			$stmt->bind_param("iiiiiisss",$prof_id, $lvlid, $yrid, $prdid, $user, $yrlvlid, $srchSubCode, $srchSubDesc, $srchSection);
@@ -675,7 +675,7 @@ if ($type == 'GET_TEACHER_TADI_REPORT') {
 
 	$forHead = "AND dept.`SchlDeptHead_ID` = ?";
 
-	if($user == 11){
+	if($user == 11 || $user == 430){
 		$forHead = "";
 	}
 
@@ -739,13 +739,13 @@ if ($type == 'GET_TEACHER_TADI_REPORT') {
     $stmt = $dbConn->prepare($qry);
     
     if ($startDate && $endDate) {
-		if($user == 11){
+		if($user == 11 || $user == 430){
 			$stmt->bind_param("iiiiss", $lvlid, $yrid, $prdid, $yrlvlid, $startDate, $endDate);
 		}else{
 			$stmt->bind_param("iiiiiss", $lvlid, $yrid, $prdid, $yrlvlid, $user, $startDate, $endDate);
 		}     
     } else {
-		if($user == 11){
+		if($user == 11 || $user == 430){
 			$stmt->bind_param("iiii", $lvlid, $yrid, $prdid, $yrlvlid);
 		}else{
 			$stmt->bind_param("iiiii", $lvlid, $yrid, $prdid, $yrlvlid, $user);
