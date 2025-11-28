@@ -378,14 +378,14 @@ function detailedReportView(result, filterRange, date, dept, filterType){
                             <table class="table table-sm table-bordered table-hover">
                                 <thead class="table-light">
                                     <tr>
-                                        <th class="col-1">Date</th>
-                                        <th class="col-1">Time In</th>
-                                        <th class="col-1">Time Out</th>
-                                        <th class="col-1">Duration</th>
-                                        <th class="col-1">Mode</th>
-                                        <th class="col-1">Type</th>
-                                        <th>Activity</th>
-                                        <th class="col-1">Status</th>
+                                        <th class="col-1 text-black">Date</th>
+                                        <th class="col-1 text-black">Time In</th>
+                                        <th class="col-1 text-black">Time Out</th>
+                                        <th class="col-1 text-black">Duration</th>
+                                        <th class="col-1 text-black">Mode</th>
+                                        <th class="col-1 text-black">Type</th>
+                                        <th class="text-black">Activity</th>
+                                        <th class="col-1 text-black">Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -669,11 +669,11 @@ function summaryReportView(result, filterRange, date, dept){
                     <table class="table table-sm table-bordered table-hover">
                         <thead class="table-light">
                             <tr>
-                                <th>Instructor Name</th>
-                                <th class="text-center" style="background-color: #9bbdff70;">Verified</th>
-                                <th class="text-center" style="background-color: #ff970678;">Unverified</th>
-                                <th class="text-center">Total</th>
-                                <th class="text-center">Verification Rate</th>
+                                <th class="text-black">Instructor Name</th>
+                                <th class="text-center text-black" style="background-color: #9bbdff70;">Verified</th>
+                                <th class="text-center text-black" style="background-color: #ff970678;">Unverified</th>
+                                <th class="text-center text-black">Total</th>
+                                <th class="text-center text-black">Verification Rate</th>
                             </tr>
                         </thead>
                         <tbody>
