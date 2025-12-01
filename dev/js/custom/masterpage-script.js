@@ -193,6 +193,16 @@ $(document).ready(function()
     		$('#user-section').load('../../model/forms/tadi/dean/index.php');
 		}
 	});
+
+	$("#user-tadi-reporting").on('click',function() {
+	    if ($("#masterpage-menu-label").text().trim() != $(this).text().trim())
+		{
+		    FetchToSession($(this).text());
+    		$("#masterpage-menu-label").html($(this).text());
+    		$('#user-section').empty();
+    		$('#user-section').load('../../model/forms/tadi/humanresource/index.php');
+		}
+	});
 	
 	$("#user-log-out").on('click',function() {
 		$("#masterpage-menu-label").html($(this).text());
@@ -269,6 +279,8 @@ $(document).ready(function()
 						$('#user-tadi').click();
 					} else if (ret == 'TADI - DEAN'){
 						$('#user-tadi-dean').click();
+					} else if (ret == 'TADI - REPORTING'){
+						$('#user-tadi-reporting').click();
 					} else {
 						//$('#user-home').click();
 					}
