@@ -8,7 +8,7 @@
     }
 
     if($_SESSION['USERTYPE'] == 'EMPLOYEE'){
-        if(str_contains($_SESSION['USERINFO'], 'HR STAFF') || str_contains($_SESSION['USERINFO'], 'HUMAN RESOURCE STAFF')){
+        if(str_contains($_SESSION['USERINFO'], 'HR STAFF') || str_contains($_SESSION['USERINFO'], 'FINANCE')){
             include_once 'humanresource/index.php';
         }else{
             include_once 'prof/index.php';
