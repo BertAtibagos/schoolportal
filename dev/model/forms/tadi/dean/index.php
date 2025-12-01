@@ -1,5 +1,3 @@
-
-
 <link rel="stylesheet" href="tadi/dean/css_tadi.css">
 <style>
     .select-shadow {
