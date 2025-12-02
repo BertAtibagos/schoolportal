@@ -127,7 +127,7 @@ if($type === 'GET_SUBMITTED_REC'){
 
     $subj_Id = $_POST['subj_Id'];
     $prof_Id = $_POST['prof_Id'];
-    $USERID = $_SESSION['USERID'];
+    // $USERID = $_SESSION['USERID'];
 
     $qry = "SELECT 
 				schl_tadi.`schltadi_id` AS schltadi_ID,
@@ -153,12 +153,12 @@ if($type === 'GET_SUBMITTED_REC'){
 
 			WHERE `schlprof_id` =  ?
 			AND `schlenrollsubjoff_id` =  ?
-            AND `schl_tadi`.`schlstud_id` = ?
+            -- AND `schl_tadi`.`schlstud_id` = ?
             AND `schltadi_date` = CURDATE()
 			ORDER BY schl_tadi.`schltadi_date`, schl_tadi.`schltadi_timein`";
     
     $stmt = $dbConn->prepare($qry);
-	$stmt->bind_param("iii",$prof_Id,$subj_Id, $USERID);
+	$stmt->bind_param("ii",$prof_Id,$subj_Id);
 	$stmt->execute();
 	$result = $stmt->get_result();
 	$fetch = $result->fetch_all(MYSQLI_ASSOC);
