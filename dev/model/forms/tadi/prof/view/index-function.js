@@ -693,12 +693,12 @@ async function tadiSummary(){
                         ${value.subj_desc}
                       </td>
                       <td>
-                        <span id="total-${value.sub_off_id}" class="badge ${value.schl_sec == null ? 'bg-secondary' : 'bg-success' }" style="width: 70px; font-size: 1rem;">
+                        <span id="total-${value.sub_off_id}" class="text-${value.schl_sec == null ? 'secondary' : 'success'}" style="font-size: 1.4rem; font-weight: bold;">
                           ${value.total_count}
                         </span>
                       </td>
                       <td>
-                        <span id="unverified-${value.sub_off_id}" class="badge ${value.schl_sec == null ? 'bg-secondary' : 'bg-danger' }" style="width: 70px; font-size: 1rem;">
+                        <span id="unverified-${value.sub_off_id}" class="text-${value.schl_sec == null ? 'secondary' : 'danger'}" style="font-size: 1.4rem; font-weight: bold;">
                           ${value.unverified_count}
                         </span>
                       </td>
