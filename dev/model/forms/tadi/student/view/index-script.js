@@ -82,11 +82,17 @@ button.addEventListener("click", function (e) {
                     } else {
                         document.getElementById("errorAlertMessage").textContent = result.message;
                         document.getElementById("error_alert").classList.remove("d-none");
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = ``;
+                        submitBtn.innerHTML = `Submit`;
                     }
                 })
                 .catch(error => {
                     console.error("Submission error:", error);
                     alert("Error submitting TADI: " + error);
+                    submitBtn.disabled = true;
+                    submitBtn.innerHTML = ``;
+                    submitBtn.innerHTML = `Submit`;
                 });
         }
     }
@@ -96,8 +102,6 @@ function editTadiHandler(){
     document.querySelectorAll('.edit-tadi').forEach(button=>{
         button.addEventListener('click', function(){
             const tadiId = this.getAttribute("data-id");
-            document.getElementById('submit' + tadiId).classList.remove('edit-btn-hide');
-            document.getElementById('cancel' + tadiId).classList.remove('edit-btn-hide');
             this.classList.add('edit-btn-hide');
             editChangeDisplay(tadiId);
         })
@@ -106,12 +110,12 @@ function editTadiHandler(){
 
 function editCancelTadiHandler(){
     document.querySelectorAll('.tadi-edit-cancel').forEach(button=>{
-        button.addEventListener('click', function(){
+        button.addEventListener('click', function(e){
+            e.preventDefault();
+            e.stopPropagation();
             const tadiId = this.getAttribute("data-id");
             this.classList.add('edit-btn-hide');
             document.getElementById('submit' + tadiId).classList.add('edit-btn-hide');
-            document.getElementById('edit' + tadiId).classList.remove('edit-btn-hide');
-            document.getElementById('status' + tadiId).classList.remove("stats-hide");
             console.log('Cancel: ', tadiId);
 
             const subj_Id = this.dataset.subjId;
@@ -121,4 +125,3 @@ function editCancelTadiHandler(){
         })
     })
 }
-
