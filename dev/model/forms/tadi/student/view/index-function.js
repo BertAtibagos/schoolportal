@@ -308,52 +308,82 @@ async function editChangeDisplay(tadiId){
             body: params
         })
 
-        const entry = await request.json();
+        const record = await request.json();
 
-        console.log("Date: ", entry);
+        console.log("Date: ", record);
 
-        const viewUploadCell = entry.filepath
-                            ? `<button class="btn btn-sm w-70 viewAttch" style="background-color: #2980B9; color: white" value="${entry.tadi_id}">VIEW</button>`
-                            : `<span class="btn btn-sm w-70" style="background-color: #95A5A6; color: white; pointer-events: none;">No Attachment</span>`;
+        const tabContent = document.getElementById('tab-pane-' + tadiId);
+        
+        tabContent.innerHTML = ``;
 
-        document.getElementById('dateLabel' + tadiId).innerHTML = `<span><span class="label">Date:</span><input type="date" value="${entry.tadi_date}"></span>`;
-        document.getElementById('timeLabel' + tadiId).innerHTML = `<span>
-                                                                        <span class="label">
-                                                                            Time in:
-                                                                        </span> 
-                                                                            <input type="time" value="${entry.timein}" name="timeIn" id="timeIn">
-                                                                        <span class="label">
-                                                                            Time out:
-                                                                        </span> 
-                                                                            <input type="time" value="${entry.timeout}" name="timeOut" id="timeOut">
-                                                                    </span>`;
-        document.getElementById('classTypeLabel' + tadiId).innerHTML = `<span>
-                                                                            <span class="label">
-                                                                                Class Mode:
-                                                                            </span>
-                                                                            <select name="classMode" id="classMode">
-                                                                                <option value="online_learning">Online</option>
-                                                                                <option value="onsite_learning">Onsite</option>
-                                                                            </select>
-                                                                            <span class="label">
-                                                                                Class type:
-                                                                            </span>
-                                                                            <select name="classType" id="classType">
-                                                                                <option value="regular">Regular</option>
-                                                                                <option value="make_up">Make Up</option>
-                                                                            </select>
-                                                                        </span>`;
-        document.getElementById('actLabel' + tadiId).innerHTML = `<span class="label">
-                                                                    Activity:
-                                                                  </span>
-                                                                  <textarea name="activity" id="activity">${entry.activity}</textarea>`;
-        document.getElementById('attchLabel' + tadiId).innerHTML = `<span class="label">
-                                                                            Attachment:
-                                                                    </span> 
-                                                                    <input type="hidden" id="imgProf_id" value="${entry.prof_id}">
-                                                                    <input type="hidden" id="currImgPath" name="currImgPath" data-img-path="${entry.filepath}">
-                                                                    <input type="file" name="attach" id="attach">`;
-        document.getElementById('status' + tadiId).classList.add("stats-hide");
+        tabContent.innerHTML = `
+                    <form enctype="multipart/form-data">
+                    <div class="p-3" id="preview-${record.tadi_id}">
+                        <div style="margin-bottom:2%" id="dateLabel${record.tadi_id}">
+                            <span><span class="label">Date:</span><input type="date" value="${record.tadi_date}"></span>
+                        </div>
+                        <div style="margin-bottom:2%" id="timeLabel${record.tadi_id}">
+                            <span>
+                                <span class="label">
+                                    Time in:
+                                </span> 
+                                    <input type="time" value="${record.timein}" name="timeIn" id="timeIn">
+                                <span class="label">
+                                    Time out:
+                                </span> 
+                                    <input type="time" value="${record.timeout}" name="timeOut" id="timeOut">
+                            </span>
+                        </div>
+                        <div style="margin-bottom:2%" id="classTypeLabel${record.tadi_id}">
+                            <span>
+                                <span class="label">
+                                    Class Mode:
+                                </span>
+                                <select name="classMode" id="classMode">
+                                    ${record.class_mode == "online_learning"
+                                    ? '<option value="online_learning">Online</option><option value="onsite_learning">Onsite</option>'
+                                    : '<option value="onsite_learning">Onsite</option><option value="online_learning">Online</option>'}
+                                    
+                                </select>
+                                <span class="label">
+                                    Class type:
+                                </span>
+                                <select name="classType" id="classType">
+                                    ${record.class_type == "regular" 
+                                    ? '<option value="regular">Regular</option><option value="make_up">Make Up</option>'
+                                    : '<option value="make_up">Make Up</option><option value="regular">Regular</option>'}
+                                </select>
+                            </span>
+                        </div>
+                        <div style="margin-bottom:2%"  id="actLabel${record.tadi_id}">
+                            <span class="label">
+                                Activity:
+                            </span>
+                            <textarea name="activity" id="activity">${record.activity}</textarea>
+                        </div>
+                        <div style="margin-bottom:2%" id="attchLabel${record.tadi_id}">
+                            <span class="label">
+                                Attachment:
+                            </span> 
+                            <input type="hidden" id="imgProf_id" value="${record.prof_id}">
+                            <input type="hidden" id="currImgPath" name="currImgPath" data-img-path="${record.filepath}">
+                            <input type="file" name="attach" id="attach">
+                        </div>
+                        <div style="margin-bottom:2%" class="tadi-edit">
+                            <button type="submit" class="btn btn-sm btn-success text-white w-70 tadi-submit" id="submit${record.tadi_id}" data-id="${record.tadi_id}">
+                                Submit
+                            </button>
+                            <button class="btn btn-sm btn-warning text-white w-70 tadi-edit-cancel" 
+                                id="cancel${record.tadi_id}"
+                                data-id="${record.tadi_id}"
+                                data-prof-id="${record.prof_id}"
+                                data-subj-id="${record.subj_off}">
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                    </form>`;
+        editCancelTadiHandler();
     }
     catch(error){
         console.log("Error Fetching: ", error);
@@ -453,16 +483,6 @@ function viewSubmitted(subj_Id, prof_Id){
                                                         <button class="btn btn-sm btn-secondary text-white w-70 edit-tadi" id="edit${record.schltadi_ID}" data-id="${record.schltadi_ID}">
                                                             EDIT
                                                         </button>
-                                                        <button type="submit" class="btn btn-sm btn-success text-white w-70 tadi-submit edit-btn-hide" id="submit${record.schltadi_ID}" data-id="${record.schltadi_ID}">
-                                                            Submit
-                                                        </button>
-                                                        <button class="btn btn-sm btn-warning text-white w-70 tadi-edit-cancel edit-btn-hide" 
-                                                            id="cancel${record.schltadi_ID}"
-                                                            data-id="${record.schltadi_ID}"
-                                                            data-prof-id="${record.SchlProf_ID}"
-                                                            data-subj-id="${record.sub_off_id}">
-                                                            Cancel
-                                                        </button>
                                                     </div>` : ``}
                     </div>`;
 
@@ -476,39 +496,38 @@ function viewSubmitted(subj_Id, prof_Id){
                 button.addEventListener('click', GET_IMAGE)
             );
             editTadiHandler();
-            editCancelTadiHandler();
 
-            // document.querySelectorAll('.tadi-submit').forEach(button=>{
-            //     button.addEventListener("click", function (){
-            //         const tadiId = this.getAttribute('data-id');
-            //         console.log("submit ID: ", tadiId);
-            //         submithandler(tadiId);
-            //     })
-            // })
+            document.querySelectorAll('.tadi-submit').forEach(button=>{
+                button.addEventListener("click", function (){
+                    const tadiId = this.getAttribute('data-id');
+                    console.log("submit ID: ", tadiId);
+                    submithandler(tadiId);
+                })
+            })
         })
         .catch(err => {
             console.error("Error loading records:", err);
         });
 }
 
-// async function submithandler(tadiId){
+async function submithandler(tadiId){
 
-//     const formData = new FormData();
-//     formData.append("type", "EDIT_TADI_RECORD");
-//     formData.append("tadiId", tadiId);
+    const formData = new FormData();
+    formData.append("type", "EDIT_TADI_RECORD");
+    formData.append("tadiId", tadiId);
 
    
-//     try{
-//         const update = await fetch(`tadi/student/controller/index-info.php`, {
-//             method: "POST",
-//             body: formData
-//         })
+    try{
+        const update = await fetch(`tadi/student/controller/index-info.php`, {
+            method: "POST",
+            body: formData
+        })
 
-//         const result = await update.json();
+        const result = await update.json();
 
-//         console.log("message: ", result);
-//     }
-//     catch(error){
-//         console.log(error);
-//     }
-// }
+        console.log("message: ", result);
+    }
+    catch(error){
+        console.log(error);
+    }
+}
