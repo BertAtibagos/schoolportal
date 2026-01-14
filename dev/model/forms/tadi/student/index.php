@@ -219,6 +219,25 @@
                                 </div>
                                 <input type="hidden" name="prof_id" value="0" id="prof_id">
                             </div>
+
+                            <div>
+                                <input type="checkbox" id="chck_late_submt"> Late Submission
+                            </div>
+
+                            <div class="row mb-4 late-submission-fields d-none">
+                                <div class="col-md-6 col-lg-4">
+                                    <label for="late_class_date" class="form-label">Date of actual class held</label>
+                                    <input class="form-control" type="date" name="late_class_date" id="late_class_date">
+                                </div>
+
+                                <div class="col-md-6 col-lg-4">
+                                    <label for="late_reason" class="form-label">Reason for late submission</label>
+                                    <select class="form-select" name="late_reason" id="late_reason">
+                                        <option>No Internet Connection</option>
+                                        <option>Device Unavailable</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
 
 
@@ -237,7 +256,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn submitTadi" id="confirmBtn"
+                    <button type="submit" class="btn submitTadi" id="confirmBtn" 
                         style="background-color: #181a46; color: white;">
                         <span class="submit-label">Submit</span>
                     </button>
