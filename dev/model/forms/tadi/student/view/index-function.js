@@ -294,101 +294,101 @@ function setupActivityText(element) {
 }
 
 
-async function editChangeDisplay(tadiId){
-    console.log('This ID: ', tadiId);
+// async function editChangeDisplay(tadiId){
+//     console.log('This ID: ', tadiId);
 
-    const params = new URLSearchParams();
-    params.append("type", "GET_SPECI_TADI_RECORD");
-    params.append("tadi_id", tadiId);
+//     const params = new URLSearchParams();
+//     params.append("type", "GET_SPECI_TADI_RECORD");
+//     params.append("tadi_id", tadiId);
 
-     try{
-        const request = await fetch(`tadi/student/controller/index-info.php`, {
-            method: "POST",
-            headers: {"Content-Type": "application/x-www-form-urlencoded"},
-            body: params
-        })
+//      try{
+//         const request = await fetch(`tadi/student/controller/index-info.php`, {
+//             method: "POST",
+//             headers: {"Content-Type": "application/x-www-form-urlencoded"},
+//             body: params
+//         })
 
-        const record = await request.json();
+//         const record = await request.json();
 
-        console.log("Date: ", record);
+//         console.log("Date: ", record);
 
-        const tabContent = document.getElementById('tab-pane-' + tadiId);
+//         const tabContent = document.getElementById('tab-pane-' + tadiId);
         
-        tabContent.innerHTML = ``;
+//         tabContent.innerHTML = ``;
 
-        tabContent.innerHTML = `
-                    <form enctype="multipart/form-data">
-                    <div class="p-3" id="preview-${record.tadi_id}">
-                        <div style="margin-bottom:2%" id="dateLabel${record.tadi_id}">
-                            <span><span class="label">Date:</span><input type="date" value="${record.tadi_date}"></span>
-                        </div>
-                        <div style="margin-bottom:2%" id="timeLabel${record.tadi_id}">
-                            <span>
-                                <span class="label">
-                                    Time in:
-                                </span> 
-                                    <input type="time" value="${record.timein}" name="timeIn" id="timeIn">
-                                <span class="label">
-                                    Time out:
-                                </span> 
-                                    <input type="time" value="${record.timeout}" name="timeOut" id="timeOut">
-                            </span>
-                        </div>
-                        <div style="margin-bottom:2%" id="classTypeLabel${record.tadi_id}">
-                            <span>
-                                <span class="label">
-                                    Class Mode:
-                                </span>
-                                <select name="classMode" id="classMode">
-                                    ${record.class_mode == "online_learning"
-                                    ? '<option value="online_learning">Online</option><option value="onsite_learning">Onsite</option>'
-                                    : '<option value="onsite_learning">Onsite</option><option value="online_learning">Online</option>'}
+//         tabContent.innerHTML = `
+//                     <form enctype="multipart/form-data">
+//                     <div class="p-3" id="preview-${record.tadi_id}">
+//                         <div style="margin-bottom:2%" id="dateLabel${record.tadi_id}">
+//                             <span><span class="label">Date:</span><input type="date" value="${record.tadi_date}"></span>
+//                         </div>
+//                         <div style="margin-bottom:2%" id="timeLabel${record.tadi_id}">
+//                             <span>
+//                                 <span class="label">
+//                                     Time in:
+//                                 </span> 
+//                                     <input type="time" value="${record.timein}" name="timeIn" id="timeIn">
+//                                 <span class="label">
+//                                     Time out:
+//                                 </span> 
+//                                     <input type="time" value="${record.timeout}" name="timeOut" id="timeOut">
+//                             </span>
+//                         </div>
+//                         <div style="margin-bottom:2%" id="classTypeLabel${record.tadi_id}">
+//                             <span>
+//                                 <span class="label">
+//                                     Class Mode:
+//                                 </span>
+//                                 <select name="classMode" id="classMode">
+//                                     ${record.class_mode == "online_learning"
+//                                     ? '<option value="online_learning">Online</option><option value="onsite_learning">Onsite</option>'
+//                                     : '<option value="onsite_learning">Onsite</option><option value="online_learning">Online</option>'}
                                     
-                                </select>
-                                <span class="label">
-                                    Class type:
-                                </span>
-                                <select name="classType" id="classType">
-                                    ${record.class_type == "regular" 
-                                    ? '<option value="regular">Regular</option><option value="make_up">Make Up</option>'
-                                    : '<option value="make_up">Make Up</option><option value="regular">Regular</option>'}
-                                </select>
-                            </span>
-                        </div>
-                        <div style="margin-bottom:2%"  id="actLabel${record.tadi_id}">
-                            <span class="label">
-                                Activity:
-                            </span>
-                            <textarea name="activity" id="activity">${record.activity}</textarea>
-                        </div>
-                        <div style="margin-bottom:2%" id="attchLabel${record.tadi_id}">
-                            <span class="label">
-                                Attachment:
-                            </span> 
-                            <input type="hidden" id="imgProf_id" value="${record.prof_id}">
-                            <input type="hidden" id="currImgPath" name="currImgPath" data-img-path="${record.filepath}">
-                            <input type="file" name="attach" id="attach">
-                        </div>
-                        <div style="margin-bottom:2%" class="tadi-edit">
-                            <button type="submit" class="btn btn-sm btn-success text-white w-70 tadi-submit" id="submit${record.tadi_id}" data-id="${record.tadi_id}">
-                                Submit
-                            </button>
-                            <button class="btn btn-sm btn-warning text-white w-70 tadi-edit-cancel" 
-                                id="cancel${record.tadi_id}"
-                                data-id="${record.tadi_id}"
-                                data-prof-id="${record.prof_id}"
-                                data-subj-id="${record.subj_off}">
-                                Cancel
-                            </button>
-                        </div>
-                    </div>
-                    </form>`;
-        editCancelTadiHandler();
-    }
-    catch(error){
-        console.log("Error Fetching: ", error);
-    }
-}
+//                                 </select>
+//                                 <span class="label">
+//                                     Class type:
+//                                 </span>
+//                                 <select name="classType" id="classType">
+//                                     ${record.class_type == "regular" 
+//                                     ? '<option value="regular">Regular</option><option value="make_up">Make Up</option>'
+//                                     : '<option value="make_up">Make Up</option><option value="regular">Regular</option>'}
+//                                 </select>
+//                             </span>
+//                         </div>
+//                         <div style="margin-bottom:2%"  id="actLabel${record.tadi_id}">
+//                             <span class="label">
+//                                 Activity:
+//                             </span>
+//                             <textarea name="activity" id="activity">${record.activity}</textarea>
+//                         </div>
+//                         <div style="margin-bottom:2%" id="attchLabel${record.tadi_id}">
+//                             <span class="label">
+//                                 Attachment:
+//                             </span> 
+//                             <input type="hidden" id="imgProf_id" value="${record.prof_id}">
+//                             <input type="hidden" id="currImgPath" name="currImgPath" data-img-path="${record.filepath}">
+//                             <input type="file" name="attach" id="attach">
+//                         </div>
+//                         <div style="margin-bottom:2%" class="tadi-edit">
+//                             <button type="submit" class="btn btn-sm btn-success text-white w-70 tadi-submit" id="submit${record.tadi_id}" data-id="${record.tadi_id}">
+//                                 Submit
+//                             </button>
+//                             <button class="btn btn-sm btn-warning text-white w-70 tadi-edit-cancel" 
+//                                 id="cancel${record.tadi_id}"
+//                                 data-id="${record.tadi_id}"
+//                                 data-prof-id="${record.prof_id}"
+//                                 data-subj-id="${record.subj_off}">
+//                                 Cancel
+//                             </button>
+//                         </div>
+//                     </div>
+//                     </form>`;
+//         editCancelTadiHandler();
+//     }
+//     catch(error){
+//         console.log("Error Fetching: ", error);
+//     }
+// }
 
 function viewSubmitted(subj_Id, prof_Id){
 
@@ -495,39 +495,39 @@ function viewSubmitted(subj_Id, prof_Id){
             document.querySelectorAll('.viewAttch').forEach(button =>
                 button.addEventListener('click', GET_IMAGE)
             );
-            editTadiHandler();
+            // editTadiHandler();
 
-            document.querySelectorAll('.tadi-submit').forEach(button=>{
-                button.addEventListener("click", function (){
-                    const tadiId = this.getAttribute('data-id');
-                    console.log("submit ID: ", tadiId);
-                    submithandler(tadiId);
-                })
-            })
+            // document.querySelectorAll('.tadi-submit').forEach(button=>{
+            //     button.addEventListener("click", function (){
+            //         const tadiId = this.getAttribute('data-id');
+            //         console.log("submit ID: ", tadiId);
+            //         submithandler(tadiId);
+            //     })
+            // })
         })
         .catch(err => {
             console.error("Error loading records:", err);
         });
 }
 
-async function submithandler(tadiId){
+// async function submithandler(tadiId){
 
-    const formData = new FormData();
-    formData.append("type", "EDIT_TADI_RECORD");
-    formData.append("tadiId", tadiId);
+//     const formData = new FormData();
+//     formData.append("type", "EDIT_TADI_RECORD");
+//     formData.append("tadiId", tadiId);
 
    
-    try{
-        const update = await fetch(`tadi/student/controller/index-info.php`, {
-            method: "POST",
-            body: formData
-        })
+//     try{
+//         const update = await fetch(`tadi/student/controller/index-info.php`, {
+//             method: "POST",
+//             body: formData
+//         })
 
-        const result = await update.json();
+//         const result = await update.json();
 
-        console.log("message: ", result);
-    }
-    catch(error){
-        console.log(error);
-    }
-}
+//         console.log("message: ", result);
+//     }
+//     catch(error){
+//         console.log(error);
+//     }
+// }
