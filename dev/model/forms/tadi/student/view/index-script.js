@@ -98,30 +98,43 @@ button.addEventListener("click", function (e) {
     }
 });
 
-function editTadiHandler(){
-    document.querySelectorAll('.edit-tadi').forEach(button=>{
-        button.addEventListener('click', function(){
-            const tadiId = this.getAttribute("data-id");
-            this.classList.add('edit-btn-hide');
-            editChangeDisplay(tadiId);
-        })
-    })
-}
+document.getElementById("chck_late_submt").addEventListener("change", (e) =>{
+    const isChecked = e.target.checked;
+    const lateSubmtField = document.querySelector(".late-submission-fields");
 
-function editCancelTadiHandler(){
-    document.querySelectorAll('.tadi-edit-cancel').forEach(button=>{
-        button.addEventListener('click', function(e){
-            e.preventDefault();
-            e.stopPropagation();
-            const tadiId = this.getAttribute("data-id");
-            this.classList.add('edit-btn-hide');
-            document.getElementById('submit' + tadiId).classList.add('edit-btn-hide');
-            console.log('Cancel: ', tadiId);
+    if(isChecked){
+        lateSubmtField.classList.remove("d-none");
+    }
 
-            const subj_Id = this.dataset.subjId;
-            const prof_Id = this.dataset.profId;
+    if(!isChecked){
+        lateSubmtField.classList.add("d-none");
+    }
+})
 
-            viewSubmitted(subj_Id, prof_Id);
-        })
-    })
-}
+// function editTadiHandler(){
+//     document.querySelectorAll('.edit-tadi').forEach(button=>{
+//         button.addEventListener('click', function(){
+//             const tadiId = this.getAttribute("data-id");
+//             this.classList.add('edit-btn-hide');
+//             editChangeDisplay(tadiId);
+//         })
+//     })
+// }
+
+// function editCancelTadiHandler(){
+//     document.querySelectorAll('.tadi-edit-cancel').forEach(button=>{
+//         button.addEventListener('click', function(e){
+//             e.preventDefault();
+//             e.stopPropagation();
+//             const tadiId = this.getAttribute("data-id");
+//             this.classList.add('edit-btn-hide');
+//             document.getElementById('submit' + tadiId).classList.add('edit-btn-hide');
+//             console.log('Cancel: ', tadiId);
+
+//             const subj_Id = this.dataset.subjId;
+//             const prof_Id = this.dataset.profId;
+
+//             viewSubmitted(subj_Id, prof_Id);
+//         })
+//     })
+// }
