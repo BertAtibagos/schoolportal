@@ -390,7 +390,13 @@ function detailedReportView(result, filterRange, date, dept, filterType){
                                 </thead>
                                 <tbody>
                                     ${subject.sessions.map(session => `
-                                        <tr>
+                                        ${session.status == 0 ? `<tr style="background-color: #fff3cd;">
+                                                                    <td colspan="8" class="text-center py-3">
+                                                                        <i class="fas fa-exclamation-triangle text-warning"></i>
+                                                                        <span class="text-muted ms-2">Record pending verification</span>
+                                                                    </td>
+                                                                </tr>` : 
+                                        `<tr>
                                             <td>${session.date}</td>
                                             <td>${session.time_in}</td>
                                             <td>${session.time_out}</td>
@@ -403,7 +409,8 @@ function detailedReportView(result, filterRange, date, dept, filterType){
                                                     ${session.status == 1 ? 'Verified' : 'Unverified'}
                                                 </span>
                                             </td>
-                                        </tr>
+                                        </tr>`
+                                        }
                                     `).join('')}
                                 </tbody>
                             </table>
@@ -444,22 +451,25 @@ function detailedReportView(result, filterRange, date, dept, filterType){
     Object.values(teacherGroups).forEach(teacher => {
         Object.values(teacher.subjects).forEach(subject => {
             subject.sessions.forEach(session => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${teacher.prof_name}</td>
-                    <td>${subject.subject_code}</td>
-                    <td>${subject.subject_desc}</td>
-                    <td>${subject.section_name || '-'}</td>
-                    <td>${session.date}</td>
-                    <td>${session.time_in}</td>
-                    <td>${session.time_out}</td>
-                    <td>${session.duration}</td>
-                    <td>${session.mode}</td>
-                    <td>${session.type || '-'}</td>
-                    <td>${session.activity || '-'}</td>
-                    <td>${session.status == 1 ? 'Verified' : 'Unverified'}</td>
-                `;
-                tbody.appendChild(row);
+                // Only include verified records in CSV export
+                if(session.status == 1) {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${teacher.prof_name}</td>
+                        <td>${subject.subject_code}</td>
+                        <td>${subject.subject_desc}</td>
+                        <td>${subject.section_name || '-'}</td>
+                        <td>${session.date}</td>
+                        <td>${session.time_in}</td>
+                        <td>${session.time_out}</td>
+                        <td>${session.duration}</td>
+                        <td>${session.mode}</td>
+                        <td>${session.type || '-'}</td>
+                        <td>${session.activity || '-'}</td>
+                        <td>${session.status == 1 ? 'Verified' : 'Unverified'}</td>
+                    `;
+                    tbody.appendChild(row);
+                }
             });
         });
     });
