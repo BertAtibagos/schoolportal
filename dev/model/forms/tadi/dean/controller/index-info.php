@@ -204,6 +204,7 @@ if ($type == 'GET_INSTRUCTOR_LIST') {
 				AND seso.SchlAcadYr_ID = ?
 				AND seso.SchlAcadPrd_ID = ? 
 				AND `seso`.`SchlAcadYrLvl_ID` = ?
+				AND st.schltadi_status = 1
     			$forHead) AS unverified_count 
 			FROM
 			`schoolenrollmentsubjectoffered` `schl_enr_subj_off` 
@@ -330,6 +331,7 @@ if($type == 'GETALL_TADI_RECORDS'){
 
 			WHERE `schlprof_id` =  ?
 			AND `schlenrollsubjoff_id` =  ?
+			AND schltadi_status = 1
 			ORDER BY schl_tadi.`schltadi_date` DESC, schl_tadi.`schltadi_timein` DESC";
 
 	$stmt = $dbConn->prepare($qry);
@@ -420,15 +422,9 @@ if ($type == 'GET_SUBJECT_BY_INSTRUCTOR') {
 					COUNT(*) 
 				FROM
 					`schooltadi` AS t 
-				WHERE t.`schlprof_id` = `schl_enr_subj_off`.`SchlProf_ID` 
-					AND t.`schlenrollsubjoff_id` = `schl_enr_subj_off`.`SchlEnrollSubjOffSms_ID`) AS total_count,
-				(
-					SELECT COUNT(*) 
-					FROM `schooltadi` AS t
-					WHERE t.`schltadi_status` = 0
-					AND t.`schlprof_id` = `schl_enr_subj_off`.`SchlProf_ID`
-					AND t.`schlenrollsubjoff_id` = `schl_enr_subj_off`.`SchlEnrollSubjOffSms_ID`
-				) AS unverified_count
+				WHERE t.`schltadi_status` = 1
+					AND t.`schlprof_id` = `schl_enr_subj_off`.`SchlProf_ID` 
+					AND t.`schlenrollsubjoff_id` = `schl_enr_subj_off`.`SchlEnrollSubjOffSms_ID`) AS verified_count
 			FROM`schoolenrollmentsubjectoffered` AS `schl_enr_subj_off`
 
 			LEFT JOIN `schoolacademicsubject` AS `schl_acad_subj`
@@ -502,15 +498,10 @@ if($type == 'SEARCH_SUBJECT_BY_INSTRUCTOR'){
 					COUNT(*) 
 				FROM
 					`schooltadi` AS t 
-				WHERE t.`schlprof_id` = `schl_enr_subj_off`.`SchlProf_ID` 
-					AND t.`schlenrollsubjoff_id` = `schl_enr_subj_off`.`SchlEnrollSubjOffSms_ID`) AS total_count,
-				(SELECT 
-					COUNT(*) 
-				FROM
-					`schooltadi` AS t 
-				WHERE t.`schltadi_status` = 0 
+				WHERE t.`schltadi_status` = 1
 					AND t.`schlprof_id` = `schl_enr_subj_off`.`SchlProf_ID` 
-					AND t.`schlenrollsubjoff_id` = `schl_enr_subj_off`.`SchlEnrollSubjOffSms_ID`) AS unverified_count 
+					AND t.`schlenrollsubjoff_id` = `schl_enr_subj_off`.`SchlEnrollSubjOffSms_ID`) AS verified_count
+
 			FROM `schoolenrollmentsubjectoffered` AS `schl_enr_subj_off`
 
 			LEFT JOIN `schoolacademicsubject` AS `schl_acad_subj` 
@@ -724,6 +715,7 @@ if ($type == 'GET_TEACHER_TADI_REPORT') {
 			AND off.`SchlAcadYr_ID` = ?
 			AND off.`SchlAcadPrd_ID` = ?
 			AND off.`SchlAcadYrLvl_ID` = ?
+			AND tadi.schltadi_status = 1 
 			$forHead";
 
     if ($startDate && $endDate) {
