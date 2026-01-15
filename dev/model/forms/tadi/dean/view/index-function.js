@@ -59,11 +59,7 @@ function displaySubjList(data) {
           data-suboff-id="${item.sub_off_id}"
           data-sub-desc="${item.subj_desc}"
           data-sub-sect="${item.schl_sec || 'No Section'}">
-          VIEW TADI  <span class="badge bg-secondary ms-2">${item.total_count}</span>
-          ${item.unverified_count > 0 ? `
-            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-              ${item.unverified_count}
-            </span>` : ''}
+          VIEW TADI  <span class="badge bg-secondary ms-2">${item.verified_count}</span>
         </button>
       </td>
     </tr>`).join('');
@@ -267,11 +263,7 @@ document.getElementById("searchSubjBtn").addEventListener("click", function() {
             data-suboff-id="${record.sub_off_id}"
             data-sub-desc="${record.subj_desc}"
             data-sub-sect="${record.schl_sec || 'No Section'}">
-            VIEW TADI  <span class="badge bg-secondary">${record.total_count || 0}</span>
-            ${record.unverified_count > 0 ? `
-              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                ${record.unverified_count}
-              </span>` : ''}
+            VIEW TADI  <span class="badge bg-secondary">${record.verified_count || 0}</span>
           </button>
         </td>`;
       tbody.appendChild(row);
