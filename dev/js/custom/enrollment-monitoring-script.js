@@ -303,7 +303,7 @@ $(document).ready(function(){
 							const sortedArray = Object.entries(courseOccurrences).sort(([, valueA], [, valueB]) => valueB - valueA);
 							courseOccurrences = Object.fromEntries(sortedArray);
 
-							showChart(courseOccurrences);
+							// showChart(courseOccurrences);
 														
 							// create dictionary of courses with initial count value of 0
 							let unq_crs_names_count = {};

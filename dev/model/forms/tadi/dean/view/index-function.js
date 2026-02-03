@@ -116,7 +116,7 @@ function GETALL_TADI_RECORDS(prof_id, subj_id) {
           : `<span style="color:red;font-weight:bold;">Unverified</span>`;
 
         return `
-          <tr>
+          <tr class="${record.late_status == 1 ? 'table-danger' : ''}">
             <td>${record.stud_name}</td>
             <td>${record.tadi_date} ${formatTimeToAmPm(record.tadi_timeIn)} - ${formatTimeToAmPm(record.tadi_timeOut)}</td>
             <td>${modeTypeMap[record.tadi_modeType] || record.tadi_modeType}</td>
@@ -459,6 +459,7 @@ document.getElementById("reportSearch").addEventListener("click", function(){
                 mode: record.mode === 'online_learning' ? 'Online' : 'Onsite',
                 type: record.type === 'makeup' ? 'Make-up' : 'Regular',
                 status: record.status,
+                late_status: record.late_status,
                 activity: record.activity ? record.activity.replace(/\\r\\n/g, "<br>") : 'No activity recorded',
                 stud_name: record.student_name
             });
@@ -489,22 +490,16 @@ document.getElementById("reportSearch").addEventListener("click", function(){
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="border rounded p-3 text-center">
                             <h6>Total Teachers</h6>
                             <h3>${stats.totalTeachers}</h3>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="border rounded p-3 text-center">
                             <h6>Total Sessions</h6>
                             <h3>${stats.totalSessions}</h3>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="border rounded p-3 text-center">
-                            <h6>Verification Rate</h6>
-                            <h3>${Math.round((stats.verifiedSessions / stats.totalSessions) * 100)}%</h3>
                         </div>
                     </div>
                 </div>
@@ -551,6 +546,7 @@ document.getElementById("reportSearch").addEventListener("click", function(){
                                                     <span class="badge ${session.status == 1 ? 'bg-success' : 'bg-danger'}">
                                                         ${session.status == 1 ? 'Verified' : 'Unverified'}
                                                     </span>
+                                                    ${session.late_status == 1 ? '<br><span class="badge bg-warning text-dark mt-1">Late Submission</span>' : ''}
                                                 </td>
                                             </tr>
                                         `).join('')}
@@ -608,6 +604,7 @@ function tadiReportExport(exprtname){
             'Mode',
             'Session Type',
             'Activity',
+            'Late Submission',
             'Status'
         ]);
 
@@ -638,6 +635,7 @@ function tadiReportExport(exprtname){
                 record.mode,
                 record.type,
                 record.activity || 'No activity recorded',
+                record.late_status == 1 ? 'Yes' : 'No',
                 record.status == 1 ? 'Verified' : 'Unverified'
             ]);
 
@@ -661,6 +659,7 @@ function tadiReportExport(exprtname){
             { wch: 15 }, // Mode
             { wch: 12 }, // Session Type
             { wch: 50 }, // Activity
+            { wch: 10 },  // Late Status
             { wch: 10 }  // Status
         ];
 

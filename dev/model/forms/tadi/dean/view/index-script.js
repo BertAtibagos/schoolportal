@@ -153,7 +153,6 @@ document.getElementById("search_button").addEventListener("click", function () {
         });
 });
 
-// Add to your existing search button handler
 document.getElementById("exportBtn").addEventListener("click", function() {
     document.querySelector(".instr-table").style.display = "none";
     document.getElementById("tadiBtn").style.display = "block";

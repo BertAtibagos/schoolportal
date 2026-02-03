@@ -396,6 +396,7 @@ function DISPLAY_TADI_LOG(subj_off_id, summary = false) {
           : `<button class="btn btn-sm w-70 upldprof" id="upldprof${record.schltadi_ID}" value="${record.schltadi_ID}">UPLOAD</button>`;
 
         const row = document.createElement('tr');
+        row.className = record.late_status == 1 ? 'table-warning' : '';
         row.innerHTML = `
           <td>${record.tadi_date}</td>
           <td>${record.stud_name}</td>
@@ -470,6 +471,7 @@ function DISPLAYALL_TADI_RECORDS(subj_off_id,subjDesc = null,subjSec = null, sum
       }
 
       let row = document.createElement('tr');
+      row.className = record.late_status == 1 ? 'table-warning' : '';
       row.innerHTML = `
         <td>${record.tadi_date}</td>
         <td>${record.stud_name}</td>

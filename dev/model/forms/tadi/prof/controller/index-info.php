@@ -352,7 +352,8 @@
                     schl_tadi.`schltadi_activity` AS tadi_act,
                     schl_tadi.`schltadi_status` AS tadi_status,
                     schl_tadi.`schltadi_filepath` AS tadi_filepath,
-                    schl_tadi.schlenrollsubjoff_id AS sub_off_id
+                    schl_tadi.schlenrollsubjoff_id AS sub_off_id,
+                    schl_tadi.schltadi_late_status AS late_status
 
                     FROM `schooltadi` AS schl_tadi
                     LEFT JOIN `schoolstudent` AS schl_stud 
@@ -396,7 +397,8 @@
                     schl_tadi.`schltadi_activity` AS tadi_act,
                     schl_tadi.`schltadi_status` AS tadi_status,
                     schl_tadi.`schltadi_filepath` AS tadi_filepath,
-                    schl_tadi.schlenrollsubjoff_id AS sub_off_id
+                    schl_tadi.schlenrollsubjoff_id AS sub_off_id,
+                    schl_tadi.schltadi_late_status AS late_status
 
                     FROM `schooltadi` AS schl_tadi
                     LEFT JOIN `schoolstudent` AS schl_stud 

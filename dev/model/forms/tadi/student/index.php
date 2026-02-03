@@ -101,20 +101,6 @@
     }
 </style>
 <section id="student_tadi_section">
-    <!-- <div class="modal fade" id="loadingModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content text-center p-4">
-                <div class="modal-body">
-                    Bootstrap spinner 
-                    <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
-                        <span class="visually-hidden">Loading...</span>
-                    </div>
-                    <p class="mt-3">Loading...</p>
-                </div>
-            </div>
-        </div>
-    </div> -->
-
     <div class="container-fluid mt-4" style="margin:1rem">
         <div class="mt-4" >
             <div class="shadow-sm">
@@ -226,16 +212,23 @@
 
                             <div class="row mb-4 late-submission-fields d-none">
                                 <div class="col-md-6 col-lg-4">
-                                    <label for="late_class_date" class="form-label">Date of actual class held</label>
-                                    <input class="form-control" type="date" name="late_class_date" id="late_class_date">
+                                    <label for="late_class_date" class="form-label">
+                                        Date of actual class held <span class="text-danger">*</span></label>
+                                    </label>
+                                    <input class="form-control" type="date" name="late_class_date" id="late_class_date" required>
+                                    <div class="invalid-feedback">Please set a date</div>
                                 </div>
 
                                 <div class="col-md-6 col-lg-4">
-                                    <label for="late_reason" class="form-label">Reason for late submission</label>
-                                    <select class="form-select" name="late_reason" id="late_reason">
-                                        <option>No Internet Connection</option>
-                                        <option>Device Unavailable</option>
+                                    <label for="late_reason" class="form-label">
+                                        Reason for late submission <span class="text-danger">*</span></label>
+                                    </label>
+                                    <select class="form-select" name="late_reason" id="late_reason" required>
+                                        <option value="">-- Select a reason --</option>
+                                        <option value="1">No Internet Connection</option>
+                                        <option value="2">Device Unavailable</option>
                                     </select>
+                                    <div class="invalid-feedback">Please select a reason</div>
                                 </div>
                             </div>
                         </div>
@@ -269,11 +262,6 @@
         <div class="modal-dialog modal-dialog-centered modal-xl rcrd-preview-mdl">
             <div class="modal-content">
                 <div class="modal-header d-flex justify-content-between align-items-start" style="background-color: #181a46; color: white;">
-                    <!-- <div class="subject-info">
-                            <h5 class="modal-title" id="tadi_subj_name">Subject Name</h5>   
-                            <p class="subject-details mb-0" id="section_name">section Name</p>
-                        </div> -->
-                    <!-- Close Button on Top Right -->
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" id="closeTadiModal1"></button>
                 </div>
                 <div class="modal-body" style="background-color: rgb(238, 238, 246); max-height: 80vh;">

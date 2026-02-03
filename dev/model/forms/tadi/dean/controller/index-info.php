@@ -317,6 +317,7 @@ if($type == 'GETALL_TADI_RECORDS'){
 				schl_tadi.`schltadi_status` AS tadi_status,
 				schl_tadi.`schltadi_filepath` AS tadi_filepath,
 				schl_tadi.schlenrollsubjoff_id AS sub_off_id,
+				schl_tadi.schltadi_late_status AS late_status,
 				schl_tadi.SchlProf_ID 
 			FROM `schooltadi` AS schl_tadi 
 			
@@ -690,6 +691,7 @@ if ($type == 'GET_TEACHER_TADI_REPORT') {
 				tadi.`schltadi_type` AS type,
 				tadi.`schltadi_activity` AS activity,
 				tadi.`schltadi_status` AS status,
+				tadi.`schltadi_late_status` AS late_status,
 				CONCAT(info.`SchlEnrollRegStudInfo_LAST_NAME`, ', ', info.`SchlEnrollRegStudInfo_FIRST_NAME`) AS student_name
 
 			FROM schooltadi tadi

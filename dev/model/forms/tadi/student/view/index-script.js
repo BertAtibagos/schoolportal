@@ -12,7 +12,13 @@ button.addEventListener("click", function (e) {
     form.querySelectorAll(".is-invalid").forEach(el => el.classList.remove("is-invalid"));
 
     let isValid = true;
-    const requiredFields = ["instructor", "learning_delivery_modalities", "session_type", "classStartDateTime", "classEndDateTime", "attach", "comments"];
+    const lateSubmissionCheckbox = document.getElementById("chck_late_submt");
+    let requiredFields =[];
+
+    if(lateSubmissionCheckbox.checked){
+        requiredFields = ["instructor", "learning_delivery_modalities", "session_type", "classStartDateTime", "classEndDateTime", "attach", "comments", "late_class_date", "late_reason"];
+    }
+    requiredFields = ["instructor", "learning_delivery_modalities", "session_type", "classStartDateTime", "classEndDateTime", "attach", "comments"];
 
     requiredFields.forEach(field => {
         const input = document.getElementById(field);
@@ -21,6 +27,23 @@ button.addEventListener("click", function (e) {
             isValid = false;
         }
     });
+
+    // Validate late submission fields if checkbox is checked
+    
+    if (lateSubmissionCheckbox.checked) {
+        const lateClassDate = document.getElementById("late_class_date");
+        const lateReason = document.getElementById("late_reason");
+
+        if (!lateClassDate.value) {
+            lateClassDate.classList.add("is-invalid");
+            isValid = false;
+        }
+
+        if (!lateReason.value) {
+            lateReason.classList.add("is-invalid");
+            isValid = false;
+        }
+    }
 
     const startTime = document.getElementById("classStartDateTime").value;
     const endTime = document.getElementById("classEndDateTime").value;
@@ -53,6 +76,13 @@ button.addEventListener("click", function (e) {
         if (confirmed) {
             const formData = new FormData(form);
             formData.append("type", "SUBMIT_TADI");
+
+            // Remove late submission fields if checkbox is not checked
+            const lateSubmissionCheckbox = document.getElementById("chck_late_submt");
+            if (!lateSubmissionCheckbox.checked) {
+                formData.delete("late_class_date");
+                formData.delete("late_reason");
+            }
 
             submitBtn.disabled = true;
             submitBtn.innerHTML = ``;
@@ -108,33 +138,11 @@ document.getElementById("chck_late_submt").addEventListener("change", (e) =>{
 
     if(!isChecked){
         lateSubmtField.classList.add("d-none");
+        // Clear validation errors when unchecking
+        document.getElementById("late_class_date").classList.remove("is-invalid");
+        document.getElementById("late_reason").classList.remove("is-invalid");
+        // Reset the fields
+        document.getElementById("late_class_date").value = "";
+        document.getElementById("late_reason").value = "";
     }
 })
-
-// function editTadiHandler(){
-//     document.querySelectorAll('.edit-tadi').forEach(button=>{
-//         button.addEventListener('click', function(){
-//             const tadiId = this.getAttribute("data-id");
-//             this.classList.add('edit-btn-hide');
-//             editChangeDisplay(tadiId);
-//         })
-//     })
-// }
-
-// function editCancelTadiHandler(){
-//     document.querySelectorAll('.tadi-edit-cancel').forEach(button=>{
-//         button.addEventListener('click', function(e){
-//             e.preventDefault();
-//             e.stopPropagation();
-//             const tadiId = this.getAttribute("data-id");
-//             this.classList.add('edit-btn-hide');
-//             document.getElementById('submit' + tadiId).classList.add('edit-btn-hide');
-//             console.log('Cancel: ', tadiId);
-
-//             const subj_Id = this.dataset.subjId;
-//             const prof_Id = this.dataset.profId;
-
-//             viewSubmitted(subj_Id, prof_Id);
-//         })
-//     })
-// }

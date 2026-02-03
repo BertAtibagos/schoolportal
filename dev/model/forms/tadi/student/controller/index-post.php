@@ -37,6 +37,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['type']) && $_POST['ty
         $schltadi_activity = $dbConn->real_escape_string($_POST['comments']);
         $subj_id = $dbConn->real_escape_string($_POST['subjoff_id']);
 
+        $schltadi_late_status = isset($_POST['late_class_date']) && !empty($_POST['late_class_date']) ? 1 : 0;
+        $schltadi_late_date = $schltadi_late_status ? $dbConn->real_escape_string($_POST['late_class_date']) : null;
+        $schltadi_late_reason = $schltadi_late_status && isset($_POST['late_reason']) ? $dbConn->real_escape_string($_POST['late_reason']) : null;
+
 
 
         // TADI limit check
@@ -176,15 +180,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['type']) && $_POST['ty
                 schlacadprd_id, 
                 schltadi_filepath, 
                 tadi_exifDate,
-                tadi_exifTime)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                tadi_exifTime,
+                schltadi_late_status,
+                schltadi_late_date,
+                schltadi_late_reason)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
         $isactive = 1;
         $status = 0;
         $isupdated = 0;
 
         $stmt->bind_param(
-            "ssssssiiiiiiiiisss",
+            "ssssssiiiiiiiiisssiss",
             $schltadi_mode,
             $schltadi_type,
             $schltadi_date,
@@ -202,7 +209,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['type']) && $_POST['ty
             $PRDID,
             $image_path,
             $exif_date_only,
-            $exif_time_only
+            $exif_time_only,
+            $schltadi_late_status,
+            $schltadi_late_date,
+            $schltadi_late_reason
 
         );
 

@@ -226,6 +226,7 @@ function detailedReportView(result, filterRange, date, dept, filterType){
             type: data.type,
             stud_name: data.student_name,
             activity: data.activity,
+            late_status: data.late_status,
             status: data.status
         });
 
@@ -331,22 +332,16 @@ function detailedReportView(result, filterRange, date, dept, filterType){
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="border rounded p-3 text-center">
                             <h6>Total Teachers</h6>
                             <h3>${stats.totalTeachers}</h3>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="border rounded p-3 text-center">
                             <h6>Total Sessions</h6>
                             <h3>${stats.totalSessions}</h3>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="border rounded p-3 text-center">
-                            <h6>Verification Rate</h6>
-                            <h3>${stats.totalSessions > 0 ? Math.round((stats.verifiedSessions / stats.totalSessions) * 100) : 0}%</h3>
                         </div>
                     </div>
                 </div>
@@ -408,6 +403,7 @@ function detailedReportView(result, filterRange, date, dept, filterType){
                                                 <span class="badge ${session.status == 1 ? 'bg-success' : 'bg-warning'}">
                                                     ${session.status == 1 ? 'Verified' : 'Unverified'}
                                                 </span>
+                                                ${session.late_status == 1 ? `<br><span class="badge bg-warning">Late Submission</span>` : ''}
                                             </td>
                                         </tr>`
                                         }
@@ -442,6 +438,7 @@ function detailedReportView(result, filterRange, date, dept, filterType){
         <th>Mode</th>
         <th>Type</th>
         <th>Activity</th>
+        <th>Late Submission</th>
         <th>Status</th>
     `;
     thead.appendChild(headerRow);
@@ -466,6 +463,7 @@ function detailedReportView(result, filterRange, date, dept, filterType){
                         <td>${session.mode}</td>
                         <td>${session.type || '-'}</td>
                         <td>${session.activity || '-'}</td>
+                        <td>${session.late_status == 1 ? 'Yes' : 'No'}</td>
                         <td>${session.status == 1 ? 'Verified' : 'Unverified'}</td>
                     `;
                     tbody.appendChild(row);
